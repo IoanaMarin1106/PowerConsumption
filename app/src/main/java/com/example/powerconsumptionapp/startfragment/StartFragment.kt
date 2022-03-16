@@ -15,11 +15,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentStartBinding
-import com.example.powerconsumptionapp.startfragment.battery.BatteryLevelIndicator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import android.content.BroadcastReceiver
 import android.content.Context
+import android.icu.number.Scale
+import kotlin.math.roundToInt
 
 
 class StarterFragment : Fragment() {
@@ -37,19 +38,24 @@ class StarterFragment : Fragment() {
         )
 
         viewLifecycleOwner.lifecycleScope.launch {
-            // Battery level percentage - text view
-            val batteryLevelIndicator: BatteryLevelIndicator = binding.batteryLevelIndicatorView
             val batteryStatus: Intent? = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let {
                 context?.registerReceiver(null, it)
             }
 
+            var level: Int = 0
+            var scale: Int = 0
+
             // Get battery Level
-            val batteryPct: Float? = batteryStatus?.let {
-                val level: Int = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-                val scale: Int = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-                level * 100 / scale.toFloat()
+            val batteryPct: Int? = batteryStatus?.let {
+                level = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+                scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+                (level * 100 / scale.toFloat())?.roundToInt()
             }
-            binding.textView.text = batteryPct.toString()
+
+            ("Battery Scale: $scale\nBattery Level: $level\nBattery Percentage: $batteryPct%").also { binding.textViewInfo.text = it }
+            binding.tvBatteryPercentage.text = "${batteryPct}%"
+            batteryPct?.let { binding.progressBar.setProgress(it) }
+
         }
 
         binding.showBatteryLevel.setOnClickListener {
