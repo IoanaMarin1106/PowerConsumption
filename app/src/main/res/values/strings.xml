@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">PowerConsumptionApp</string>
+    <string name="battery_info">BatteryInfoView is a small utility for laptops and netbook computers that displays the current status and information about your battery. The displayed battery information includes the battery name, manufacture name, serial number, manufacture date, power state (charging/discharging), current battery capacity, full charged capacity, voltage, charge/discharge rate, and more... BatteryInfoView also provides a log window, which adds a new log line containing the battery status every 30 seconds or any other time interval that you choose.</string>
+    <string name="starter_fragment">POW\'R</string>
+    <string name="battery_view_fragment">Battery View</string>
+    <string name="battery">Charging Battery</string>
+    <string name="cpu_info">CPU Info</string>
+    <string name="performance_manager_message">Performance Manager Fragment</string>
+    <string name="performance_manager">Performance Manager</string>
+    <string name="about">About</string>
+</resources>

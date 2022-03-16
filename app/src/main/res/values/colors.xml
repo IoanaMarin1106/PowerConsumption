@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    Primary    -->
+    <color name="indigo">#303f9f</color>
+    <color name="indigo_light">#666ad1</color>
+    <color name="indigo_dark">#001970</color>
+    <color name="white">#ffffff</color>
+
+    <!--    Secondary  -->
+    <color name="deep_purple">#b39ddb</color>
+    <color name="deep_purple_light">#e6ceff</color>
+    <color name="deep_purple_dark">#836fa9</color>
+    <color name="black">#000000</color>
+
+
+    <!-- Battery colors -->
+    <color name="battery_border">#737373</color>
+    <color name="red">#F44336</color>
+    <color name="orange">#FF9800</color>
+    <color name="green">#8BC34A</color>
+</resources>

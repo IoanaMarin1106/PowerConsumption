@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "56416770239",
+    "project_id": "ioana-s-project",
+    "storage_bucket": "ioana-s-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:56416770239:android:0f41c827f79001155d0e0a",
+        "android_client_info": {
+          "package_name": "com.example.powerconsumptionapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "56416770239-egfj6jskn3lntg8803kg3e9bepdh0cr5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-LF94oDveGO1Bj6j-JHjeW99tmasajbI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "56416770239-egfj6jskn3lntg8803kg3e9bepdh0cr5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
