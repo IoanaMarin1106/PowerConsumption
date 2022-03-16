@@ -56,6 +56,13 @@ class StarterFragment : Fragment() {
             binding.tvBatteryPercentage.text = "${batteryPct}%"
             batteryPct?.let { binding.progressBar.setProgress(it) }
 
+            // Check if battery is charging or not
+            val status: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+            if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
+                binding.chargingBatteryImage.visibility = View.VISIBLE
+            } else {
+                binding.chargingBatteryImage.visibility = View.GONE
+            }
         }
 
         binding.showBatteryLevel.setOnClickListener {

@@ -7,21 +7,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ProgressBar
             android:id="@+id/progressBar"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:progressDrawable="@drawable/progressbar_states"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:progressDrawable="@drawable/progressbar_states" />
 
         <TextView
             android:id="@+id/tv_batteryPercentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:hint="x %"
+            android:hint="x%"
             android:textColor="@color/black"
             android:textSize="25dp" />
 
@@ -45,6 +44,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/chargingBatteryImage"
+            android:layout_width="40dp"
+            android:layout_height="46dp"
+            android:layout_alignTop="@+id/progressBar"
+            android:layout_alignEnd="@+id/progressBar"
+            android:layout_alignBottom="@+id/progressBar"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="53dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="51dp"
+            android:layout_toEndOf="@+id/tv_batteryPercentage"
+            app:srcCompat="@drawable/ic_baseline_battery_charging_full_24" />
 
 
     </RelativeLayout>
