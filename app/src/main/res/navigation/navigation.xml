@@ -7,32 +7,14 @@
     app:startDestination="@id/starterFragment">
 
     <fragment
-        android:id="@+id/starterFragment"
-        android:name="com.example.powerconsumptionapp.startfragment.StarterFragment"
-        android:label="@string/starter_fragment"
-        tools:layout="@layout/fragment_starter">
-        <action
-            android:id="@+id/action_starterFragment_to_batteryViewFragment"
-            app:destination="@id/batteryViewFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:popUpTo="@id/starterFragment"
-            app:popUpToInclusive="false" />
-        <action
-            android:id="@+id/action_starterFragment_to_CPUInfo"
-            app:destination="@id/CPUInfo"
-            app:enterAnim="@anim/slide_in_right"
-            app:popUpTo="@id/starterFragment" />
-        <action
-            android:id="@+id/action_starterFragment_to_performanceManagerFragment"
-            app:destination="@id/performanceManagerFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:popUpTo="@id/starterFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/batteryViewFragment"
         android:name="com.example.powerconsumptionapp.batteryview.BatteryViewFragment"
         android:label="@string/battery_view_fragment"
-        tools:layout="@layout/fragment_battery_view"/>
+        tools:layout="@layout/fragment_battery_view">
+        <argument
+            android:name="batteryPercentage"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/CPUInfo"
         android:name="com.example.powerconsumptionapp.cpuinfo.CPUInfoFragment"
@@ -43,4 +25,19 @@
         android:name="com.example.powerconsumptionapp.performancemanager.PerformanceManagerFragment"
         android:label="@string/performance_manager"
         tools:layout="@layout/fragment_performance_manager"/>
+    <fragment
+        android:id="@+id/starterFragment"
+        android:name="com.example.powerconsumptionapp.startfragment.StarterFragment"
+        android:label="StarterFragment"
+        tools:layout="@layout/fragment_start">
+        <action
+            android:id="@+id/action_starterFragment_to_performanceManagerFragment"
+            app:destination="@id/performanceManagerFragment" />
+        <action
+            android:id="@+id/action_starterFragment_to_batteryViewFragment"
+            app:destination="@id/batteryViewFragment" />
+        <action
+            android:id="@+id/action_starterFragment_to_CPUInfo"
+            app:destination="@id/CPUInfo" />
+    </fragment>
 </navigation>
