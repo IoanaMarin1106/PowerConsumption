@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentStartBinding
@@ -61,6 +62,20 @@ class StarterFragment : Fragment() {
 
         }
 
+//        binding.apply {
+//            startFragmentButton.setOnClickListener {
+//                it.findNavController().navigate(R.id.action_starterFragment_to_batteryViewFragment)
+//            }
+//
+//            cpuInfoButton.setOnClickListener {
+//                it.findNavController().navigate(R.id.action_starterFragment_to_CPUInfo)
+//            }
+//
+//            perfomanceManagerButton.setOnClickListener {
+//                it.findNavController().navigate(R.id.action_starterFragment_to_performanceManagerFragment)
+//            }
+//        }
+
         // Setez optiunea de a avea un option menu
         setHasOptionsMenu(true)
 
@@ -68,7 +83,8 @@ class StarterFragment : Fragment() {
     }
 
     private fun batteryView() {
-        view?.findNavController()?.navigate(StarterFragmentDirections.actionStarterFragmentToBatteryViewFragment(viewModel.batteryPct))
+        val action = StarterFragmentDirections.actionStarterFragmentToBatteryViewFragment(viewModel.batteryPct)
+        NavHostFragment.findNavController(this).navigate(action)
     }
 
     private fun showBatteryInfo() {
