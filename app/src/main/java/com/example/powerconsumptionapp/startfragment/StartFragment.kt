@@ -7,18 +7,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentStartBinding
-import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
 
 class StarterFragment : Fragment() {
@@ -51,35 +49,31 @@ class StarterFragment : Fragment() {
         // Get battery info from the view model
         showBatteryInfo()
 
-        binding.apply {
-            showBatteryLevel.setOnClickListener {
-                showChargingStatus()
-            }
-
-            batteryInfoButton.setOnClickListener {
-                batteryView()
-            }
-
+        // Set fragments buttons
+        populateFragmentButtons()
+        binding.recyclerViewFragmentStart.apply {
+            layoutManager = GridLayoutManager(requireActivity().application, 2)
+            adapter = CardAdapter(buttonsList)
         }
-
-//        binding.apply {
-//            startFragmentButton.setOnClickListener {
-//                it.findNavController().navigate(R.id.action_starterFragment_to_batteryViewFragment)
-//            }
-//
-//            cpuInfoButton.setOnClickListener {
-//                it.findNavController().navigate(R.id.action_starterFragment_to_CPUInfo)
-//            }
-//
-//            perfomanceManagerButton.setOnClickListener {
-//                it.findNavController().navigate(R.id.action_starterFragment_to_performanceManagerFragment)
-//            }
-//        }
 
         // Setez optiunea de a avea un option menu
         setHasOptionsMenu(true)
 
         return binding.root
+    }
+
+    private fun populateFragmentButtons() {
+        val batteryViewButton = ButtonsInfo("Battery Info", R.drawable.battery_icon)
+        buttonsList.add(batteryViewButton)
+
+        val cpuInfoButton = ButtonsInfo("CPU Info", R.drawable.cpu_icon)
+        buttonsList.add(cpuInfoButton)
+
+        val performanceManagerBttn = ButtonsInfo("Performance Manager", R.drawable.performance_icon)
+        buttonsList.add(performanceManagerBttn)
+
+        val settingsBttn = ButtonsInfo("Settings", R.drawable.ic_baseline_settings_24)
+        buttonsList.add(settingsBttn)
     }
 
     private fun batteryView() {
@@ -90,10 +84,9 @@ class StarterFragment : Fragment() {
     private fun showBatteryInfo() {
         viewModel.showBatteryInfo()
 
+        // Set progress bar
         binding.tvBatteryPercentage.text = "${viewModel.batteryPct}%"
         viewModel.batteryPct?.let { binding.progressBar.setProgress(it) }
-
-        ("Battery Level: ${viewModel.batteryLevel}\nBattery Percentage: ${viewModel.batteryPct}%").also { binding.textViewInfo.text = it }
 
         // Check if battery is charging or not
         if (viewModel.chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
@@ -106,35 +99,6 @@ class StarterFragment : Fragment() {
     private fun getBatteryStatus() {
         batteryStatus = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let {
             context?.registerReceiver(null, it)
-        }
-    }
-
-    private fun showChargingStatus() {
-        with(lifecycleScope) {
-            launch {
-                var isCharging: String = ""
-
-                // Get the device status
-                when (viewModel.chargingStatus) {
-                    BatteryManager.BATTERY_STATUS_CHARGING -> isCharging = "CHARGING"
-                    BatteryManager.BATTERY_STATUS_DISCHARGING -> isCharging = "DISCHARGING"
-                    BatteryManager.BATTERY_STATUS_FULL -> isCharging = "FULL"
-                    BatteryManager.BATTERY_STATUS_NOT_CHARGING -> isCharging = "NOT CHARGING"
-                    BatteryManager.BATTERY_STATUS_UNKNOWN -> isCharging = "UNKNOWN"
-                    else -> "NOT AVAILABLE"
-                }
-
-                // How are we charging?
-                val chargePlug: Int = batteryStatus?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: -1
-                val usbCharge: Boolean = chargePlug == BatteryManager.BATTERY_PLUGGED_USB
-                val acCharge: Boolean = chargePlug == BatteryManager.BATTERY_PLUGGED_AC
-                val wirelessCharge: Boolean = chargePlug == BatteryManager.BATTERY_PLUGGED_WIRELESS
-
-                val message: String = "isCharging: ${isCharging} \n USB: ${usbCharge} \n " +
-                        "AC Charge: ${acCharge} \n Wireless Charge: ${wirelessCharge}" +
-                        "battery level: ${viewModel.batteryPct}"
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show()
-            }
         }
     }
 

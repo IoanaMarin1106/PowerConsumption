@@ -8,4 +8,5 @@
     <string name="performance_manager_message">Performance Manager Fragment</string>
     <string name="performance_manager">Performance Manager</string>
     <string name="about">About</string>
+    <string name="button_description">Button Image</string>
 </resources>

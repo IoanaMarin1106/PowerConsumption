@@ -26,10 +26,7 @@ class StartViewModel: ViewModel() {
             (batteryLevel * 100 / scale.toFloat())?.roundToInt()
         }
 
-        Log.d("[IOANA]", "batteryprocent ${batteryProcent}")
-
         batteryPct = batteryProcent!!
-
         chargingStatus = StarterFragment.batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
     }
 }

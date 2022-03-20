@@ -11,41 +11,26 @@
         <ProgressBar
             android:id="@+id/progressBar"
             style="@android:style/Widget.ProgressBar.Horizontal"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
+            android:layout_width="@dimen/progress_bar"
+            android:layout_height="@dimen/progress_bar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="131dp"
+            android:layout_marginTop="@dimen/default_margin_top_bottom"
+            android:layout_marginBottom="@dimen/default_margin_top_bottom"
             android:progressDrawable="@drawable/progressbar_states" />
 
         <TextView
             android:id="@+id/tv_batteryPercentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="187dp"
+            android:layout_marginTop="111dp"
             android:hint="x%"
             android:textColor="@color/black"
             android:textSize="25dp" />
-
-        <TextView
-            android:id="@+id/textViewInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Battery Info"
-            android:textSize="20dp" />
-
-        <Button
-            android:id="@+id/showBatteryLevel"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="122dp"
-            android:layout_marginBottom="204dp"
-            android:text="Show level"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
         <ImageView
             android:id="@+id/chargingBatteryImage"
@@ -61,19 +46,15 @@
             android:layout_toEndOf="@+id/tv_batteryPercentage"
             app:srcCompat="@drawable/ic_baseline_battery_charging_full_24" />
 
-        <Button
-            android:id="@+id/batteryInfoButton"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFragmentStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/progressBar"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="110dp"
-            android:layout_marginEnd="86dp"
-            android:layout_marginBottom="141dp"
-            android:text="Battery Info" />
+            android:layout_marginTop="0dp">
 
+        </androidx.recyclerview.widget.RecyclerView>
 
     </RelativeLayout>
-
 </layout>
