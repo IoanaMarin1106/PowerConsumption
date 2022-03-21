@@ -29,7 +29,6 @@ class CardAdapter(
         holder.cardIcon.setImageResource(buttonsList[position].buttonImage)
 
         holder.view.setOnClickListener {
-//            Toast.makeText(holder.view.context, "Item clicked ->" + buttonsList[position].buttonTitle, Toast.LENGTH_LONG).show()
             when(buttonsList[position].buttonTitle) {
                 Util.Button.BATTERY_VIEW.title -> {
                     val action = StarterFragmentDirections.actionStarterFragmentToBatteryViewFragment()

@@ -7,6 +7,7 @@
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable/ic_baseline_battery_charging_full_24.xml" value="0.2911458333333333" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable/ic_baseline_battery_saver_24.xml" value="0.2911458333333333" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable/ic_baseline_battery_unknown_24.xml" value="0.2911458333333333" />
+        <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.18208469055374593" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2911458333333333" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable/progressbar_states.xml" value="0.18208469055374593" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout/activity_main.xml" value="0.2609375" />
@@ -20,6 +21,9 @@
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout/nav_header.xml" value="0.275" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/menu/navdrawer_menu.xml" value="0.275" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/menu/options_menu.xml" value="0.275" />
+        <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/mipmap-anydpi-v26/ic_battery.xml" value="0.18208469055374593" />
+        <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1013157894736842" />
+        <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1013157894736842" />
       </map>
     </option>
   </component>
