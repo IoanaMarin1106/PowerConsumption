@@ -24,12 +24,12 @@ class BatteryViewFragment : Fragment() {
             false
         )
 
-        val args = BatteryViewFragmentArgs.fromBundle(requireArguments())
-        Toast.makeText(
-            context,
-            "Battery Percentage: ${args.batteryPercentage}",
-            Toast.LENGTH_LONG
-        ).show()
+//        val args = BatteryViewFragmentArgs.fromBundle(requireArguments())
+//        Toast.makeText(
+//            context,
+//            "Battery Percentage: ${args.batteryPercentage}",
+//            Toast.LENGTH_LONG
+//        ).show()
 
         return binding.root
     }

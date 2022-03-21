@@ -10,11 +10,7 @@
         android:id="@+id/batteryViewFragment"
         android:name="com.example.powerconsumptionapp.batteryview.BatteryViewFragment"
         android:label="@string/battery_view_fragment"
-        tools:layout="@layout/fragment_battery_view">
-        <argument
-            android:name="batteryPercentage"
-            app:argType="integer" />
-    </fragment>
+        tools:layout="@layout/fragment_battery_view"/>
     <fragment
         android:id="@+id/CPUInfo"
         android:name="com.example.powerconsumptionapp.cpuinfo.CPUInfoFragment"

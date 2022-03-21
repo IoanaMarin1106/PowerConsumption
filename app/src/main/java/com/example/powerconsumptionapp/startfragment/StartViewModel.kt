@@ -1,14 +1,7 @@
 package com.example.powerconsumptionapp.startfragment
 
-import android.app.Application
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.BatteryManager
-import android.util.Log
-import android.view.View
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 class StartViewModel: ViewModel() {

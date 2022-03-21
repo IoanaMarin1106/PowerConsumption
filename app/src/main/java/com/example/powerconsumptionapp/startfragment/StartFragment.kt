@@ -21,7 +21,7 @@ import com.example.powerconsumptionapp.databinding.FragmentStartBinding
 
 class StarterFragment : Fragment() {
 
-    private lateinit var viewModel: StartViewModel
+    lateinit var viewModel: StartViewModel
     private lateinit var binding: FragmentStartBinding
 
     companion object {
@@ -53,7 +53,7 @@ class StarterFragment : Fragment() {
         populateFragmentButtons()
         binding.recyclerViewFragmentStart.apply {
             layoutManager = GridLayoutManager(requireActivity().application, 2)
-            adapter = CardAdapter(buttonsList)
+            adapter = CardAdapter(buttonsList, this@StarterFragment)
         }
 
         // Setez optiunea de a avea un option menu
@@ -63,22 +63,17 @@ class StarterFragment : Fragment() {
     }
 
     private fun populateFragmentButtons() {
-        val batteryViewButton = ButtonsInfo("Battery Info", R.drawable.battery_icon)
-        buttonsList.add(batteryViewButton)
+        val batteryViewButton = ButtonsInfo(Util.Button.BATTERY_VIEW.title, R.drawable.battery_icon)
+        val cpuInfoButton = ButtonsInfo(Util.Button.CPU_INFO.title, R.drawable.cpu_icon)
+        val performanceManagerBttn = ButtonsInfo(Util.Button.PERFORMANCE_MANAGER.title, R.drawable.performance_icon)
+        val settingsBttn = ButtonsInfo(Util.Button.SETTINGS.title, R.drawable.ic_baseline_settings_24)
 
-        val cpuInfoButton = ButtonsInfo("CPU Info", R.drawable.cpu_icon)
-        buttonsList.add(cpuInfoButton)
-
-        val performanceManagerBttn = ButtonsInfo("Performance Manager", R.drawable.performance_icon)
-        buttonsList.add(performanceManagerBttn)
-
-        val settingsBttn = ButtonsInfo("Settings", R.drawable.ic_baseline_settings_24)
-        buttonsList.add(settingsBttn)
-    }
-
-    private fun batteryView() {
-        val action = StarterFragmentDirections.actionStarterFragmentToBatteryViewFragment(viewModel.batteryPct)
-        NavHostFragment.findNavController(this).navigate(action)
+        buttonsList.apply {
+            add(batteryViewButton)
+            add(cpuInfoButton)
+            add(performanceManagerBttn)
+            add(settingsBttn)
+        }
     }
 
     private fun showBatteryInfo() {
