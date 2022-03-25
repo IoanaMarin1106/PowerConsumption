@@ -70,11 +70,11 @@ class StarterFragment : Fragment() {
         viewModel.batteryPct?.let { binding.progressBar.setProgress(it) }
 
         // Check if battery is charging or not
-//        if (viewModel.chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
-//            binding.chargingBatteryImage.visibility = View.VISIBLE
-//        } else {
-//            binding.chargingBatteryImage.visibility = View.GONE
-//        }
+        if (viewModel.chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
+            binding.chargingBattery.visibility = View.VISIBLE
+        } else {
+            binding.chargingBattery.visibility = View.GONE
+        }
     }
 
     private fun getBatteryStatus() {
