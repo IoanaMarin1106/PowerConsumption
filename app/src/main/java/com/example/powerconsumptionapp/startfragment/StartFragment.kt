@@ -50,7 +50,7 @@ class StarterFragment : Fragment() {
         showBatteryInfo()
 
         // Set fragments buttons
-        populateFragmentButtons()
+        viewModel.populateFragmentButtons()
         binding.recyclerViewFragmentStart.apply {
             layoutManager = GridLayoutManager(requireActivity().application, 2)
             adapter = CardAdapter(buttonsList, this@StarterFragment)
@@ -62,22 +62,6 @@ class StarterFragment : Fragment() {
         return binding.root
     }
 
-    private fun populateFragmentButtons() {
-        if (buttonsList.isEmpty()) {
-            val batteryViewButton = ButtonsInfo(Util.Button.BATTERY_VIEW.title, R.drawable.battery_icon_2_)
-            val cpuInfoButton = ButtonsInfo(Util.Button.CPU_INFO.title, R.drawable.cpu_icon)
-            val performanceManagerBttn = ButtonsInfo(Util.Button.PERFORMANCE_MANAGER.title, R.drawable.performance_manager)
-            val settingsBttn = ButtonsInfo(Util.Button.SETTINGS.title, R.drawable.ic_baseline_settings_24)
-
-            buttonsList.apply {
-                add(batteryViewButton)
-                add(cpuInfoButton)
-                add(performanceManagerBttn)
-                add(settingsBttn)
-            }
-        }
-    }
-
     private fun showBatteryInfo() {
         viewModel.showBatteryInfo()
 
@@ -86,11 +70,11 @@ class StarterFragment : Fragment() {
         viewModel.batteryPct?.let { binding.progressBar.setProgress(it) }
 
         // Check if battery is charging or not
-        if (viewModel.chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
-            binding.chargingBatteryImage.visibility = View.VISIBLE
-        } else {
-            binding.chargingBatteryImage.visibility = View.GONE
-        }
+//        if (viewModel.chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
+//            binding.chargingBatteryImage.visibility = View.VISIBLE
+//        } else {
+//            binding.chargingBatteryImage.visibility = View.GONE
+//        }
     }
 
     private fun getBatteryStatus() {

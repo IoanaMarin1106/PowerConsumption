@@ -13,10 +13,10 @@
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="@dimen/progress_bar"
             android:layout_height="@dimen/progress_bar"
-            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="131dp"
-            android:layout_marginTop="@dimen/default_margin_top_bottom"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="102dp"
+            android:layout_marginEnd="507dp"
             android:layout_marginBottom="@dimen/default_margin_top_bottom"
             android:progressDrawable="@drawable/progressbar_states" />
 
@@ -32,7 +32,9 @@
             android:layout_marginTop="-8dp"
             android:layout_marginEnd="-16dp"
             android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <TextView
                 android:id="@+id/tv_batteryPercentage"
@@ -42,7 +44,6 @@
                 android:layout_marginStart="49dp"
                 android:layout_marginTop="47dp"
                 android:layout_marginBottom="53dp"
-                android:layout_weight="0"
                 android:gravity="center"
                 android:hint="@string/percent_format"
                 android:textColor="@color/black"
@@ -61,11 +62,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFragmentStart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/progressBar"
+            android:layout_width="@dimen/recycler_view_width"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="0dp">
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="-2dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
