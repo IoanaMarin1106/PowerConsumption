@@ -44,7 +44,7 @@
                     android:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button2"
+                    android:id="@+id/batteryLevelStatistics"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -52,11 +52,11 @@
                     android:background="@drawable/round_shadow_button"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="6dp"
-                    android:text="hdbhsbf"
+                    android:text="Percentage Statistics"
                     android:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/bttn3"
+                    android:id="@+id/batteryTempStatistics"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -64,7 +64,7 @@
                     android:background="@drawable/round_shadow_button"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="6dp"
-                    android:text="ehfdcebswhfb"
+                    android:text="Temperature"
                     android:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -142,6 +142,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="saver here" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/levelStatisticsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/informationContainer"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/saverinfo5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/saverinfo6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/saverinfo7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <EditText
                 android:layout_width="match_parent"

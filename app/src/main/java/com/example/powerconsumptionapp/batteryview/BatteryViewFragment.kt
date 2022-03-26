@@ -33,18 +33,26 @@ class BatteryViewFragment : Fragment() {
             information.setOnClickListener {
                 informationContainer?.visibility = View.VISIBLE
                 saverContainer?.visibility = View.GONE
+                levelStatisticsContainer?.visibility = View.GONE
 
             }
 
             saver.setOnClickListener {
                 informationContainer?.visibility = View.GONE
                 saverContainer?.visibility = View.VISIBLE
+                levelStatisticsContainer?.visibility = View.GONE
             }
 
-            button2?.setOnClickListener {
-                Toast.makeText(context, "heeeei", Toast.LENGTH_SHORT).show()
+            batteryLevelStatistics?.setOnClickListener {
+                informationContainer?.visibility = View.GONE
+                saverContainer?.visibility = View.GONE
+                levelStatisticsContainer?.visibility = View.VISIBLE
+
             }
 
+            batteryTempStatistics?.setOnClickListener {
+                Toast.makeText(context, "aiciaici", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
