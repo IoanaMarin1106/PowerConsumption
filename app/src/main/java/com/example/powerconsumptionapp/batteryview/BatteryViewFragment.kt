@@ -5,12 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentBatteryViewBinding
 
 class BatteryViewFragment : Fragment() {
+
+    private lateinit var menu: HorizontalScrollView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,12 +27,26 @@ class BatteryViewFragment : Fragment() {
             false
         )
 
-//        val args = BatteryViewFragmentArgs.fromBundle(requireArguments())
-//        Toast.makeText(
-//            context,
-//            "Battery Percentage: ${args.batteryPercentage}",
-//            Toast.LENGTH_LONG
-//        ).show()
+        menu = binding.horizontalScrollMenu
+
+        binding.apply {
+            information.setOnClickListener {
+                informationContainer?.visibility = View.VISIBLE
+                saverContainer?.visibility = View.GONE
+
+            }
+
+            saver.setOnClickListener {
+                informationContainer?.visibility = View.GONE
+                saverContainer?.visibility = View.VISIBLE
+            }
+
+            button2?.setOnClickListener {
+                Toast.makeText(context, "heeeei", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+
 
         return binding.root
     }

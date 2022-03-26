@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".batteryview.BatteryViewFragment">
+
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/round_shadow_button"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="6dp"
+                    android:text="Information"
+                    android:textColor="@android:color/white"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/saver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/round_shadow_button"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="6dp"
+                    android:text="Saver"
+                    android:textColor="@android:color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/round_shadow_button"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="6dp"
+                    android:text="hdbhsbf"
+                    android:textColor="@android:color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bttn3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/round_shadow_button"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="6dp"
+                    android:text="ehfdcebswhfb"
+                    android:textColor="@android:color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/bttn4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/round_shadow_button"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="6dp"
+                    android:text="secbfes"
+                    android:textColor="@android:color/white" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/informationContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/horizontalScrollMenu"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Information here" />
+
+            <TextView
+                android:id="@+id/info2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Information2 here" />
+
+            <TextView
+                android:id="@+id/info3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Information3 here" />
+            
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/indigo_light"
+                android:text="Heeeeeeeeeei"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/saverContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/informationContainer"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/saverinfo1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="saver here" />
+
+            <TextView
+                android:id="@+id/saverinfo2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="saver here" />
+
+            <TextView
+                android:id="@+id/saverinfo3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="saver here" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</layout>
