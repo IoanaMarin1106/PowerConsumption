@@ -23,38 +23,32 @@
         <LinearLayout
             android:id="@+id/progressBarElements"
             android:layout_width="169dp"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_alignStart="@+id/progressBar"
             android:layout_alignTop="@+id/progressBar"
             android:layout_alignEnd="@+id/progressBar"
             android:layout_alignBottom="@+id/progressBar"
-            android:layout_marginStart="-3dp"
-            android:layout_marginTop="-8dp"
-            android:layout_marginEnd="-16dp"
-            android:layout_marginBottom="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/tv_batteryPercentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="49dp"
-                android:layout_marginTop="47dp"
-                android:layout_marginBottom="53dp"
-                android:layout_weight="0"
-                android:gravity="center"
                 android:hint="@string/percent_format"
                 android:textColor="@color/black"
-                android:textSize="25sp" />
+                android:layout_gravity="center"
+                android:textSize="25sp"/>
 
             <ImageView
                 android:id="@+id/chargingBattery"
                 android:layout_width="38dp"
                 android:layout_height="57dp"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_baseline_battery_charging_full_24"
-                android:contentDescription="@string/charging_battery" />
+                android:contentDescription="@string/charging_battery"
+                android:visibility="gone"/>
 
 
         </LinearLayout>
