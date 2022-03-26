@@ -4,15 +4,11 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.R
@@ -21,7 +17,7 @@ import com.example.powerconsumptionapp.databinding.FragmentStartBinding
 
 class StarterFragment : Fragment() {
 
-    lateinit var viewModel: StartViewModel
+    private lateinit var viewModel: StartViewModel
     private lateinit var binding: FragmentStartBinding
 
     companion object {
@@ -33,7 +29,7 @@ class StarterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate<FragmentStartBinding>(
+        binding = DataBindingUtil.inflate (
             inflater,
             R.layout.fragment_start,
             container,
@@ -66,14 +62,21 @@ class StarterFragment : Fragment() {
         viewModel.showBatteryInfo()
 
         // Set progress bar
-        binding.tvBatteryPercentage.text = "${viewModel.batteryPct}%"
-        viewModel.batteryPct?.let { binding.progressBar.setProgress(it) }
+        "${viewModel.batteryPct}%".also { binding.tvBatteryPercentage.text = it }
+        viewModel.batteryPct.let { binding.progressBar.progress = it }
 
         // Check if battery is charging or not
         if (viewModel.chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
-            binding.chargingBattery.visibility = View.VISIBLE
+            binding.apply {
+                chargingBattery.visibility = View.VISIBLE
+                tvBatteryPercentage.visibility = View.GONE
+            }
+
         } else {
-            binding.chargingBattery.visibility = View.GONE
+            binding.apply {
+                chargingBattery.visibility = View.GONE
+                tvBatteryPercentage.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -83,13 +86,13 @@ class StarterFragment : Fragment() {
         }
     }
 
-    // facem inflate pe options_menu.xml
+    // Inflate options menu for this fragment
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options_menu, menu)
     }
 
-    // click pe fiecare element din options menu
+    // Inflate options menu elements
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController()) ||
                 super.onOptionsItemSelected(item)

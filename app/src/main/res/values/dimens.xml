@@ -8,4 +8,5 @@
     <dimen name="progress_bar">150dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="recycler_view_width">400dp</dimen>
+    <dimen name="default_size">20sp</dimen>
 </resources>

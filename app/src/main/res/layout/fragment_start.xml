@@ -33,7 +33,7 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tv_batteryPercentage"
+                android:id="@+id/tvBatteryPercentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="@string/percent_format"
@@ -46,7 +46,7 @@
                 android:layout_width="38dp"
                 android:layout_height="57dp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/ic_baseline_battery_charging_full_24"
+                app:srcCompat="@drawable/ic_baseline_flash_on_24"
                 android:contentDescription="@string/charging_battery"
                 android:visibility="gone"/>
 

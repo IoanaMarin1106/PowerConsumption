@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/batteryViewFragment"
-        android:title="@string/about"/>
+        android:title="@string/nav_battery_title" />
+
+    <item
+        android:id="@+id/aboutFragment"
+        android:title="@string/nav_about"/>
+
 
 </menu>
