@@ -23,6 +23,12 @@ class CPUInfoFragment : Fragment() {
             false
         )
 
+        binding.apply {
+            cpuInformationBttn.setOnClickListener {
+
+            }
+        }
+
         return binding.root
 
     }

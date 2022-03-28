@@ -11,15 +11,17 @@ import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentBatteryViewBinding
+import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.example.powerconsumptionapp.startfragment.StarterFragment
 
 class BatteryViewFragment : Fragment() {
 
     private lateinit var binding: FragmentBatteryViewBinding
-    private lateinit var viewModel: BatteryViewModel
+    private val batteryViewModel: BatteryViewModel by activityViewModels()
 
     companion object {
         @JvmStatic var batteryStatus: Intent? = null
@@ -38,17 +40,26 @@ class BatteryViewFragment : Fragment() {
             false
         )
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding?.apply {
+            lifecycleOwner = viewLifecycleOwner
+            batteryFragment = this@BatteryViewFragment
+            viewModel = batteryViewModel
+        }
+
         // compute the battery intent
         getBatteryStatus()
 
-        // Get the ViewModel or creat it
-        viewModel = ViewModelProvider(this).get(BatteryViewModel::class.java)
-
         binding.apply {
-            information.setOnClickListener {
-                viewModel.containerHandler (
-                    informationContainer!!,
-                    saverContainer!!,
+            batteryInfoBttn.setOnClickListener {
+                batteryViewModel.containerHandler(
+                    batteryInfoContainer!!,
+                    batterySaverContainer!!,
                     levelStatisticsContainer!!,
                     View.VISIBLE,
                     View.GONE,
@@ -56,10 +67,10 @@ class BatteryViewFragment : Fragment() {
                 )
             }
 
-            saver.setOnClickListener {
-                viewModel.containerHandler(
-                    informationContainer!!,
-                    saverContainer!!,
+            batterySaverBttn.setOnClickListener {
+                batteryViewModel.containerHandler(
+                    batteryInfoContainer!!,
+                    batterySaverContainer!!,
                     levelStatisticsContainer!!,
                     View.GONE,
                     View.VISIBLE,
@@ -67,10 +78,10 @@ class BatteryViewFragment : Fragment() {
                 )
             }
 
-            batteryLevelStatistics?.setOnClickListener {
-                viewModel.containerHandler(
-                    informationContainer!!,
-                    saverContainer!!,
+            batteryLevelStatisticsBttn?.setOnClickListener {
+                batteryViewModel.containerHandler(
+                    batteryInfoContainer!!,
+                    batterySaverContainer!!,
                     levelStatisticsContainer!!,
                     View.GONE,
                     View.GONE,
@@ -79,7 +90,7 @@ class BatteryViewFragment : Fragment() {
 
             }
 
-            batteryTempStatistics?.setOnClickListener {
+            batteryTempStatisticsBttn?.setOnClickListener {
                 Toast.makeText(context, "aici aici", Toast.LENGTH_SHORT).show()
             }
 
@@ -87,12 +98,10 @@ class BatteryViewFragment : Fragment() {
                 Toast.makeText(context, "shkbcdeshbfclsedhbcfesw", Toast.LENGTH_SHORT).show()
             }
         }
-
-        return binding.root
     }
 
     private fun getBatteryStatus() {
-        StarterFragment.batteryStatus = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let {
+        BatteryViewFragment.batteryStatus = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let {
             context?.registerReceiver(null, it)
         }
     }

@@ -7,17 +7,18 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentStartBinding
+import com.example.powerconsumptionapp.model.BatteryViewModel
 
 
 class StarterFragment : Fragment() {
 
-    private lateinit var viewModel: StartViewModel
+    private val batteryViewModel: BatteryViewModel by activityViewModels()
     private lateinit var binding: FragmentStartBinding
 
     companion object {
@@ -36,17 +37,26 @@ class StarterFragment : Fragment() {
             false
         )
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            startFragment = this@StarterFragment
+            viewModel = batteryViewModel
+        }
+
         // Get battery status
         getBatteryStatus()
-
-        // Get the ViewModel or creat it
-        viewModel = ViewModelProvider(this).get(StartViewModel::class.java)
 
         // Get battery info from the view model
         showBatteryInfo()
 
         // Set fragments buttons
-        viewModel.populateFragmentButtons()
+        batteryViewModel.populateFragmentButtons()
         binding.recyclerViewFragmentStart.apply {
             layoutManager = GridLayoutManager(requireActivity().application, 2)
             adapter = CardAdapter(buttonsList, this@StarterFragment)
@@ -54,19 +64,19 @@ class StarterFragment : Fragment() {
 
         // Setez optiunea de a avea un option menu
         setHasOptionsMenu(true)
-
-        return binding.root
     }
 
     private fun showBatteryInfo() {
-        viewModel.showBatteryInfo()
+        batteryViewModel.showBatteryInfo()
 
         // Set progress bar
-        "${viewModel.batteryPct}%".also { binding.tvBatteryPercentage.text = it }
-        viewModel.batteryPct.let { binding.progressBar.progress = it }
+        batteryViewModel.batteryPct.apply {
+            binding.tvBatteryPercentage.text = this.value.toString()
+            binding.progressBar.progress = this.value!!
+        }
 
         // Check if battery is charging or not
-        if (viewModel.chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
+        if (batteryViewModel.chargingStatus.value == BatteryManager.BATTERY_STATUS_CHARGING) {
             binding.apply {
                 chargingBattery.visibility = View.VISIBLE
                 tvBatteryPercentage.visibility = View.GONE

@@ -3,30 +3,102 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".cpuinfo.CPUInfoFragment">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="162dp"
-            android:layout_height="231dp"
-            android:contentDescription="@string/cpu_info"
-            android:src="@android:drawable/checkbox_on_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_view_cpu_info"
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollCPU"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/cpuInformationBttn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/default_margin_buttons"
+                android:background="@drawable/round_shadow_button"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:padding="@dimen/default_padding"
+                android:text="@string/info_button_text"
+                android:textColor="@android:color/white"/>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/cpuStatisticsBttn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/default_margin_buttons"
+                    android:background="@drawable/round_shadow_button"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:padding="@dimen/default_padding"
+                    android:text="@string/statistics_button_text"
+                    android:textColor="@android:color/white"/>
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <LinearLayout
+            android:id="@+id/cpuInfoContainer"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CPU INFO"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_below="@+id/horizontalScrollCPU"
+            android:layout_alignParentEnd="true"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_battery_charging_full_24" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cpuStatsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@id/horizontalScrollCPU"
+            android:visibility="gone">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CPU STATISTICS"/>
+
+        </LinearLayout>
+    </RelativeLayout>
 </layout>

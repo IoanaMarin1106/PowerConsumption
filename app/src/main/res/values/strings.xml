@@ -102,4 +102,6 @@
     <string name="charging_battery">Charging battery</string>
     <string name="nav_battery_title">Battery Info</string>
     <string name="app_title">Power Consumption App \n Pow\'R</string>
+    <string name="info_button_text">Information</string>
+    <string name="statistics_button_text">Statistics</string>
 </resources>

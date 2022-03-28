@@ -3,14 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="batteryFragment"
+            type="com.example.powerconsumptionapp.batteryview.BatteryViewFragment" />
+        
+        <variable
+            name="viewModel"
+            type="com.example.powerconsumptionapp.model.BatteryViewModel" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".batteryview.BatteryViewFragment">
 
-
         <HorizontalScrollView
-            android:id="@+id/horizontalScrollMenu"
+            android:id="@+id/horizontalScrollMenuBattery"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -20,50 +29,50 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/information"
+                    android:id="@+id/batteryInfoBttn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
+                    android:layout_margin="@dimen/default_margin_buttons"
                     android:background="@drawable/round_shadow_button"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:padding="6dp"
-                    android:text="Information"
+                    android:padding="@dimen/default_padding"
+                    android:text="@string/info_button_text"
                     android:textColor="@android:color/white"/>
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/saver"
+                    android:id="@+id/batterySaverBttn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
+                    android:layout_margin="@dimen/default_margin_buttons"
                     android:background="@drawable/round_shadow_button"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:padding="6dp"
+                    android:padding="@dimen/default_padding"
                     android:text="Saver"
                     android:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/batteryLevelStatistics"
+                    android:id="@+id/batteryLevelStatisticsBttn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
+                    android:layout_margin="@dimen/default_margin_buttons"
                     android:background="@drawable/round_shadow_button"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:padding="6dp"
+                    android:padding="@dimen/default_padding"
                     android:text="Percentage Statistics"
                     android:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/batteryTempStatistics"
+                    android:id="@+id/batteryTempStatisticsBttn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
+                    android:layout_margin="@dimen/default_margin_buttons"
                     android:background="@drawable/round_shadow_button"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:padding="6dp"
+                    android:padding="@dimen/default_padding"
                     android:text="Temperature"
                     android:textColor="@android:color/white" />
 
@@ -72,10 +81,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
+                    android:layout_margin="@dimen/default_margin_buttons"
                     android:background="@drawable/round_shadow_button"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:padding="6dp"
+                    android:padding="@dimen/default_padding"
                     android:text="secbfes"
                     android:textColor="@android:color/white" />
 
@@ -83,10 +92,10 @@
         </HorizontalScrollView>
 
         <LinearLayout
-            android:id="@+id/informationContainer"
+            android:id="@+id/batteryInfoContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/horizontalScrollMenu"
+            android:layout_below="@+id/horizontalScrollMenuBattery"
             android:layout_alignParentEnd="true"
             android:orientation="vertical">
 
@@ -117,7 +126,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/saverContainer"
+            android:id="@+id/batterySaverContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/informationContainer"

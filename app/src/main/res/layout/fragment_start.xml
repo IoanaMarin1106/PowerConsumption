@@ -2,6 +2,16 @@
 <layout  xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.powerconsumptionapp.model.BatteryViewModel" />
+        
+        <variable
+            name="startFragment"
+            type="com.example.powerconsumptionapp.startfragment.StarterFragment" />
+    </data>
 
     <RelativeLayout
         android:id="@+id/batteryPercentage"
