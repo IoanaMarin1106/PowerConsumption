@@ -18,6 +18,7 @@ class BatteryViewModel: ViewModel() {
     private val _batteryLevel = MutableLiveData<Int>()
     val batteryLevel: LiveData<Int> = _batteryLevel
 
+
     private val _batteryPct = MutableLiveData<Int>()
     val batteryPct: LiveData<Int> = _batteryPct
 
@@ -59,7 +60,6 @@ class BatteryViewModel: ViewModel() {
         infoVisibility: Int,
         saverVisibility: Int,
         statsVisibility: Int
-
     ) {
         infoVisibility.also { informationContainer.visibility = it }
         saverVisibility.also { saverContainer.visibility = it }

@@ -7,6 +7,10 @@
         android:title="@string/nav_battery_title" />
 
     <item
+        android:id="@+id/CPUInfo"
+        android:title="@string/nav_cpu_title" />
+
+    <item
         android:id="@+id/aboutFragment"
         android:title="@string/nav_about" />
 </menu>

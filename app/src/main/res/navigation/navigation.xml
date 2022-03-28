@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/CPUInfo"
         android:name="com.example.powerconsumptionapp.cpuinfo.CPUInfoFragment"
-        android:label="@string/cpu_info"
+        android:label="@string/nav_cpu_title"
         tools:layout="@layout/fragment_c_p_u_info"/>
     <fragment
         android:id="@+id/performanceManagerFragment"
@@ -24,7 +24,7 @@
     <fragment
         android:id="@+id/starterFragment"
         android:name="com.example.powerconsumptionapp.startfragment.StarterFragment"
-        android:label="StarterFragment"
+        android:label="@string/start_fragment"
         tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_starterFragment_to_performanceManagerFragment"
@@ -42,6 +42,6 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.powerconsumptionapp.about.AboutFragment"
-        android:label="AboutFragment"
+        android:label="@string/about_fragment_title"
         tools:layout="@layout/fragment_about"/>
 </navigation>
