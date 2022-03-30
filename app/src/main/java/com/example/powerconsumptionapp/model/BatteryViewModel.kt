@@ -18,12 +18,15 @@ class BatteryViewModel: ViewModel() {
     private val _batteryLevel = MutableLiveData<Int>()
     val batteryLevel: LiveData<Int> = _batteryLevel
 
-
     private val _batteryPct = MutableLiveData<Int>()
     val batteryPct: LiveData<Int> = _batteryPct
 
+    private val _procentage = MutableLiveData<Float>()
+    val procentage: LiveData<Float> = _procentage
+
     private val _chargingStatus = MutableLiveData<Int>()
     val chargingStatus: LiveData<Int> = _chargingStatus
+
 
     fun showBatteryInfo() {
         // Get battery Level
@@ -34,6 +37,7 @@ class BatteryViewModel: ViewModel() {
         }
 
         _batteryPct.value = batteryProcent!!
+        _procentage.value = (batteryProcent.toFloat() / 100)
         _chargingStatus.value = StarterFragment.batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
     }
 

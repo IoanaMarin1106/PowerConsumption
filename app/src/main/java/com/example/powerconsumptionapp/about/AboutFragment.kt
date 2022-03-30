@@ -1,13 +1,20 @@
 package com.example.powerconsumptionapp.about
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
 import androidx.databinding.DataBindingUtil
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentAboutBinding
+import android.view.animation.DecelerateInterpolator
+
+
+
 
 class AboutFragment : Fragment() {
 
@@ -25,6 +32,7 @@ class AboutFragment : Fragment() {
             container,
             false
         )
+
         return binding.root
     }
 }

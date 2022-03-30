@@ -97,31 +97,32 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/horizontalScrollMenuBattery"
             android:layout_alignParentEnd="true"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/info"
+<!--            <ImageView-->
+<!--                android:id="@+id/batteryPctImg"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"/>-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/batteryTemp"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"/>-->
+
+            <eo.view.batterymeter.BatteryMeterView
+                android:id="@+id/baterie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Information here" />
+                app:batteryMeterChargeLevel="4"
+                app:batteryMeterChargingColor= "@color/indigo_dark"
+                app:batteryMeterColor="@color/indigo_light"
+                app:batteryMeterCriticalChargeLevel="15"
+                app:batteryMeterCriticalColor="@color/black"
+                app:batteryMeterIndicatorColor="@android:color/transparent"
+                app:batteryMeterIsCharging="false"
+                app:batteryMeterTheme="rounded"
+                app:batteryMeterUnknownColor="@color/deep_purple_dark" />
 
-            <TextView
-                android:id="@+id/info2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Information2 here" />
-
-            <TextView
-                android:id="@+id/info3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Information3 here" />
-            
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/indigo_light"
-                android:text="Heeeeeeeeeei"/>
 
         </LinearLayout>
 

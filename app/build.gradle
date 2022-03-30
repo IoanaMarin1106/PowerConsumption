@@ -75,6 +75,7 @@ dependencies {
     // For ViewModelScope
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
 
-    implementation 'com.android.support:design:22.2.0'
-
+//    implementation 'com.android.support:design:22.2.0'
+    implementation 'com.github.john990:WaveView:v0.9'
+    implementation 'eo.view:batterymeter:2.0.0'
 }

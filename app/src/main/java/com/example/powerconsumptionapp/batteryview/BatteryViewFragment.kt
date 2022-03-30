@@ -1,27 +1,44 @@
 package com.example.powerconsumptionapp.batteryview
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.Bitmap.createBitmap
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RectShape
+import android.graphics.drawable.shapes.RoundRectShape
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.HorizontalScrollView
-import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentBatteryViewBinding
 import com.example.powerconsumptionapp.model.BatteryViewModel
-import com.example.powerconsumptionapp.startfragment.StarterFragment
+import java.util.*
+import kotlin.math.roundToInt
 
-class BatteryViewFragment : Fragment() {
+
+class BatteryViewFragment() : Fragment() {
 
     private lateinit var binding: FragmentBatteryViewBinding
     private val batteryViewModel: BatteryViewModel by activityViewModels()
+
+    private var screenWidth: Int = 0
+
+    init {
+        screenWidth = Resources.getSystem().displayMetrics.widthPixels / 2
+    }
 
     companion object {
         @JvmStatic var batteryStatus: Intent? = null
@@ -98,11 +115,53 @@ class BatteryViewFragment : Fragment() {
                 Toast.makeText(context, "shkbcdeshbfclsedhbcfesw", Toast.LENGTH_SHORT).show()
             }
         }
+
+        // draw battery percentage
+        drawBatteryLevel()
+
     }
 
     private fun getBatteryStatus() {
         BatteryViewFragment.batteryStatus = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let {
             context?.registerReceiver(null, it)
         }
+    }
+
+    private fun drawBatteryLevel() {
+        val bitmap: Bitmap = createBitmap(700, 1000, Bitmap.Config.ARGB_8888)
+        val canvas: Canvas = Canvas(bitmap)
+
+        var shapeDrawable: ShapeDrawable
+
+        //rectangle positions
+        var left = 20
+        var right = (screenWidth / 2) - left
+        var top = 20
+        var bottom = 400
+
+        //draw rectangle shape to canvas
+        shapeDrawable = ShapeDrawable(RectShape())
+        shapeDrawable.setBounds(left, top, right, bottom)
+        var hexColor = "#${Integer.toHexString(ContextCompat.getColor(context!!, R.color.indigo_light))}"
+        shapeDrawable.paint.color = Color.parseColor(hexColor)
+        shapeDrawable.draw(canvas)
+
+        //rectangle positions
+        left = 20
+        var shRight = (batteryViewModel.procentage.value?.times((right - left)))?.roundToInt()?.plus(left)
+        top = 20
+        bottom = 400
+
+        Toast.makeText(context, "${right} + ${shRight} \n ${batteryViewModel.batteryPct.value} ", Toast.LENGTH_LONG).show()
+
+        //draw rectangle shape to canvas
+        shapeDrawable = ShapeDrawable(RectShape())
+        shapeDrawable.setBounds(left, top, shRight!!, bottom)
+        var hexColor2 = "#${Integer.toHexString(ContextCompat.getColor(context!!, R.color.indigo_dark))}"
+        shapeDrawable.paint.color = Color.parseColor(hexColor2)
+        shapeDrawable.draw(canvas)
+
+        // bitmap hold the updated pixels & set bitmap as background to ImageView
+//        binding.batteryPctImg.background = BitmapDrawable(resources, bitmap)
     }
 }
