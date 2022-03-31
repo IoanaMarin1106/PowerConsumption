@@ -18,7 +18,8 @@
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable/water_wave_progress.xml" value="0.18388157894736842" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout-land/activity_main.xml" value="0.28072916666666664" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout-land/card_layout.xml" value="0.28072916666666664" />
-        <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout-land/fragment_start.xml" value="0.36443148688046645" />
+        <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout-land/fragment_battery_view.xml" value="0.2734375" />
+        <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout-land/fragment_start.xml" value="0.176" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout-v28/fragment_battery_view.xml" value="0.264" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout/activity_main.xml" value="0.2609375" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout/blank_fragment.xml" value="0.1736842105263158" />
@@ -28,7 +29,7 @@
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout/fragment_c_p_u_info.xml" value="0.264" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout/fragment_performance_manager.xml" value="0.275" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout/fragment_scrolling.xml" value="0.1736842105263158" />
-        <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout/fragment_start.xml" value="0.264" />
+        <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout/fragment_start.xml" value="0.2" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/layout/nav_header.xml" value="0.275" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/menu/navdrawer_menu.xml" value="0.275" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/menu/options_menu.xml" value="0.275" />

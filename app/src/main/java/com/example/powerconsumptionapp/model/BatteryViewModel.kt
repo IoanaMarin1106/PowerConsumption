@@ -2,6 +2,7 @@ package com.example.powerconsumptionapp.model
 
 import android.os.BatteryManager
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,16 +17,20 @@ class BatteryViewModel: ViewModel() {
 
     // Battery Characteristics
     private val _batteryLevel = MutableLiveData<Int>()
-    val batteryLevel: LiveData<Int> = _batteryLevel
+    val batteryLevel: LiveData<Int>
+        get() = _batteryLevel
 
     private val _batteryPct = MutableLiveData<Int>()
-    val batteryPct: LiveData<Int> = _batteryPct
+    val batteryPct: LiveData<Int>
+        get() = _batteryPct
 
     private val _procentage = MutableLiveData<Float>()
-    val procentage: LiveData<Float> = _procentage
+    val procentage: LiveData<Float>
+        get() = _procentage
 
     private val _chargingStatus = MutableLiveData<Int>()
-    val chargingStatus: LiveData<Int> = _chargingStatus
+    val chargingStatus: LiveData<Int>
+        get() = _chargingStatus
 
 
     fun showBatteryInfo() {
@@ -58,7 +63,7 @@ class BatteryViewModel: ViewModel() {
     }
 
     fun containerHandler(
-        informationContainer: LinearLayout,
+        informationContainer: RelativeLayout,
         saverContainer: LinearLayout,
         levelStatisticsContainer: LinearLayout,
         infoVisibility: Int,

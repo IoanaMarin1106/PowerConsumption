@@ -2,9 +2,9 @@ package com.example.powerconsumptionapp.startfragment
 
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.BatteryManager
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentStartBinding
 import com.example.powerconsumptionapp.model.BatteryViewModel
-
 
 class StarterFragment : Fragment() {
 
@@ -53,7 +52,7 @@ class StarterFragment : Fragment() {
         getBatteryStatus()
 
         // Get battery info from the view model
-        showBatteryInfo()
+        Toast.makeText(context,"${R.attr.batteryMeterChargeLevel}" , Toast.LENGTH_LONG).show()
 
         // Set fragments buttons
         batteryViewModel.populateFragmentButtons()
@@ -64,30 +63,6 @@ class StarterFragment : Fragment() {
 
         // Setez optiunea de a avea un option menu
         setHasOptionsMenu(true)
-    }
-
-    private fun showBatteryInfo() {
-        batteryViewModel.showBatteryInfo()
-
-        // Set progress bar
-        batteryViewModel.batteryPct.apply {
-            binding.tvBatteryPercentage.text = this.value.toString()
-            binding.progressBar.progress = this.value!!
-        }
-
-        // Check if battery is charging or not
-        if (batteryViewModel.chargingStatus.value == BatteryManager.BATTERY_STATUS_CHARGING) {
-            binding.apply {
-                chargingBattery.visibility = View.VISIBLE
-                tvBatteryPercentage.visibility = View.GONE
-            }
-
-        } else {
-            binding.apply {
-                chargingBattery.visibility = View.GONE
-                tvBatteryPercentage.visibility = View.VISIBLE
-            }
-        }
     }
 
     private fun getBatteryStatus() {

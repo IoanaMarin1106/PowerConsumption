@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.RectShape
 import android.graphics.drawable.shapes.RoundRectShape
+import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -116,9 +117,31 @@ class BatteryViewFragment() : Fragment() {
             }
         }
 
-        // draw battery percentage
-        drawBatteryLevel()
+        // setup battery level indicator
+        showBatteryInfo()
+    }
 
+    private fun showBatteryInfo() {
+        batteryViewModel.showBatteryInfo()
+
+        // Set progress bar
+        batteryViewModel.batteryPct.apply {
+            binding.tvBatteryPercentage.text = this.value.toString()
+            binding.batteryLevelIndicator.progress = this.value!!
+        }
+
+        // Check if battery is charging or not
+        if (batteryViewModel.chargingStatus.value == BatteryManager.BATTERY_STATUS_CHARGING) {
+            binding.apply {
+                chargingBattery.visibility = View.VISIBLE
+                tvBatteryPercentage.visibility = View.GONE
+            }
+        } else {
+            binding.apply {
+                chargingBattery.visibility = View.GONE
+                tvBatteryPercentage.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun getBatteryStatus() {
