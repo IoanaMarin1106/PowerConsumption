@@ -1,7 +1,10 @@
 package com.example.powerconsumptionapp.startfragment
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.BatteryManager
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -14,8 +17,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentStartBinding
 import com.example.powerconsumptionapp.model.BatteryViewModel
+import eo.view.batterymeter.BatteryMeterView
+import kotlin.math.roundToInt
 
-class StarterFragment : Fragment() {
+class StarterFragment() : Fragment() {
+
+    private lateinit var batteryLevelIndicator: BatteryMeterView
 
     private val batteryViewModel: BatteryViewModel by activityViewModels()
     private lateinit var binding: FragmentStartBinding
@@ -48,16 +55,17 @@ class StarterFragment : Fragment() {
             viewModel = batteryViewModel
         }
 
+        batteryLevelIndicator = binding.batteryLevelIndicator
+
         // Get battery status
         getBatteryStatus()
 
         // Get battery info from the view model
-        batteryViewModel.getBatteryInfo()
-        binding.batteryLevelIndicator.apply {
-            this.chargeLevel = batteryViewModel.batteryPct.value
-            this.isCharging = batteryViewModel.isCharging.value!!
-        }
-
+//        batteryViewModel.getBatteryInfo()
+//        batteryLevelIndicator.apply {
+//            this.chargeLevel = batteryViewModel.batteryPct.value
+//            this.isCharging = batteryViewModel.isCharging.value!!
+//        }
 
         // Set fragments buttons
         batteryViewModel.populateFragmentButtons()
@@ -71,8 +79,25 @@ class StarterFragment : Fragment() {
     }
 
     private fun getBatteryStatus() {
-        batteryStatus = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let {
-            context?.registerReceiver(null, it)
+        batteryStatus = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
+            context?.registerReceiver(broadcastReceiver, ifilter)
+        }
+    }
+
+    private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val batteryProcent: Int? = batteryStatus?.let {
+                var batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+                val scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+                (batteryLevel * 100 / scale.toFloat())?.roundToInt()
+            }
+
+            val chargingStatus = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+
+            batteryLevelIndicator.apply {
+                this.chargeLevel = batteryProcent
+                this.isCharging = chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING
+            }
         }
     }
 
@@ -86,5 +111,10 @@ class StarterFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController()) ||
                 super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        context?.unregisterReceiver(broadcastReceiver)
+        super.onDestroy()
     }
 }

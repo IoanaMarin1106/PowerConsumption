@@ -1,34 +1,28 @@
 package com.example.powerconsumptionapp.batteryview
 
-import android.annotation.SuppressLint
+
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Bitmap.createBitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.ShapeDrawable
-import android.graphics.drawable.shapes.RectShape
-import android.graphics.drawable.shapes.RoundRectShape
+import android.media.Image
 import android.os.BatteryManager
-import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.*
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentBatteryViewBinding
 import com.example.powerconsumptionapp.model.BatteryViewModel
+import com.example.powerconsumptionapp.startfragment.StarterFragment
 import java.util.*
 import kotlin.math.roundToInt
-
 
 class BatteryViewFragment() : Fragment() {
 
@@ -36,6 +30,12 @@ class BatteryViewFragment() : Fragment() {
     private val batteryViewModel: BatteryViewModel by activityViewModels()
 
     private var screenWidth: Int = 0
+
+    private var batteryStatus: Intent? = null
+
+    private lateinit var tvBatteryPercentage: TextView
+    private lateinit var batteryLevelIndicator: ProgressBar
+    private lateinit var chargingBattery: ImageView
 
     init {
         screenWidth = Resources.getSystem().displayMetrics.widthPixels / 2
@@ -57,6 +57,10 @@ class BatteryViewFragment() : Fragment() {
             container,
             false
         )
+
+        tvBatteryPercentage = binding.tvBatteryPercentage
+        batteryLevelIndicator = binding.batteryLevelIndicator
+        chargingBattery = binding.chargingBattery
 
         return binding.root
     }
@@ -116,28 +120,24 @@ class BatteryViewFragment() : Fragment() {
                 Toast.makeText(context, "shkbcdeshbfclsedhbcfesw", Toast.LENGTH_SHORT).show()
             }
         }
-
-        // setup battery level indicator
-        showBatteryInfo()
     }
 
-    private fun showBatteryInfo() {
-        batteryViewModel.getBatteryInfo()
+    private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val batteryProcent: Int? = StarterFragment.batteryStatus?.let {
+                var batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+                val scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+                (batteryLevel * 100 / scale.toFloat())?.roundToInt()
+            }
 
-        // Set progress bar
-        batteryViewModel.batteryPct.apply {
-            binding.tvBatteryPercentage.text = this.value.toString()
-            binding.batteryLevelIndicator.progress = this.value!!
-        }
+            val chargingStatus = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
 
-        // Check if battery is charging or not
-        if (batteryViewModel.chargingStatus.value == BatteryManager.BATTERY_STATUS_CHARGING) {
-            binding.apply {
+            tvBatteryPercentage.text = batteryProcent.toString()
+            batteryLevelIndicator.progress = batteryProcent!!
+            if (chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
                 chargingBattery.visibility = View.VISIBLE
                 tvBatteryPercentage.visibility = View.GONE
-            }
-        } else {
-            binding.apply {
+            } else {
                 chargingBattery.visibility = View.GONE
                 tvBatteryPercentage.visibility = View.VISIBLE
             }
@@ -145,8 +145,13 @@ class BatteryViewFragment() : Fragment() {
     }
 
     private fun getBatteryStatus() {
-        BatteryViewFragment.batteryStatus = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let {
-            context?.registerReceiver(null, it)
+        batteryStatus = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
+            context?.registerReceiver(broadcastReceiver, ifilter)
         }
+    }
+
+    override fun onDestroy() {
+        context?.unregisterReceiver(broadcastReceiver)
+        super.onDestroy()
     }
 }
