@@ -122,7 +122,7 @@ class BatteryViewFragment() : Fragment() {
     }
 
     private fun showBatteryInfo() {
-        batteryViewModel.showBatteryInfo()
+        batteryViewModel.getBatteryInfo()
 
         // Set progress bar
         batteryViewModel.batteryPct.apply {
@@ -148,43 +148,5 @@ class BatteryViewFragment() : Fragment() {
         BatteryViewFragment.batteryStatus = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let {
             context?.registerReceiver(null, it)
         }
-    }
-
-    private fun drawBatteryLevel() {
-        val bitmap: Bitmap = createBitmap(700, 1000, Bitmap.Config.ARGB_8888)
-        val canvas: Canvas = Canvas(bitmap)
-
-        var shapeDrawable: ShapeDrawable
-
-        //rectangle positions
-        var left = 20
-        var right = (screenWidth / 2) - left
-        var top = 20
-        var bottom = 400
-
-        //draw rectangle shape to canvas
-        shapeDrawable = ShapeDrawable(RectShape())
-        shapeDrawable.setBounds(left, top, right, bottom)
-        var hexColor = "#${Integer.toHexString(ContextCompat.getColor(context!!, R.color.indigo_light))}"
-        shapeDrawable.paint.color = Color.parseColor(hexColor)
-        shapeDrawable.draw(canvas)
-
-        //rectangle positions
-        left = 20
-        var shRight = (batteryViewModel.procentage.value?.times((right - left)))?.roundToInt()?.plus(left)
-        top = 20
-        bottom = 400
-
-        Toast.makeText(context, "${right} + ${shRight} \n ${batteryViewModel.batteryPct.value} ", Toast.LENGTH_LONG).show()
-
-        //draw rectangle shape to canvas
-        shapeDrawable = ShapeDrawable(RectShape())
-        shapeDrawable.setBounds(left, top, shRight!!, bottom)
-        var hexColor2 = "#${Integer.toHexString(ContextCompat.getColor(context!!, R.color.indigo_dark))}"
-        shapeDrawable.paint.color = Color.parseColor(hexColor2)
-        shapeDrawable.draw(canvas)
-
-        // bitmap hold the updated pixels & set bitmap as background to ImageView
-//        binding.batteryPctImg.background = BitmapDrawable(resources, bitmap)
     }
 }

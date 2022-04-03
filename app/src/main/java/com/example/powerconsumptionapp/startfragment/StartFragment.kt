@@ -52,7 +52,12 @@ class StarterFragment : Fragment() {
         getBatteryStatus()
 
         // Get battery info from the view model
-        Toast.makeText(context,"${R.attr.batteryMeterChargeLevel}" , Toast.LENGTH_LONG).show()
+        batteryViewModel.getBatteryInfo()
+        binding.batteryLevelIndicator.apply {
+            this.chargeLevel = batteryViewModel.batteryPct.value
+            this.isCharging = batteryViewModel.isCharging.value!!
+        }
+
 
         // Set fragments buttons
         batteryViewModel.populateFragmentButtons()

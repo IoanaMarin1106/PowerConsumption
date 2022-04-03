@@ -16,34 +16,34 @@ import kotlin.math.roundToInt
 class BatteryViewModel: ViewModel() {
 
     // Battery Characteristics
-    private val _batteryLevel = MutableLiveData<Int>()
-    val batteryLevel: LiveData<Int>
-        get() = _batteryLevel
+//    private val _batteryLevel = MutableLiveData<Int>()
+//    val batteryLevel: LiveData<Int>
+//        get() = _batteryLevel
 
     private val _batteryPct = MutableLiveData<Int>()
     val batteryPct: LiveData<Int>
         get() = _batteryPct
 
-    private val _procentage = MutableLiveData<Float>()
-    val procentage: LiveData<Float>
-        get() = _procentage
-
     private val _chargingStatus = MutableLiveData<Int>()
     val chargingStatus: LiveData<Int>
         get() = _chargingStatus
 
+    private val _isCharging = MutableLiveData<Boolean>()
+    val isCharging: LiveData<Boolean>
+        get() = _isCharging
 
-    fun showBatteryInfo() {
+
+    fun getBatteryInfo() {
         // Get battery Level
         val batteryProcent: Int? = StarterFragment.batteryStatus?.let {
-            _batteryLevel.value = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+            var batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
             val scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-            (_batteryLevel.value!! * 100 / scale.toFloat())?.roundToInt()
+            (batteryLevel * 100 / scale.toFloat())?.roundToInt()
         }
 
         _batteryPct.value = batteryProcent!!
-        _procentage.value = (batteryProcent.toFloat() / 100)
         _chargingStatus.value = StarterFragment.batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+        _isCharging.value = _chargingStatus.value == BatteryManager.BATTERY_STATUS_CHARGING
     }
 
     fun populateFragmentButtons() {
