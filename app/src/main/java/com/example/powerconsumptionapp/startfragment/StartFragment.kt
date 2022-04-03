@@ -27,10 +27,6 @@ class StarterFragment() : Fragment() {
     private val batteryViewModel: BatteryViewModel by activityViewModels()
     private lateinit var binding: FragmentStartBinding
 
-    companion object {
-        @JvmStatic var batteryStatus:Intent? = null
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,13 +56,6 @@ class StarterFragment() : Fragment() {
         // Get battery status
         getBatteryStatus()
 
-        // Get battery info from the view model
-//        batteryViewModel.getBatteryInfo()
-//        batteryLevelIndicator.apply {
-//            this.chargeLevel = batteryViewModel.batteryPct.value
-//            this.isCharging = batteryViewModel.isCharging.value!!
-//        }
-
         // Set fragments buttons
         batteryViewModel.populateFragmentButtons()
         binding.recyclerViewFragmentStart.apply {
@@ -79,20 +68,20 @@ class StarterFragment() : Fragment() {
     }
 
     private fun getBatteryStatus() {
-        batteryStatus = IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
+        IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
             context?.registerReceiver(broadcastReceiver, ifilter)
         }
     }
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val batteryProcent: Int? = batteryStatus?.let {
+            val batteryProcent: Int? = intent?.let {
                 var batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
                 val scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-                (batteryLevel * 100 / scale.toFloat())?.roundToInt()
+                (batteryLevel * 100 / scale.toFloat()).roundToInt()
             }
 
-            val chargingStatus = batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+            val chargingStatus = intent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
 
             batteryLevelIndicator.apply {
                 this.chargeLevel = batteryProcent

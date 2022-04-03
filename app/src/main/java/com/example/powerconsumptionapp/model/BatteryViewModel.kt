@@ -19,32 +19,32 @@ class BatteryViewModel: ViewModel() {
 //    private val _batteryLevel = MutableLiveData<Int>()
 //    val batteryLevel: LiveData<Int>
 //        get() = _batteryLevel
+//
+//    private val _batteryPct = MutableLiveData<Int>()
+//    val batteryPct: LiveData<Int>
+//        get() = _batteryPct
+//
+//    private val _chargingStatus = MutableLiveData<Int>()
+//    val chargingStatus: LiveData<Int>
+//        get() = _chargingStatus
+//
+//    private val _isCharging = MutableLiveData<Boolean>()
+//    val isCharging: LiveData<Boolean>
+//        get() = _isCharging
 
-    private val _batteryPct = MutableLiveData<Int>()
-    val batteryPct: LiveData<Int>
-        get() = _batteryPct
 
-    private val _chargingStatus = MutableLiveData<Int>()
-    val chargingStatus: LiveData<Int>
-        get() = _chargingStatus
-
-    private val _isCharging = MutableLiveData<Boolean>()
-    val isCharging: LiveData<Boolean>
-        get() = _isCharging
-
-
-    fun getBatteryInfo() {
-        // Get battery Level
-        val batteryProcent: Int? = StarterFragment.batteryStatus?.let {
-            var batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
-            val scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
-            (batteryLevel * 100 / scale.toFloat())?.roundToInt()
-        }
-
-        _batteryPct.value = batteryProcent!!
-        _chargingStatus.value = StarterFragment.batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
-        _isCharging.value = _chargingStatus.value == BatteryManager.BATTERY_STATUS_CHARGING
-    }
+//    fun getBatteryInfo() {
+//        // Get battery Level
+//        val batteryProcent: Int? = StarterFragment.batteryStatus?.let {
+//            var batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+//            val scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+//            (batteryLevel * 100 / scale.toFloat())?.roundToInt()
+//        }
+//
+//        _batteryPct.value = batteryProcent!!
+//        _chargingStatus.value = StarterFragment.batteryStatus?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+//        _isCharging.value = _chargingStatus.value == BatteryManager.BATTERY_STATUS_CHARGING
+//    }
 
     fun populateFragmentButtons() {
         if (buttonsList.isEmpty()) {
