@@ -7,7 +7,6 @@ import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -76,7 +75,7 @@ class StarterFragment() : Fragment() {
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val batteryProcent: Int? = intent?.let {
-                var batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+                val batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
                 val scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
                 (batteryLevel * 100 / scale.toFloat()).roundToInt()
             }

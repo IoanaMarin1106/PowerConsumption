@@ -1,6 +1,5 @@
 package com.example.powerconsumptionapp.batteryview
 
-
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -8,6 +7,7 @@ import android.content.IntentFilter
 import android.content.res.Resources
 import android.os.BatteryManager
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -18,7 +18,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentBatteryViewBinding
+import com.example.powerconsumptionapp.general.Constants
+import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.BatteryViewModel
+import org.w3c.dom.Text
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -29,9 +32,25 @@ class BatteryViewFragment() : Fragment() {
 
     private var screenWidth: Int = 0
 
+    private var iFilter: IntentFilter? = IntentFilter()
+
+    // Battery level
     private lateinit var tvBatteryPercentage: TextView
     private lateinit var batteryLevelIndicator: ProgressBar
     private lateinit var chargingBattery: ImageView
+
+    // Battery temperature
+    private lateinit var temperatureProgressBar: ProgressBar
+    private lateinit var batteryTemperatureTextView: TextView
+    private lateinit var temperatureFeedbackImage: ImageView
+
+    // Grid Elements - Battery properties
+    private lateinit var statusValueTextView: TextView
+    private lateinit var voltageValueTextView: TextView
+    private lateinit var healthValueTextView: TextView
+    private lateinit var temperatureValueTextView: TextView
+    private lateinit var powerValueTextView: TextView
+    private lateinit var levelValueTextView: TextView
 
     init {
         screenWidth = Resources.getSystem().displayMetrics.widthPixels / 2
@@ -50,15 +69,14 @@ class BatteryViewFragment() : Fragment() {
             false
         )
 
-        tvBatteryPercentage = binding.tvBatteryPercentage
-        batteryLevelIndicator = binding.batteryLevelIndicator
-        chargingBattery = binding.chargingBattery
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Assign class properties to XML attributes
+        assignClassProperties()
 
         binding?.apply {
             lifecycleOwner = viewLifecycleOwner
@@ -66,7 +84,7 @@ class BatteryViewFragment() : Fragment() {
             viewModel = batteryViewModel
         }
 
-        // compute the battery intent
+        // Get battery attributes with action_battery_changed
         getBatteryStatus()
 
         binding.apply {
@@ -104,14 +122,32 @@ class BatteryViewFragment() : Fragment() {
 
             }
 
-            batteryTempStatisticsBttn?.setOnClickListener {
-                Toast.makeText(context, "aici aici", Toast.LENGTH_SHORT).show()
-            }
-
-            bttn4?.setOnClickListener {
-                Toast.makeText(context, "shkbcdeshbfclsedhbcfesw", Toast.LENGTH_SHORT).show()
+            tempProgressBarElements.setOnClickListener {
+                // If current format is Celsius -> convert to Fahrenheit
+                if (batteryTemperatureTextView.hint.equals(Constants.CELSIUS_DEGREES)) {
+                    convertCelsiusToFahrenheit()
+                } else if (batteryTemperatureTextView.hint.equals(Constants.FAHRENHEIT_DEGREES)) {
+                    convertFahrenheitToCelsius()
+                }
             }
         }
+    }
+
+    private fun assignClassProperties() {
+        tvBatteryPercentage = binding.tvBatteryPercentage
+        batteryLevelIndicator = binding.batteryLevelIndicator
+        chargingBattery = binding.chargingBattery
+
+        temperatureProgressBar = binding.temperatureProgressBar
+        temperatureFeedbackImage = binding.temperatureFeedbackImage
+        batteryTemperatureTextView = binding.batteryTemperatureTextView
+
+        statusValueTextView = binding.statusValueTextView
+        voltageValueTextView = binding.voltageValueTextView
+        healthValueTextView = binding.healthValueTextView
+        temperatureValueTextView = binding.temperatureValueTextView
+        powerValueTextView = binding.powerValueTextView
+        levelValueTextView = binding.levelValueTextView
     }
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -122,28 +158,131 @@ class BatteryViewFragment() : Fragment() {
                 (batteryLevel * 100 / scale.toFloat()).roundToInt()
             }
 
+            // Get charging status
             val chargingStatus = intent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+            setBatteryStatus(chargingStatus)
 
-            tvBatteryPercentage.text = batteryProcent.toString()
-            batteryLevelIndicator.progress = batteryProcent!!
-            if (chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
-                chargingBattery.visibility = View.VISIBLE
-                tvBatteryPercentage.visibility = View.GONE
+            // Set battery percentage
+            setBatteryPercentage(batteryProcent, chargingStatus)
+
+            // Get charge plug / if it plugged in or not
+            val chargePlug: Int = intent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: -1
+            setPowerAdapter(chargePlug)
+
+            // Get battery temperature
+            val batteryTemperature = intent?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)
+            setBatteryTemperature(batteryTemperature)
+
+            val health = intent?.getIntExtra(BatteryManager.EXTRA_HEALTH, 0)
+            setBatteryHealth(health)
+
+            val voltage = intent?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0)
+            setBatteryVoltage(voltage)
+        }
+    }
+
+    private fun setBatteryVoltage(voltage: Int?) {
+        voltageValueTextView.text = "${voltage} mv"
+    }
+
+    private fun setBatteryHealth(health: Int?) {
+        when (health) {
+            BatteryManager.BATTERY_HEALTH_COLD -> healthValueTextView.text = Constants.COLD
+            BatteryManager.BATTERY_HEALTH_DEAD -> healthValueTextView.text = Constants.DEAD
+            BatteryManager.BATTERY_HEALTH_GOOD -> healthValueTextView.text = Constants.GOOD
+            BatteryManager.BATTERY_HEALTH_OVERHEAT -> healthValueTextView.text = Constants.OVERHEAT
+            BatteryManager.BATTERY_HEALTH_OVER_VOLTAGE -> healthValueTextView.text = Constants.OVER_VOLTAGE
+            BatteryManager.BATTERY_HEALTH_UNKNOWN -> healthValueTextView.text = Constants.UNKNOWN
+            BatteryManager.BATTERY_HEALTH_UNSPECIFIED_FAILURE -> healthValueTextView.text = Constants.UNSPECIFIED_FAILURE
+        }
+    }
+
+    private fun setPowerAdapter(chargePlug: Int) {
+        when(chargePlug) {
+            BatteryManager.BATTERY_PLUGGED_AC -> powerValueTextView.text = Constants.AC_CHARGER
+            BatteryManager.BATTERY_PLUGGED_WIRELESS -> powerValueTextView.text = Constants.WIRELESS
+            BatteryManager.BATTERY_PLUGGED_USB -> powerValueTextView.text = Constants.USB
+            else -> powerValueTextView.text = Constants.NONE
+        }
+    }
+
+    private fun setBatteryStatus(chargingStatus: Int) {
+        when(chargingStatus) {
+            BatteryManager.BATTERY_STATUS_CHARGING -> statusValueTextView.text = Constants.CHARGING
+            BatteryManager.BATTERY_STATUS_UNKNOWN -> statusValueTextView.text = Constants.UNKNOWN
+            BatteryManager.BATTERY_STATUS_NOT_CHARGING -> statusValueTextView.text = Constants.NOT_CHARGING
+            BatteryManager.BATTERY_STATUS_FULL -> statusValueTextView.text = Constants.FULL
+            BatteryManager.BATTERY_STATUS_DISCHARGING -> statusValueTextView.text = Constants.DISCHARGING
+        }
+    }
+
+    private fun setBatteryTemperature(batteryTemperature: Int?) {
+        (batteryTemperature?.div(10))?.toFloat()!!.roundToInt().also {
+            temperatureProgressBar.progress = it
+            batteryTemperatureTextView.apply {
+                text = "$it${Constants.CELSIUS_DEGREES}"
+                hint = Constants.CELSIUS_DEGREES
+            }
+            temperatureValueTextView.text = it.toString()
+
+            if (it > Constants.HIGH_TEMPERATURE) {
+                temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_warning_24)
+            } else if (it < Constants.NORMAL_TEMPERATURE) {
+                temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_done_all_24)
             } else {
-                chargingBattery.visibility = View.GONE
-                tvBatteryPercentage.visibility = View.VISIBLE
+                temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_back_hand_24)
             }
         }
     }
 
-    private fun getBatteryStatus() {
-        IntentFilter(Intent.ACTION_BATTERY_CHANGED).let {
-            context?.registerReceiver(broadcastReceiver, it)
+    private fun setBatteryPercentage(batteryProcent: Int?, chargingStatus: Int) {
+        "${batteryProcent.toString()}%".also {
+            tvBatteryPercentage.text = it
+            levelValueTextView.text = it
+        }
+        batteryLevelIndicator.progress = batteryProcent!!
+
+        if (chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
+            chargingBattery.visibility = View.VISIBLE
+            tvBatteryPercentage.visibility = View.GONE
+        } else {
+            chargingBattery.visibility = View.GONE
+            tvBatteryPercentage.visibility = View.VISIBLE
         }
     }
 
-    override fun onDestroy() {
+    private fun convertFahrenheitToCelsius() {
+        val celsiusTemp = Util.convertFahrenheitToCelsius(temperatureProgressBar.progress)
+        temperatureProgressBar.progress = celsiusTemp
+        batteryTemperatureTextView.apply {
+            text = "$celsiusTemp${Constants.CELSIUS_DEGREES}"
+            hint = Constants.CELSIUS_DEGREES
+        }
+        temperatureValueTextView.text = "$celsiusTemp${Constants.CELSIUS_DEGREES}"
+    }
+
+    private fun convertCelsiusToFahrenheit() {
+        val fahrenheitTemp = Util.convertCelsiusToFahrenheit(temperatureProgressBar.progress)
+        temperatureProgressBar.progress = fahrenheitTemp
+        batteryTemperatureTextView.apply {
+            text = "$fahrenheitTemp${Constants.FAHRENHEIT_DEGREES}"
+            hint = Constants.FAHRENHEIT_DEGREES
+        }
+        temperatureValueTextView.text = "$fahrenheitTemp${Constants.FAHRENHEIT_DEGREES}"
+    }
+
+    private fun getBatteryStatus() {
+        iFilter!!.addAction(Intent.ACTION_BATTERY_CHANGED)
+        context?.registerReceiver(broadcastReceiver, iFilter)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        context?.registerReceiver(broadcastReceiver, iFilter)
+    }
+
+    override fun onPause() {
         context?.unregisterReceiver(broadcastReceiver)
-        super.onDestroy()
+        super.onPause()
     }
 }

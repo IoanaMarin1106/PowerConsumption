@@ -17,4 +17,18 @@
     <string name="nav_about">About</string>
     <string name="nav_battery_title">Battery Info</string>
     <string name="nav_cpu_title">CPU Info</string>
+
+    <string name="battery_temperature_feedback">Battery Temperature Feedback</string>
+    <string name="status_string">Status</string>
+    <string name="voltage_string">Voltage</string>
+    <string name="voltage_value">Voltage Value</string>
+    <string name="status_value">Status Value</string>
+    <string name="health_value">Health Value</string>
+    <string name="temperature_value">Temperature Value</string>
+    <string name="temperature_string">Temperature</string>
+    <string name="power_value">Power value</string>
+    <string name="level_string">Level</string>
+    <string name="level_value">Level value</string>
+    <string name="power_string">Power</string>
+    <string name="health_string">Health</string>
 </resources>
