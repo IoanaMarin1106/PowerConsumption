@@ -26,6 +26,8 @@ class StarterFragment() : Fragment() {
     private val batteryViewModel: BatteryViewModel by activityViewModels()
     private lateinit var binding: FragmentStartBinding
 
+    private var iFilter: IntentFilter? = IntentFilter()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,12 +68,6 @@ class StarterFragment() : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    private fun getBatteryStatus() {
-        IntentFilter(Intent.ACTION_BATTERY_CHANGED).let { ifilter ->
-            context?.registerReceiver(broadcastReceiver, ifilter)
-        }
-    }
-
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val batteryProcent: Int? = intent?.let {
@@ -89,6 +85,11 @@ class StarterFragment() : Fragment() {
         }
     }
 
+    private fun getBatteryStatus() {
+        iFilter!!.addAction(Intent.ACTION_BATTERY_CHANGED)
+        requireActivity().applicationContext.registerReceiver(broadcastReceiver, iFilter)
+    }
+
     // Inflate options menu for this fragment
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
@@ -101,8 +102,13 @@ class StarterFragment() : Fragment() {
                 super.onOptionsItemSelected(item)
     }
 
-    override fun onDestroy() {
-        context?.unregisterReceiver(broadcastReceiver)
-        super.onDestroy()
+    override fun onResume() {
+        super.onResume()
+        requireActivity().applicationContext.registerReceiver(broadcastReceiver, iFilter)
+    }
+
+    override fun onPause() {
+        requireActivity().applicationContext.unregisterReceiver(broadcastReceiver)
+        super.onPause()
     }
 }

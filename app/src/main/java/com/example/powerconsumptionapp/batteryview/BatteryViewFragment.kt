@@ -273,16 +273,16 @@ class BatteryViewFragment() : Fragment() {
 
     private fun getBatteryStatus() {
         iFilter!!.addAction(Intent.ACTION_BATTERY_CHANGED)
-        context?.registerReceiver(broadcastReceiver, iFilter)
+        requireActivity().applicationContext.registerReceiver(broadcastReceiver, iFilter)
     }
 
     override fun onResume() {
         super.onResume()
-        context?.registerReceiver(broadcastReceiver, iFilter)
+        requireActivity().applicationContext.registerReceiver(broadcastReceiver, iFilter)
     }
 
     override fun onPause() {
-        context?.unregisterReceiver(broadcastReceiver)
+        requireActivity().applicationContext.unregisterReceiver(broadcastReceiver)
         super.onPause()
     }
 }
