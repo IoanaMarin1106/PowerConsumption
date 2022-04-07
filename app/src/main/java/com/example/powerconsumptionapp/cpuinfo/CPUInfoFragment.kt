@@ -45,7 +45,8 @@ class CPUInfoFragment : Fragment() {
 
         binding.apply {
             cpuInformationBttn.setOnClickListener {
-                cpuViewModel.containerHandler(cpuInfoContainer, cpuStatsContainer, View.VISIBLE, View.GONE)
+                cpuViewModel.containerHandler(
+                    cpuInfoContainer, cpuStatsContainer, View.VISIBLE, View.GONE)
             }
 
             cpuStatisticsBttn.setOnClickListener {

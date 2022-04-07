@@ -17,5 +17,6 @@
     <color name="red">#CD2121</color>
     <color name="yellow">#FFFF00</color>
     <color name="dark_yellow">#CCCC00</color>
+    <color name="grey_gainsboro">#E8E8E8</color>
 
-    </resources>
+</resources>

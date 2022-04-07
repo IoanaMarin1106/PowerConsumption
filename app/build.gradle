@@ -78,4 +78,5 @@ dependencies {
 //    implementation 'com.android.support:design:22.2.0'
     implementation 'com.github.john990:WaveView:v0.9'
     implementation 'eo.view:batterymeter:2.0.0'
+    implementation 'com.akexorcist:round-corner-progress-bar:2.1.2'
 }

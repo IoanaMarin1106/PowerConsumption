@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/baseline_battery_2_bar_20.xml" value="0.18388157894736842" />
+        <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/baseline_battery_2_bar_24.xml" value="0.18388157894736842" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/ic_baseline_back_hand_24.xml" value="0.18388157894736842" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/ic_baseline_battery_charging_full_24.xml" value="0.18388157894736842" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/ic_baseline_crisis_alert_24.xml" value="0.18388157894736842" />
@@ -16,6 +18,7 @@
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout-land/fragment_start.xml" value="0.176" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout-v28/fragment_battery_view.xml" value="0.264" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/card_layout.xml" value="0.1736842105263158" />
+        <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_c_p_u_info.xml" value="0.6" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_start.xml" value="0.24473684210526317" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2911458333333333" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable/ic_baseline_battery_charging_full_24.xml" value="0.2911458333333333" />

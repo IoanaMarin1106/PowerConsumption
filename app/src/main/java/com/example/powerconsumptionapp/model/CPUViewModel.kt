@@ -1,11 +1,12 @@
 package com.example.powerconsumptionapp.model
 
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.lifecycle.ViewModel
 
 class CPUViewModel: ViewModel() {
     fun containerHandler(
-        cpuInfoContainer: LinearLayout,
+        cpuInfoContainer: ScrollView,
         statisticsContainer: LinearLayout,
         cpuInfoVisibility: Int,
         statisticsVisibility: Int

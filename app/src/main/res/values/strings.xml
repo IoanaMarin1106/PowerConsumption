@@ -17,7 +17,6 @@
     <string name="nav_about">About</string>
     <string name="nav_battery_title">Battery Info</string>
     <string name="nav_cpu_title">CPU Info</string>
-
     <string name="battery_temperature_feedback">Battery Temperature Feedback</string>
     <string name="status_string">Status</string>
     <string name="voltage_string">Voltage</string>
@@ -31,4 +30,10 @@
     <string name="level_value">Level value</string>
     <string name="power_string">Power</string>
     <string name="health_string">Health</string>
+    <string name="overall_cpu_usage">Overall Cpu Usage</string>
+    <string name="default_temp_hint">38</string>
+    <string name="default_cpu_temp">38℃</string>
+    <string name="cpu_hardware">CPU Hardware</string>
+    <string name="cpu_cores">CPU Cores</string>
+    <string name="cpu_frequency">CPU Frequency</string>
 </resources>
