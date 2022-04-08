@@ -245,8 +245,7 @@
                                         android:layout_column="1"
                                         android:layout_gravity="start"
                                         android:gravity="start"
-                                        android:text="@string/status_string"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:text="@string/status_string" />
 
                                     <TextView
                                         android:id="@+id/statusValueTextView"
@@ -255,8 +254,7 @@
                                         android:layout_row="0"
                                         android:layout_column="2"
                                         android:layout_gravity="end"
-                                        android:gravity="end"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:gravity="end" />
 
                                     <ImageView
                                         android:id="@+id/voltageIcon"
@@ -274,8 +272,7 @@
                                         android:layout_column="1"
                                         android:layout_gravity="start"
                                         android:gravity="start"
-                                        android:text="@string/voltage_string"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:text="@string/voltage_string" />
 
                                     <TextView
                                         android:id="@+id/voltageValueTextView"
@@ -284,8 +281,7 @@
                                         android:layout_row="1"
                                         android:layout_column="2"
                                         android:layout_gravity="end"
-                                        android:gravity="end"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:gravity="end" />
 
                                     <ImageView
                                         android:id="@+id/healthIcon"
@@ -303,8 +299,7 @@
                                         android:layout_column="1"
                                         android:layout_gravity="start"
                                         android:gravity="start"
-                                        android:text="@string/health_string"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:text="@string/health_string" />
 
                                     <TextView
                                         android:id="@+id/healthValueTextView"
@@ -313,8 +308,7 @@
                                         android:layout_row="2"
                                         android:layout_column="2"
                                         android:layout_gravity="end"
-                                        android:gravity="end"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:gravity="end" />
 
                                 </GridLayout>
                             </androidx.cardview.widget.CardView>
@@ -350,8 +344,7 @@
                                         android:layout_column="1"
                                         android:layout_gravity="start"
                                         android:gravity="start"
-                                        android:text="@string/temperature_string"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:text="@string/temperature_string" />
 
                                     <TextView
                                         android:id="@+id/temperatureValueTextView"
@@ -360,8 +353,7 @@
                                         android:layout_row="0"
                                         android:layout_column="2"
                                         android:layout_gravity="end"
-                                        android:gravity="end"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:gravity="end" />
 
                                     <ImageView
                                         android:id="@+id/powerIcon"
@@ -379,8 +371,7 @@
                                         android:layout_column="1"
                                         android:layout_gravity="start"
                                         android:gravity="start"
-                                        android:text="@string/power_string"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:text="@string/power_string" />
 
                                     <TextView
                                         android:id="@+id/powerValueTextView"
@@ -408,8 +399,7 @@
                                         android:layout_column="1"
                                         android:layout_gravity="start"
                                         android:gravity="start"
-                                        android:text="@string/level_string"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:text="@string/level_string" />
 
                                     <TextView
                                         android:id="@+id/levelValueTextView"
@@ -418,8 +408,7 @@
                                         android:layout_row="2"
                                         android:layout_column="2"
                                         android:layout_gravity="end"
-                                        android:gravity="end"
-                                        android:textSize="@dimen/text_view_size" />
+                                        android:gravity="end" />
                                 </GridLayout>
                             </androidx.cardview.widget.CardView>
 
