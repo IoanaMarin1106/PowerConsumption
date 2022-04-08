@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:columnCount="4"
+                android:rowCount="1"
+                android:useDefaultMargins="true">
+
+                <TextView
+                    android:id="@+id/rightCpuCoreNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:id="@+id/rightCpuCoreFrequency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:id="@+id/rightCpuCoreUsage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="3" />
+
+            </GridLayout>
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:columnCount="4"
+                android:rowCount="1"
+                android:useDefaultMargins="true">
+
+                <TextView
+                    android:id="@+id/leftCpuCoreNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:id="@+id/leftCpuCoreFrequency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:id="@+id/leftCpuCoreUsage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="3" />
+
+            </GridLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:padding="2dp"
+                app:rcBackgroundColor="@color/white"
+                app:rcBackgroundPadding="2dp"
+                app:rcMax="100"
+                app:rcProgress="40"
+                app:rcProgressColor="@color/indigo"
+                app:rcRadius="80dp"
+                app:rcSecondaryProgress="100"
+                app:rcSecondaryProgressColor="@color/grey_gainsboro"
+                app:rcTextPositionPriority="outside"
+                app:rcTextProgressColor="#111111" />
+
+            <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_weight="1"
+                android:padding="2dp"
+                app:rcBackgroundColor="@color/white"
+                app:rcBackgroundPadding="2dp"
+                app:rcMax="100"
+                app:rcProgress="40"
+                app:rcProgressColor="@color/indigo"
+                app:rcRadius="80dp"
+                app:rcSecondaryProgress="100"
+                app:rcSecondaryProgressColor="@color/grey_gainsboro"
+                app:rcTextPositionPriority="outside"
+                app:rcTextProgressColor="#111111" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

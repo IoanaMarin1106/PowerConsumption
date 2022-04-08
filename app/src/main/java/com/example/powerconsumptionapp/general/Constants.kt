@@ -27,4 +27,9 @@ object Constants {
     const val OVERHEAT = "Ovearheat"
     const val OVER_VOLTAGE = "Over voltage"
     const val UNSPECIFIED_FAILURE = "Unspecified failure"
+
+    // CPU details
+    const val CPU_CORES_PATH = "/sys/devices/system/cpu/"
+    const val CPU_TEMPERATURE_PATH = "/sys/devices/virtual/thermal/thermal_zone0"
+//    const val CPU_TEMPERATURE_PATH = "/sys/class/thermal/thermal_zone0"
 }

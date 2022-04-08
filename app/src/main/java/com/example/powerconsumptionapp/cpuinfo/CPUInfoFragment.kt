@@ -1,6 +1,8 @@
 package com.example.powerconsumptionapp.cpuinfo
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -52,6 +54,13 @@ class CPUInfoFragment : Fragment() {
             cpuStatisticsBttn.setOnClickListener {
                 cpuViewModel.containerHandler(cpuInfoContainer, cpuStatsContainer, View.GONE, View.VISIBLE)
             }
+
+            cpuCoresTextViewValue.text = cpuViewModel.getNumberOfCores().toString()
+            cpuHardwareTextViewValue.text = "${Build.HARDWARE}"
+            cpuViewModel.getCpuTemp()
+
+            cpuViewModel.populateGridLayoutItems()
         }
+
     }
 }
