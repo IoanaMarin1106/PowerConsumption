@@ -95,128 +95,120 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/progressBarContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:id="@+id/progressBarContainer"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent">
+                        <RelativeLayout
+                            android:id="@+id/levelProgressBar"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="1">
 
-                            <RelativeLayout
-                                android:id="@+id/levelProgressBar"
-                                android:layout_width="wrap_content"
+                            <ProgressBar
+                                android:id="@+id/batteryLevelIndicator"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:layout_width="@dimen/progress_bar"
+                                android:layout_height="@dimen/progress_bar"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:progressDrawable="@drawable/progressbar_states" />
+
+                            <LinearLayout
+                                android:id="@+id/progressBarElements"
+                                android:layout_width="169dp"
                                 android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="40dp">
+                                android:layout_alignStart="@+id/batteryLevelIndicator"
+                                android:layout_alignTop="@+id/batteryLevelIndicator"
+                                android:layout_alignEnd="@+id/batteryLevelIndicator"
+                                android:layout_alignBottom="@+id/batteryLevelIndicator"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
-                                <ProgressBar
-                                    android:id="@+id/batteryLevelIndicator"
-                                    style="@android:style/Widget.ProgressBar.Horizontal"
-                                    android:layout_width="@dimen/progress_bar"
-                                    android:layout_height="@dimen/progress_bar"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="@dimen/default_margin_top_bottom"
-                                    android:layout_marginBottom="@dimen/default_margin_top_bottom"
-                                    android:progressDrawable="@drawable/progressbar_states" />
-
-                                <LinearLayout
-                                    android:id="@+id/progressBarElements"
-                                    android:layout_width="169dp"
+                                <TextView
+                                    android:id="@+id/tvBatteryPercentage"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignStart="@+id/batteryLevelIndicator"
-                                    android:layout_alignTop="@+id/batteryLevelIndicator"
-                                    android:layout_alignEnd="@+id/batteryLevelIndicator"
-                                    android:layout_alignBottom="@+id/batteryLevelIndicator"
                                     android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
+                                    android:hint="@string/percent_format"
+                                    android:textColor="@color/black"
+                                    android:textSize="25sp" />
 
-                                    <TextView
-                                        android:id="@+id/tvBatteryPercentage"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:hint="@string/percent_format"
-                                        android:textColor="@color/black"
-                                        android:textSize="25sp" />
+                                <ImageView
+                                    android:id="@+id/chargingBattery"
+                                    android:layout_width="38dp"
+                                    android:layout_height="57dp"
+                                    android:layout_gravity="center"
+                                    android:contentDescription="@string/charging_battery"
+                                    android:visibility="gone"
+                                    app:srcCompat="@drawable/ic_baseline_flash_on_24" />
+                            </LinearLayout>
 
-                                    <ImageView
-                                        android:id="@+id/chargingBattery"
-                                        android:layout_width="38dp"
-                                        android:layout_height="57dp"
-                                        android:layout_gravity="center"
-                                        android:contentDescription="@string/charging_battery"
-                                        android:visibility="gone"
-                                        app:srcCompat="@drawable/ic_baseline_flash_on_24" />
-                                </LinearLayout>
+                        </RelativeLayout>
 
-                            </RelativeLayout>
+                        <RelativeLayout
+                            android:id="@+id/temperatureLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:layout_weight="1">
 
-                            <RelativeLayout
-                                android:id="@+id/temperatureLayout"
-                                android:layout_width="wrap_content"
+                            <ProgressBar
+                                android:id="@+id/temperatureProgressBar"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:layout_width="@dimen/progress_bar"
+                                android:layout_height="@dimen/progress_bar"
+                                android:progressDrawable="@drawable/progressbar_states" />
+
+                            <LinearLayout
+                                android:id="@+id/tempProgressBarElements"
+                                android:layout_width="169dp"
                                 android:layout_height="wrap_content"
-                                android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="40dp"
-                                android:layout_marginEnd="40dp">
+                                android:layout_alignStart="@id/temperatureProgressBar"
+                                android:layout_alignTop="@id/temperatureProgressBar"
+                                android:layout_alignEnd="@id/temperatureProgressBar"
+                                android:layout_alignBottom="@id/temperatureProgressBar"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
-                                <ProgressBar
-                                    android:id="@+id/temperatureProgressBar"
-                                    style="@android:style/Widget.ProgressBar.Horizontal"
-                                    android:layout_width="@dimen/progress_bar"
-                                    android:layout_height="@dimen/progress_bar"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="@dimen/default_margin_top_bottom"
-                                    android:layout_marginBottom="@dimen/default_margin_top_bottom"
-                                    android:progressDrawable="@drawable/progressbar_states" />
-
-                                <LinearLayout
-                                    android:id="@+id/tempProgressBarElements"
-                                    android:layout_width="169dp"
+                                <TextView
+                                    android:id="@+id/batteryTemperatureTextView"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_alignStart="@id/temperatureProgressBar"
-                                    android:layout_alignTop="@id/temperatureProgressBar"
-                                    android:layout_alignEnd="@id/temperatureProgressBar"
-                                    android:layout_alignBottom="@id/temperatureProgressBar"
                                     android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
+                                    android:hint="\u2103"
+                                    android:textColor="@color/black"
+                                    android:textSize="25sp" />
 
-                                    <TextView
-                                        android:id="@+id/batteryTemperatureTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:hint="\u2103"
-                                        android:textColor="@color/black"
-                                        android:textSize="25sp" />
+                                <ImageView
+                                    android:id="@+id/temperatureFeedbackImage"
+                                    android:layout_width="28dp"
+                                    android:layout_height="44dp"
+                                    android:layout_gravity="center"
+                                    android:contentDescription="@string/battery_temperature_feedback" />
+                            </LinearLayout>
 
-                                    <ImageView
-                                        android:id="@+id/temperatureFeedbackImage"
-                                        android:layout_width="28dp"
-                                        android:layout_height="44dp"
-                                        android:layout_gravity="center"
-                                        android:contentDescription="@string/battery_temperature_feedback" />
-                                </LinearLayout>
+                        </RelativeLayout>
 
-                            </RelativeLayout>
+                    </LinearLayout>
 
-                        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/firstCardView"
                             android:layout_width="wrap_content"
-                            android:layout_height="90dp"
-                            android:layout_toEndOf="@id/progressBarContainer"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="10dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             app:cardCornerRadius="15dp"
                             app:cardElevation="7dp">
 
@@ -224,8 +216,8 @@
                                 android:id="@+id/batteryGridLayout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:useDefaultMargins="true"
                                 android:columnCount="3"
-                                android:padding="@dimen/default_padding"
                                 android:rowCount="3">
 
                                 <ImageView
@@ -321,27 +313,25 @@
                         <androidx.cardview.widget.CardView
                             android:id="@+id/secondCardView"
                             android:layout_width="wrap_content"
-                            android:layout_height="90dp"
-                            android:layout_margin="20dp"
-                            android:layout_below="@id/firstCardView"
-                            android:layout_toEndOf="@id/progressBarContainer"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
                             app:cardCornerRadius="15dp"
                             app:cardElevation="7dp">
 
                             <GridLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:useDefaultMargins="true"
                                 android:columnCount="3"
-                                android:padding="@dimen/default_padding"
                                 android:rowCount="3">
 
                                 <ImageView
-                                android:id="@+id/temperatureIcon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_row="0"
-                                android:layout_column="0"
-                                app:srcCompat="@drawable/baseline_thermostat_24" />
+                                    android:id="@+id/temperatureIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="0"
+                                    app:srcCompat="@drawable/baseline_thermostat_24" />
 
                                 <TextView
                                     android:id="@+id/temperatureTextView"
@@ -423,8 +413,8 @@
                                     android:textSize="@dimen/text_view_size" />
                             </GridLayout>
                         </androidx.cardview.widget.CardView>
+                    </LinearLayout>
 
-                    </RelativeLayout>
                 </LinearLayout>
             </ScrollView>
         </RelativeLayout>
