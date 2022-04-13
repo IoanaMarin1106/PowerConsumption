@@ -11,9 +11,11 @@ import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentCPUInfoBinding
 import com.example.powerconsumptionapp.model.CPUViewModel
+import com.example.powerconsumptionapp.startfragment.buttonsList
 
 class CPUInfoFragment : Fragment() {
 
@@ -59,7 +61,11 @@ class CPUInfoFragment : Fragment() {
             cpuHardwareTextViewValue.text = "${Build.HARDWARE}"
             cpuViewModel.getCpuTemp()
 
-            cpuViewModel.populateGridLayoutItems()
+            cpuViewModel.populateGridLayoutItems(2)
+            binding.cpuInfoRecyclerView?.apply {
+                layoutManager = GridLayoutManager(requireActivity().application, 1)
+                adapter = ItemAdapter(itemsList)
+            }
         }
 
     }

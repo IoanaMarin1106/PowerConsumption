@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.lifecycle.ViewModel
 import com.example.powerconsumptionapp.cpuinfo.CPUInfoFragment
+import com.example.powerconsumptionapp.cpuinfo.GridItem
 import com.example.powerconsumptionapp.cpuinfo.itemsList
 import com.example.powerconsumptionapp.general.Constants
 import java.io.File
@@ -64,7 +65,27 @@ class CPUViewModel: ViewModel() {
 
     fun populateGridLayoutItems(itemsNumber: Int) {
         if (itemsList.isEmpty()) {
-//            for ()
+            val firstCoreGroup = GridItem(
+                "cpu1",
+                "1.34GHZ",
+                74,
+                "cpu2",
+                "1.35GHz",
+                73
+            )
+            val secondCoreGroup = GridItem(
+                "cpu3",
+                "1.24GHZ",
+                50,
+                "cpu4",
+                "1.36GHz",
+                56
+            )
+
+            itemsList.apply {
+                add(firstCoreGroup)
+                add(secondCoreGroup)
+            }
         }
     }
 }

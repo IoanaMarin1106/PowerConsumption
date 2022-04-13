@@ -24,7 +24,7 @@ class CardAdapter(
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CardAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.cardTitle.text = buttonsList[position].buttonTitle
         holder.cardIcon.setImageResource(buttonsList[position].buttonImage)
 

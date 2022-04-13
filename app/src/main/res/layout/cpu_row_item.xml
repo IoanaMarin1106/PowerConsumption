@@ -21,37 +21,6 @@
                 android:useDefaultMargins="true">
 
                 <TextView
-                    android:id="@+id/rightCpuCoreNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:layout_column="0" />
-
-                <TextView
-                    android:id="@+id/rightCpuCoreFrequency"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:layout_column="1" />
-
-                <TextView
-                    android:id="@+id/rightCpuCoreUsage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_row="0"
-                    android:layout_column="3" />
-
-            </GridLayout>
-
-            <GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:columnCount="4"
-                android:rowCount="1"
-                android:useDefaultMargins="true">
-
-                <TextView
                     android:id="@+id/leftCpuCoreNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,6 +42,37 @@
                     android:layout_column="3" />
 
             </GridLayout>
+
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:columnCount="4"
+                android:rowCount="1"
+                android:useDefaultMargins="true">
+
+                <TextView
+                    android:id="@+id/rightCpuCoreNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:id="@+id/rightCpuCoreFrequency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:id="@+id/rightCpuCoreUsage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="0"
+                    android:layout_column="3" />
+
+            </GridLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -81,6 +81,7 @@
             android:orientation="horizontal">
 
             <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+                android:id="@+id/leftCpuProgressBar"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_weight="1"
@@ -97,6 +98,7 @@
                 app:rcTextProgressColor="#111111" />
 
             <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+                android:id="@+id/rightCpuProgressBar"
                 android:layout_width="0dp"
                 android:layout_height="20dp"
                 android:layout_weight="1"
