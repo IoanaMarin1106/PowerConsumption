@@ -9,6 +9,7 @@ import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -22,6 +23,8 @@ import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.BatteryViewModel
 import java.util.*
 import kotlin.math.roundToInt
+import android.view.WindowManager
+
 
 class BatteryViewFragment() : Fragment() {
 
@@ -148,42 +151,35 @@ class BatteryViewFragment() : Fragment() {
         val contentResolver = this.requireContext().contentResolver
         val window = this.requireActivity().window
         brightnessSeekBar.apply {
-            max = maxBrightness
+            max = 255
             keyProgressIncrement = 1
         }
 
         brightness = Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS)
+        Log.v("IOANA", brightness.toString())
         brightnessSeekBar.progress = brightness
-
-        // Set a SeekBar change listener
-        brightnessSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
-                if (progress <= Constants.BRIGHTNESS_THRESHOLD) {
-                    brightness = Constants.BRIGHTNESS_THRESHOLD
+        brightnessSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (progress <= 20) {
+                    brightness = 20
                 } else {
                     brightness = progress
                 }
 
-                val perc = (brightness / (maxBrightness.toFloat())) * 100
-
-                textPercentage.text = "${perc.toInt()}%"
+                val percentage = (brightness / maxBrightness.toFloat()) * 100
+                textPercentage.text = "${percentage.toInt()}%"
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
             }
 
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-                Settings.System.putInt(
-                    contentResolver,
-                    Settings.System.SCREEN_BRIGHTNESS_MODE,
-                    Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL
-                )
-
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, brightness)
-                var layoutParams = window.attributes
-                layoutParams.screenBrightness = brightness / (maxBrightness.toFloat())
-                window.attributes = layoutParams
+                val lp : WindowManager.LayoutParams = window.attributes
+                lp.screenBrightness = brightness / maxBrightness.toFloat()
+                window.attributes = lp
             }
+
         })
 
     }

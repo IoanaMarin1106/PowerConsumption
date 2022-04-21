@@ -474,63 +474,11 @@
                             android:progressDrawable="@drawable/seekbar_drawable_progress"
                             android:thumb="@drawable/seekbar_drawable_thumb" />
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingHorizontal="6dp"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:text="@string/zero_progress"
-                                android:gravity="center"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:text="@string/progress_20"
-                                android:gravity="center"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:text="@string/progress_40"
-                                android:gravity="center"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:text="@string/progress_60"
-                                android:gravity="center"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:text="@string/progress_80"
-                                android:gravity="center"
-                                android:layout_weight="1"/>
-
-                            <TextView
-                                android:layout_height="wrap_content"
-                                android:layout_width="wrap_content"
-                                android:text="@string/progress_100"
-                                android:gravity="center"
-                                android:layout_weight="1"/>
-
-                        </LinearLayout>
-
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
-
             </LinearLayout>
-
 
         </ScrollView>
 
