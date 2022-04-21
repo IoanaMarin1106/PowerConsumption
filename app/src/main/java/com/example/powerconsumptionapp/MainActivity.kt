@@ -12,6 +12,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.powerconsumptionapp.databinding.ActivityMainBinding
+import android.content.Intent
+import android.net.Uri
+
+import android.os.Build
+import android.provider.Settings
+
 
 /**
  * This main activity is just a container for our fragments,

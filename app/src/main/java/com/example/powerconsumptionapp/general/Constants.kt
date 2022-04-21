@@ -28,6 +28,10 @@ object Constants {
     const val OVER_VOLTAGE = "Over voltage"
     const val UNSPECIFIED_FAILURE = "Unspecified failure"
 
+    // Screen brightness
+    const val MAX_BRIGHTNESS = 255
+    const val BRIGHTNESS_THRESHOLD = 5
+
     // CPU details
     const val CPU_CORES_PATH = "/sys/devices/system/cpu/"
     const val CPU_TEMPERATURE_PATH = "/sys/devices/virtual/thermal/thermal_zone0"

@@ -419,38 +419,27 @@
             </ScrollView>
         </RelativeLayout>
 
-        <LinearLayout
+        <ScrollView
             android:id="@+id/batterySaverContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/horizontalScrollMenuBattery"
-            android:layout_alignParentEnd="true"
-            android:orientation="vertical"
             android:visibility="gone">
 
-            <TextView
-                android:id="@+id/saverinfo1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="saver here" />
-
-            <TextView
-                android:id="@+id/saverinfo2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="saver here" />
-
-            <TextView
-                android:id="@+id/saverinfo3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="saver here" />
-
-            <EditText
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
 
-        </LinearLayout>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="fcheswdbfcshedbf"/>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
         <LinearLayout
             android:id="@+id/levelStatisticsContainer"
             android:layout_width="match_parent"

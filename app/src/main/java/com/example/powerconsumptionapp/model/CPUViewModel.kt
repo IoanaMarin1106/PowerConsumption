@@ -19,8 +19,7 @@ import kotlin.reflect.typeOf
 import java.lang.Compiler.command
 
 import com.example.powerconsumptionapp.general.ShellExecuter
-
-
+import java.io.IOException
 
 
 class CPUViewModel: ViewModel() {
@@ -42,13 +41,7 @@ class CPUViewModel: ViewModel() {
     }
 
     fun getCpuTemp(): Int {
-//        val commandToRun = "chmod sys/class/thermal/thermal_zone0/temp 7777"
-//        Runtime.getRuntime().exec(commandToRun)
-//        File(Constants.CPU_TEMPERATURE_PATH).forEachLine {
-//            println(it)
-//        }
-
-//        val reader = RandomAccessFile("/sys/devices/system/cpu/cpu0/cpufreq/cpu_temp", "r")
+//        val reader = RandomAccessFile(Constants.CPU_TEMPERATURE_PATH, "r")
 //        val line = reader.readLine()
 //        println(line)
 

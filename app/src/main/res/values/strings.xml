@@ -36,4 +36,12 @@
     <string name="cpu_hardware">CPU Hardware</string>
     <string name="cpu_cores">CPU Cores</string>
     <string name="cpu_frequency">CPU Frequency</string>
+    <string name="zero_progress">0</string>
+    <string name="progress_20">20</string>
+    <string name="progress_40">40</string>
+    <string name="progress_60">60</string>
+    <string name="progress_80">80</string>
+    <string name="progress_100">100</string>
+    <string name="brightness_control">BrightnessControl</string>
+    <string name="text_percentage">Text Percentage</string>
 </resources>

@@ -3,6 +3,7 @@ package com.example.powerconsumptionapp.model
 import android.os.BatteryManager
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.ScrollView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -64,7 +65,7 @@ class BatteryViewModel: ViewModel() {
 
     fun containerHandler(
         informationContainer: RelativeLayout,
-        saverContainer: LinearLayout,
+        saverContainer: ScrollView,
         levelStatisticsContainer: LinearLayout,
         infoVisibility: Int,
         saverVisibility: Int,

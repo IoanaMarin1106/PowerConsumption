@@ -58,7 +58,7 @@ class CPUInfoFragment : Fragment() {
             }
 
             cpuCoresTextViewValue.text = cpuViewModel.getNumberOfCores().toString()
-            cpuHardwareTextViewValue.text = "${Build.HARDWARE}"
+            cpuHardwareTextViewValue.text = Build.HARDWARE
             cpuViewModel.getCpuTemp()
 
             cpuViewModel.populateGridLayoutItems(2)

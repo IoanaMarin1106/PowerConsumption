@@ -6,14 +6,13 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Resources
 import android.os.BatteryManager
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.provider.Settings
 import android.view.*
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import com.example.powerconsumptionapp.R
@@ -21,7 +20,6 @@ import com.example.powerconsumptionapp.databinding.FragmentBatteryViewBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.BatteryViewModel
-import org.w3c.dom.Text
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -52,7 +50,14 @@ class BatteryViewFragment() : Fragment() {
     private lateinit var powerValueTextView: TextView
     private lateinit var levelValueTextView: TextView
 
-    init {
+    // Saver container elements
+    private lateinit var brightnessSeekBar: SeekBar
+    private lateinit var textPercentage: TextView
+    private var brightness = 0
+    private val maxBrightness = Constants.MAX_BRIGHTNESS
+
+
+        init {
         screenWidth = Resources.getSystem().displayMetrics.widthPixels / 2
     }
 
@@ -72,6 +77,7 @@ class BatteryViewFragment() : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -131,6 +137,71 @@ class BatteryViewFragment() : Fragment() {
                 }
             }
         }
+
+        // handle brightness control
+        // Check whether has the write settings permission or not.
+        val settingsCanWrite = hasWriteSettingsPermission(this.requireContext())
+        if (!settingsCanWrite) {
+            changeWriteSettingsPermission(this.requireContext())
+        }
+
+        val contentResolver = this.requireContext().contentResolver
+        val window = this.requireActivity().window
+        brightnessSeekBar.apply {
+            max = maxBrightness
+            keyProgressIncrement = 1
+        }
+
+        brightness = Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS)
+        brightnessSeekBar.progress = brightness
+
+        // Set a SeekBar change listener
+        brightnessSeekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
+                if (progress <= Constants.BRIGHTNESS_THRESHOLD) {
+                    brightness = Constants.BRIGHTNESS_THRESHOLD
+                } else {
+                    brightness = progress
+                }
+
+                val perc = (brightness / (maxBrightness.toFloat())) * 100
+
+                textPercentage.text = "${perc.toInt()}%"
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                Settings.System.putInt(
+                    contentResolver,
+                    Settings.System.SCREEN_BRIGHTNESS_MODE,
+                    Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL
+                )
+
+                Settings.System.putInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS, brightness)
+                var layoutParams = window.attributes
+                layoutParams.screenBrightness = brightness / (maxBrightness.toFloat())
+                window.attributes = layoutParams
+            }
+        })
+
+    }
+
+    // Check whether this app has android write settings permission.
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun hasWriteSettingsPermission(context: Context): Boolean {
+        var ret = true
+        // Get the result from below code.
+        ret = Settings.System.canWrite(context)
+        return ret
+    }
+
+    // Start can modify system settings panel to let user change the write
+    // settings permission.
+    private fun changeWriteSettingsPermission(context: Context) {
+        val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+        context.startActivity(intent)
     }
 
     private fun assignClassProperties() {
@@ -148,6 +219,9 @@ class BatteryViewFragment() : Fragment() {
         temperatureValueTextView = binding.temperatureValueTextView
         powerValueTextView = binding.powerValueTextView
         levelValueTextView = binding.levelValueTextView
+
+        brightnessSeekBar = binding.brightnessSeekBar!!
+        textPercentage = binding.txtPercentage!!
     }
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -286,3 +360,7 @@ class BatteryViewFragment() : Fragment() {
         super.onPause()
     }
 }
+
+
+
+
