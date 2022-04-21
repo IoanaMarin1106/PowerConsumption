@@ -83,8 +83,7 @@
             android:id="@+id/batteryInfoContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/horizontalScrollMenuBattery"
-            android:visibility="gone">
+            android:layout_below="@+id/horizontalScrollMenuBattery">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -423,7 +422,8 @@
             android:id="@+id/batterySaverContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/horizontalScrollMenuBattery">
+            android:layout_below="@+id/horizontalScrollMenuBattery"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
