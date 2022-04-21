@@ -1,10 +1,8 @@
 package com.example.powerconsumptionapp.batteryview
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.content.*
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.BatteryManager
 import android.os.Build
 import android.os.Bundle
@@ -58,6 +56,10 @@ class BatteryViewFragment() : Fragment() {
     private lateinit var textPercentage: TextView
     private var brightness = 0
     private val maxBrightness = Constants.MAX_BRIGHTNESS
+    private lateinit var timeoutSpinner: Spinner
+    private lateinit var contentResolver: ContentResolver
+    private lateinit var window: Window
+    private lateinit var charginStatusSpinner : Spinner
 
 
         init {
@@ -141,6 +143,58 @@ class BatteryViewFragment() : Fragment() {
             }
         }
 
+        // Setup brightness control to reduce battery consumption
+        brightnessControlHandler()
+
+        // Setup the timeout spinner
+        spinnerHandler()
+
+        // Setup charging status spinner
+        chargingStatusSpinner()
+    }
+
+    private fun chargingStatusSpinner() {
+        val pluggedInOptions = resources.getStringArray(R.array.PluggedInOpt)
+        val adapter = object: ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item, pluggedInOptions) {
+            override fun isEnabled(position: Int): Boolean {
+                // Disable the first item from Spinner
+                // First item will be used for hint
+                return position != 0
+            }
+
+            override fun getDropDownView(
+                position: Int,
+                convertView: View?,
+                parent: ViewGroup
+            ): View {
+                val view: TextView = super.getDropDownView(position, convertView, parent) as TextView
+                //set the color of first item in the drop down list to gray
+                if(position == 0) {
+                    view.setTextColor(Color.GRAY)
+                }
+                return view
+            }
+        }
+
+        charginStatusSpinner.adapter = adapter
+        charginStatusSpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>,
+                                        view: View, position: Int, id: Long) {
+
+                val value = parent!!.getItemAtPosition(position).toString()
+                if(value == pluggedInOptions[0]) {
+                    (view as TextView).setTextColor(Color.GRAY)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun brightnessControlHandler() {
         // handle brightness control
         // Check whether has the write settings permission or not.
         val settingsCanWrite = hasWriteSettingsPermission(this.requireContext())
@@ -148,15 +202,12 @@ class BatteryViewFragment() : Fragment() {
             changeWriteSettingsPermission(this.requireContext())
         }
 
-        val contentResolver = this.requireContext().contentResolver
-        val window = this.requireActivity().window
         brightnessSeekBar.apply {
             max = 255
             keyProgressIncrement = 1
         }
 
         brightness = Settings.System.getInt(contentResolver, Settings.System.SCREEN_BRIGHTNESS)
-        Log.v("IOANA", brightness.toString())
         brightnessSeekBar.progress = brightness
         brightnessSeekBar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -181,7 +232,60 @@ class BatteryViewFragment() : Fragment() {
             }
 
         })
+    }
 
+    private fun spinnerHandler() {
+        val timeoutTimes = resources.getStringArray(R.array.Times)
+        val adapter = object: ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item, timeoutTimes) {
+            override fun isEnabled(position: Int): Boolean {
+                // Disable the first item from Spinner
+                // First item will be used for hint
+                return position != 0
+            }
+
+            override fun getDropDownView(
+                position: Int,
+                convertView: View?,
+                parent: ViewGroup
+            ): View {
+                val view: TextView = super.getDropDownView(position, convertView, parent) as TextView
+                //set the color of first item in the drop down list to gray
+                if(position == 0) {
+                    view.setTextColor(Color.GRAY)
+                }
+                return view
+            }
+        }
+
+        timeoutSpinner.adapter = adapter
+        timeoutSpinner.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>,
+                                        view: View, position: Int, id: Long) {
+
+                val value = parent!!.getItemAtPosition(position).toString()
+                if(value == timeoutTimes[0]){
+                    (view as TextView).setTextColor(Color.GRAY)
+                }
+
+                var timeout = 0
+                when(timeoutTimes[position]) {
+                    "15 seconds" -> timeout = 15000
+                    "30 seconds" -> timeout = 30000
+                    "1 minute" -> timeout = 60000
+                    "2 minutes" -> timeout = 120000
+                    "10 minutes" -> timeout = 600000
+                    "30 minutes" -> timeout = 180000
+                }
+                Settings.System.putInt(contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, timeout)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                val defaultTimeout = 60000
+                timeoutSpinner.setSelection(3)
+                Settings.System.putInt(contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, defaultTimeout)
+            }
+        }
     }
 
     // Check whether this app has android write settings permission.
@@ -218,6 +322,10 @@ class BatteryViewFragment() : Fragment() {
 
         brightnessSeekBar = binding.brightnessSeekBar!!
         textPercentage = binding.txtPercentage!!
+        timeoutSpinner = binding.timeoutSpinner!!
+        contentResolver = this.requireContext().contentResolver
+        window = this.requireActivity().window
+        charginStatusSpinner = binding.chargingStatusSpinner!!
     }
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {

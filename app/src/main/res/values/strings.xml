@@ -42,6 +42,8 @@
     <string name="progress_60">60</string>
     <string name="progress_80">80</string>
     <string name="progress_100">100</string>
-    <string name="brightness_control">BrightnessControl</string>
+    <string name="brightness_control">Brightness Control</string>
     <string name="text_percentage">Text Percentage</string>
+    <string name="screen_timeout">Screen Timeout</string>
+    <string name="charging_status">Charging status</string>
 </resources>
