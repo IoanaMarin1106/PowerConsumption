@@ -49,7 +49,7 @@
                     android:background="@drawable/round_shadow_button"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="@dimen/default_padding"
-                    android:text="Saver"
+                    android:text="@string/saver"
                     android:textColor="@android:color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -61,53 +61,39 @@
                     android:background="@drawable/round_shadow_button"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:padding="@dimen/default_padding"
-                    android:text="Percentage Statistics"
-                    android:textColor="@android:color/white" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/bttn4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/default_margin_buttons"
-                    android:background="@drawable/round_shadow_button"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:padding="@dimen/default_padding"
-                    android:text="secbfes"
+                    android:text="@string/statistics"
                     android:textColor="@android:color/white" />
 
             </LinearLayout>
         </HorizontalScrollView>
 
-        <RelativeLayout
+        <ScrollView
             android:id="@+id/batteryInfoContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/horizontalScrollMenuBattery"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/horizontalScrollMenuBattery">
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:id="@+id/progressBarContainer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <RelativeLayout
                             android:id="@+id/levelProgressBar"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_weight="1">
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
 
                             <ProgressBar
                                 android:id="@+id/batteryLevelIndicator"
@@ -116,6 +102,8 @@
                                 android:layout_height="@dimen/progress_bar"
                                 android:layout_alignParentStart="true"
                                 android:layout_alignParentTop="true"
+                                android:layout_marginTop="@dimen/default_margin_top_bottom"
+                                android:layout_marginBottom="@dimen/default_margin_top_bottom"
                                 android:progressDrawable="@drawable/progressbar_states" />
 
                             <LinearLayout
@@ -153,16 +141,21 @@
 
                         <RelativeLayout
                             android:id="@+id/temperatureLayout"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:layout_weight="1">
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
 
                             <ProgressBar
                                 android:id="@+id/temperatureProgressBar"
                                 style="@android:style/Widget.ProgressBar.Horizontal"
                                 android:layout_width="@dimen/progress_bar"
                                 android:layout_height="@dimen/progress_bar"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="@dimen/default_margin_top_bottom"
+                                android:layout_marginBottom="@dimen/default_margin_top_bottom"
+                                android:max="40"
                                 android:progressDrawable="@drawable/progressbar_states" />
 
                             <LinearLayout
@@ -199,26 +192,27 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:id="@+id/batteryDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/progressBarContainer"
+                        android:orientation="horizontal">
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/firstCardView"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             app:cardCornerRadius="15dp"
                             app:cardElevation="7dp">
 
                             <GridLayout
                                 android:id="@+id/batteryGridLayout"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:useDefaultMargins="true"
                                 android:columnCount="3"
-                                android:rowCount="3">
+                                android:rowCount="3"
+                                android:useDefaultMargins="true">
 
                                 <ImageView
                                     android:id="@+id/statusIcon"
@@ -236,8 +230,7 @@
                                     android:layout_column="1"
                                     android:layout_gravity="start"
                                     android:gravity="start"
-                                    android:text="@string/status_string"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:text="@string/status_string" />
 
                                 <TextView
                                     android:id="@+id/statusValueTextView"
@@ -246,8 +239,7 @@
                                     android:layout_row="0"
                                     android:layout_column="2"
                                     android:layout_gravity="end"
-                                    android:gravity="end"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:gravity="end" />
 
                                 <ImageView
                                     android:id="@+id/voltageIcon"
@@ -265,8 +257,7 @@
                                     android:layout_column="1"
                                     android:layout_gravity="start"
                                     android:gravity="start"
-                                    android:text="@string/voltage_string"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:text="@string/voltage_string" />
 
                                 <TextView
                                     android:id="@+id/voltageValueTextView"
@@ -275,8 +266,7 @@
                                     android:layout_row="1"
                                     android:layout_column="2"
                                     android:layout_gravity="end"
-                                    android:gravity="end"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:gravity="end" />
 
                                 <ImageView
                                     android:id="@+id/healthIcon"
@@ -294,8 +284,7 @@
                                     android:layout_column="1"
                                     android:layout_gravity="start"
                                     android:gravity="start"
-                                    android:text="@string/health_string"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:text="@string/health_string" />
 
                                 <TextView
                                     android:id="@+id/healthValueTextView"
@@ -304,8 +293,7 @@
                                     android:layout_row="2"
                                     android:layout_column="2"
                                     android:layout_gravity="end"
-                                    android:gravity="end"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:gravity="end" />
 
                             </GridLayout>
                         </androidx.cardview.widget.CardView>
@@ -313,7 +301,7 @@
                         <androidx.cardview.widget.CardView
                             android:id="@+id/secondCardView"
                             android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             app:cardCornerRadius="15dp"
                             app:cardElevation="7dp">
@@ -321,9 +309,9 @@
                             <GridLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:useDefaultMargins="true"
                                 android:columnCount="3"
-                                android:rowCount="3">
+                                android:rowCount="3"
+                                android:useDefaultMargins="true">
 
                                 <ImageView
                                     android:id="@+id/temperatureIcon"
@@ -341,8 +329,7 @@
                                     android:layout_column="1"
                                     android:layout_gravity="start"
                                     android:gravity="start"
-                                    android:text="@string/temperature_string"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:text="@string/temperature_string" />
 
                                 <TextView
                                     android:id="@+id/temperatureValueTextView"
@@ -351,8 +338,7 @@
                                     android:layout_row="0"
                                     android:layout_column="2"
                                     android:layout_gravity="end"
-                                    android:gravity="end"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:gravity="end" />
 
                                 <ImageView
                                     android:id="@+id/powerIcon"
@@ -370,8 +356,7 @@
                                     android:layout_column="1"
                                     android:layout_gravity="start"
                                     android:gravity="start"
-                                    android:text="@string/power_string"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:text="@string/power_string" />
 
                                 <TextView
                                     android:id="@+id/powerValueTextView"
@@ -399,8 +384,7 @@
                                     android:layout_column="1"
                                     android:layout_gravity="start"
                                     android:gravity="start"
-                                    android:text="@string/level_string"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:text="@string/level_string" />
 
                                 <TextView
                                     android:id="@+id/levelValueTextView"
@@ -409,15 +393,24 @@
                                     android:layout_row="2"
                                     android:layout_column="2"
                                     android:layout_gravity="end"
-                                    android:gravity="end"
-                                    android:textSize="@dimen/text_view_size" />
+                                    android:gravity="end" />
                             </GridLayout>
                         </androidx.cardview.widget.CardView>
+
                     </LinearLayout>
 
-                </LinearLayout>
-            </ScrollView>
-        </RelativeLayout>
+                    <Button
+                        android:id="@+id/charge_menu_button"
+                        style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/batteryDescription"
+                        android:layout_marginTop="@dimen/default_margin_battery"
+                        android:text="@string/show_charge_options" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
 
         <ScrollView
             android:id="@+id/batterySaverContainer"
@@ -428,20 +421,102 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <EditText
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="fcheswdbfcshedbf"/>
+                    android:layout_marginTop="@dimen/default_margin_battery"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="7dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/default_padding"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/brightness_control"  />
+
+                            <TextView
+                                android:id="@+id/txtPercentage"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"/>
+                        </LinearLayout>
+
+                        <SeekBar
+                            android:id="@+id/brightnessSeekBar"
+                            style="@style/Widget.AppCompat.SeekBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fadeScrollbars="true"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/seekbar_drawable_progress"
+                            android:thumb="@drawable/seekbar_drawable_thumb" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin_battery"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="7dp" >
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:useDefaultMargins="true"
+                        android:columnCount="1"
+                        android:rowCount="2">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="0"
+                            android:text="@string/screen_timeout"/>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="0"
+                            android:layout_row="1"
+                            app:cardCornerRadius="15dp"
+                            app:cardElevation="7dp" >
+
+                            <Spinner
+                                android:id="@+id/timeoutSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </androidx.cardview.widget.CardView>
+
+                    </GridLayout>
+
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
-
-
         </ScrollView>
 
         <LinearLayout
-            android:id="@+id/levelStatisticsContainer"
+            android:id="@+id/statisticsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/horizontalScrollMenuBattery"

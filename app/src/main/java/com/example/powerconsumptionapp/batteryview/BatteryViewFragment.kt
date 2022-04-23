@@ -99,9 +99,9 @@ class BatteryViewFragment() : Fragment() {
         binding.apply {
             batteryInfoBttn.setOnClickListener {
                 batteryViewModel.containerHandler(
-                    batteryInfoContainer!!,
-                    batterySaverContainer!!,
-                    statisticsContainer!!,
+                    batteryInfoContainer,
+                    batterySaverContainer,
+                    statisticsContainer,
                     View.VISIBLE,
                     View.GONE,
                     View.GONE
@@ -109,21 +109,22 @@ class BatteryViewFragment() : Fragment() {
             }
 
             batterySaverBttn.setOnClickListener {
+                Log.v("debug", "aici intra")
                 batteryViewModel.containerHandler(
-                    batteryInfoContainer!!,
-                    batterySaverContainer!!,
-                    statisticsContainer!!,
+                    batteryInfoContainer,
+                    batterySaverContainer,
+                    statisticsContainer,
                     View.GONE,
                     View.VISIBLE,
                     View.GONE
                 )
             }
 
-            batteryLevelStatisticsBttn?.setOnClickListener {
+            batteryLevelStatisticsBttn.setOnClickListener {
                 batteryViewModel.containerHandler(
-                    batteryInfoContainer!!,
-                    batterySaverContainer!!,
-                    statisticsContainer!!,
+                    batteryInfoContainer,
+                    batterySaverContainer,
+                    statisticsContainer,
                     View.GONE,
                     View.GONE,
                     View.VISIBLE
@@ -144,12 +145,15 @@ class BatteryViewFragment() : Fragment() {
         // Setup brightness control to reduce battery consumption
         brightnessControlHandler()
 
+        Log.v("baaaaa", "nu intra aici")
         // Setup the timeout spinner
         spinnerHandler()
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun brightnessControlHandler() {
+        Log.v("debug", "luminozitate intra")
+
         // handle brightness control
         // Check whether has the write settings permission or not.
         val settingsCanWrite = hasWriteSettingsPermission(this.requireContext())
@@ -190,6 +194,8 @@ class BatteryViewFragment() : Fragment() {
     }
 
     private fun spinnerHandler() {
+        Log.v("debug", "spinner1 intra")
+
         val timeoutTimes = resources.getStringArray(R.array.Times)
         val adapter = object: ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item, timeoutTimes) {
             override fun isEnabled(position: Int): Boolean {
@@ -211,19 +217,15 @@ class BatteryViewFragment() : Fragment() {
                 return view
             }
         }
+        Log.v("debug", "spinnerrrr intra")
 
         timeoutSpinner.adapter = adapter
         timeoutSpinner.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>,
-                                        view: View, position: Int, id: Long) {
+                                        view: View?, position: Int, id: Long) {
 
-                val value = parent!!.getItemAtPosition(position).toString()
-                if(value == timeoutTimes[0]){
-                    (view as TextView).setTextColor(Color.GRAY)
-                }
-
-                var timeout = 0
+                var timeout = 180000
                 when(timeoutTimes[position]) {
                     "15 seconds" -> timeout = 15000
                     "30 seconds" -> timeout = 30000
@@ -236,9 +238,6 @@ class BatteryViewFragment() : Fragment() {
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                val defaultTimeout = 60000
-                timeoutSpinner.setSelection(3)
-                Settings.System.putInt(contentResolver, Settings.System.SCREEN_OFF_TIMEOUT, defaultTimeout)
             }
         }
     }
@@ -277,7 +276,7 @@ class BatteryViewFragment() : Fragment() {
 
         brightnessSeekBar = binding.brightnessSeekBar!!
         textPercentage = binding.txtPercentage!!
-        timeoutSpinner = binding.timeoutSpinner!!
+        timeoutSpinner = binding.timeoutSpinner
         contentResolver = this.requireContext().contentResolver
         window = this.requireActivity().window
     }

@@ -67,345 +67,350 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-        <RelativeLayout
+        <ScrollView
             android:id="@+id/batteryInfoContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@+id/horizontalScrollMenuBattery">
 
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
-                    <RelativeLayout
+                    <LinearLayout
+                        android:id="@+id/progressBarContainer"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:id="@+id/progressBarContainer"
-                            android:layout_width="match_parent"
+                        <RelativeLayout
+                            android:id="@+id/levelProgressBar"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
 
-                            <RelativeLayout
-                                android:id="@+id/levelProgressBar"
-                                android:layout_width="wrap_content"
+                            <ProgressBar
+                                android:id="@+id/batteryLevelIndicator"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:layout_width="@dimen/progress_bar"
+                                android:layout_height="@dimen/progress_bar"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="@dimen/default_margin_top_bottom"
+                                android:layout_marginBottom="@dimen/default_margin_top_bottom"
+                                android:progressDrawable="@drawable/progressbar_states" />
+
+                            <LinearLayout
+                                android:id="@+id/progressBarElements"
+                                android:layout_width="169dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center_horizontal">
+                                android:layout_alignStart="@+id/batteryLevelIndicator"
+                                android:layout_alignTop="@+id/batteryLevelIndicator"
+                                android:layout_alignEnd="@+id/batteryLevelIndicator"
+                                android:layout_alignBottom="@+id/batteryLevelIndicator"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
-                                <ProgressBar
-                                    android:id="@+id/batteryLevelIndicator"
-                                    style="@android:style/Widget.ProgressBar.Horizontal"
-                                    android:layout_width="@dimen/progress_bar"
-                                    android:layout_height="@dimen/progress_bar"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="@dimen/default_margin_top_bottom"
-                                    android:layout_marginBottom="@dimen/default_margin_top_bottom"
-                                    android:progressDrawable="@drawable/progressbar_states" />
-
-                                <LinearLayout
-                                    android:id="@+id/progressBarElements"
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignStart="@+id/batteryLevelIndicator"
-                                    android:layout_alignTop="@+id/batteryLevelIndicator"
-                                    android:layout_alignEnd="@+id/batteryLevelIndicator"
-                                    android:layout_alignBottom="@+id/batteryLevelIndicator"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/tvBatteryPercentage"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:hint="@string/percent_format"
-                                        android:textColor="@color/black"
-                                        android:textSize="25sp" />
-
-                                    <ImageView
-                                        android:id="@+id/chargingBattery"
-                                        android:layout_width="38dp"
-                                        android:layout_height="57dp"
-                                        android:layout_gravity="center"
-                                        android:contentDescription="@string/charging_battery"
-                                        android:visibility="gone"
-                                        app:srcCompat="@drawable/ic_baseline_flash_on_24" />
-                                </LinearLayout>
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:id="@+id/temperatureLayout"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="center_horizontal">
-
-                                <ProgressBar
-                                    android:id="@+id/temperatureProgressBar"
-                                    style="@android:style/Widget.ProgressBar.Horizontal"
-                                    android:layout_width="@dimen/progress_bar"
-                                    android:layout_height="@dimen/progress_bar"
-                                    android:layout_alignParentStart="true"
-                                    android:layout_alignParentTop="true"
-                                    android:layout_marginTop="@dimen/default_margin_top_bottom"
-                                    android:layout_marginBottom="@dimen/default_margin_top_bottom"
-                                    android:max="40"
-                                    android:progressDrawable="@drawable/progressbar_states" />
-
-                                <LinearLayout
-                                    android:id="@+id/tempProgressBarElements"
-                                    android:layout_width="169dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignStart="@id/temperatureProgressBar"
-                                    android:layout_alignTop="@id/temperatureProgressBar"
-                                    android:layout_alignEnd="@id/temperatureProgressBar"
-                                    android:layout_alignBottom="@id/temperatureProgressBar"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <TextView
-                                        android:id="@+id/batteryTemperatureTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_gravity="center"
-                                        android:hint="\u2103"
-                                        android:textColor="@color/black"
-                                        android:textSize="25sp" />
-
-                                    <ImageView
-                                        android:id="@+id/temperatureFeedbackImage"
-                                        android:layout_width="28dp"
-                                        android:layout_height="44dp"
-                                        android:layout_gravity="center"
-                                        android:contentDescription="@string/battery_temperature_feedback" />
-                                </LinearLayout>
-
-                            </RelativeLayout>
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/progressBarContainer"
-                            android:orientation="horizontal">
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/firstCardView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:cardCornerRadius="15dp"
-                                app:cardElevation="7dp">
-
-                                <GridLayout
-                                    android:id="@+id/batteryGridLayout"
+                                <TextView
+                                    android:id="@+id/tvBatteryPercentage"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:columnCount="3"
-                                    android:rowCount="3"
-                                    android:useDefaultMargins="true">
+                                    android:layout_gravity="center"
+                                    android:hint="@string/percent_format"
+                                    android:textColor="@color/black"
+                                    android:textSize="25sp" />
 
-                                    <ImageView
-                                        android:id="@+id/statusIcon"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="0"
-                                        android:layout_column="0"
-                                        app:srcCompat="@drawable/baseline_power_settings_new_24" />
+                                <ImageView
+                                    android:id="@+id/chargingBattery"
+                                    android:layout_width="38dp"
+                                    android:layout_height="57dp"
+                                    android:layout_gravity="center"
+                                    android:contentDescription="@string/charging_battery"
+                                    android:visibility="gone"
+                                    app:srcCompat="@drawable/ic_baseline_flash_on_24" />
+                            </LinearLayout>
 
-                                    <TextView
-                                        android:id="@+id/statusTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="0"
-                                        android:layout_column="1"
-                                        android:layout_gravity="start"
-                                        android:gravity="start"
-                                        android:text="@string/status_string" />
+                        </RelativeLayout>
 
-                                    <TextView
-                                        android:id="@+id/statusValueTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="0"
-                                        android:layout_column="2"
-                                        android:layout_gravity="end"
-                                        android:gravity="end" />
+                        <RelativeLayout
+                            android:id="@+id/temperatureLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal">
 
-                                    <ImageView
-                                        android:id="@+id/voltageIcon"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="1"
-                                        android:layout_column="0"
-                                        app:srcCompat="@drawable/baseline_electric_meter_24" />
+                            <ProgressBar
+                                android:id="@+id/temperatureProgressBar"
+                                style="@android:style/Widget.ProgressBar.Horizontal"
+                                android:layout_width="@dimen/progress_bar"
+                                android:layout_height="@dimen/progress_bar"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginTop="@dimen/default_margin_top_bottom"
+                                android:layout_marginBottom="@dimen/default_margin_top_bottom"
+                                android:max="40"
+                                android:progressDrawable="@drawable/progressbar_states" />
 
-                                    <TextView
-                                        android:id="@+id/voltageTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="1"
-                                        android:layout_column="1"
-                                        android:layout_gravity="start"
-                                        android:gravity="start"
-                                        android:text="@string/voltage_string" />
-
-                                    <TextView
-                                        android:id="@+id/voltageValueTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="1"
-                                        android:layout_column="2"
-                                        android:layout_gravity="end"
-                                        android:gravity="end" />
-
-                                    <ImageView
-                                        android:id="@+id/healthIcon"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="2"
-                                        android:layout_column="0"
-                                        app:srcCompat="@drawable/baseline_health_and_safety_24" />
-
-                                    <TextView
-                                        android:id="@+id/healthTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="2"
-                                        android:layout_column="1"
-                                        android:layout_gravity="start"
-                                        android:gravity="start"
-                                        android:text="@string/health_string" />
-
-                                    <TextView
-                                        android:id="@+id/healthValueTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="2"
-                                        android:layout_column="2"
-                                        android:layout_gravity="end"
-                                        android:gravity="end" />
-
-                                </GridLayout>
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:id="@+id/secondCardView"
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:id="@+id/tempProgressBarElements"
+                                android:layout_width="169dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                app:cardCornerRadius="15dp"
-                                app:cardElevation="7dp">
+                                android:layout_alignStart="@id/temperatureProgressBar"
+                                android:layout_alignTop="@id/temperatureProgressBar"
+                                android:layout_alignEnd="@id/temperatureProgressBar"
+                                android:layout_alignBottom="@id/temperatureProgressBar"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="horizontal">
 
-                                <GridLayout
+                                <TextView
+                                    android:id="@+id/batteryTemperatureTextView"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:columnCount="3"
-                                    android:rowCount="3"
-                                    android:useDefaultMargins="true">
+                                    android:layout_gravity="center"
+                                    android:hint="\u2103"
+                                    android:textColor="@color/black"
+                                    android:textSize="25sp" />
 
-                                    <ImageView
-                                        android:id="@+id/temperatureIcon"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="0"
-                                        android:layout_column="0"
-                                        app:srcCompat="@drawable/baseline_thermostat_24" />
+                                <ImageView
+                                    android:id="@+id/temperatureFeedbackImage"
+                                    android:layout_width="28dp"
+                                    android:layout_height="44dp"
+                                    android:layout_gravity="center"
+                                    android:contentDescription="@string/battery_temperature_feedback" />
+                            </LinearLayout>
 
-                                    <TextView
-                                        android:id="@+id/temperatureTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="0"
-                                        android:layout_column="1"
-                                        android:layout_gravity="start"
-                                        android:gravity="start"
-                                        android:text="@string/temperature_string" />
+                        </RelativeLayout>
 
-                                    <TextView
-                                        android:id="@+id/temperatureValueTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="0"
-                                        android:layout_column="2"
-                                        android:layout_gravity="end"
-                                        android:gravity="end" />
+                    </LinearLayout>
 
-                                    <ImageView
-                                        android:id="@+id/powerIcon"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="1"
-                                        android:layout_column="0"
-                                        app:srcCompat="@drawable/baseline_electric_meter_24" />
+                    <LinearLayout
+                        android:id="@+id/batteryDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/progressBarContainer"
+                        android:orientation="horizontal">
 
-                                    <TextView
-                                        android:id="@+id/powerTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="1"
-                                        android:layout_column="1"
-                                        android:layout_gravity="start"
-                                        android:gravity="start"
-                                        android:text="@string/power_string" />
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/firstCardView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="15dp"
+                            app:cardElevation="7dp">
 
-                                    <TextView
-                                        android:id="@+id/powerValueTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="1"
-                                        android:layout_column="2"
-                                        android:layout_gravity="end"
-                                        android:gravity="end"
-                                        android:textSize="@dimen/text_view_size" />
+                            <GridLayout
+                                android:id="@+id/batteryGridLayout"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:columnCount="3"
+                                android:rowCount="3"
+                                android:useDefaultMargins="true">
 
-                                    <ImageView
-                                        android:id="@+id/levelIcon"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="2"
-                                        android:layout_column="0"
-                                        app:srcCompat="@drawable/baseline_battery_2_bar_24" />
+                                <ImageView
+                                    android:id="@+id/statusIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="0"
+                                    app:srcCompat="@drawable/baseline_power_settings_new_24" />
 
-                                    <TextView
-                                        android:id="@+id/levelTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="2"
-                                        android:layout_column="1"
-                                        android:layout_gravity="start"
-                                        android:gravity="start"
-                                        android:text="@string/level_string" />
+                                <TextView
+                                    android:id="@+id/statusTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="1"
+                                    android:layout_gravity="start"
+                                    android:gravity="start"
+                                    android:text="@string/status_string" />
 
-                                    <TextView
-                                        android:id="@+id/levelValueTextView"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_row="2"
-                                        android:layout_column="2"
-                                        android:layout_gravity="end"
-                                        android:gravity="end" />
-                                </GridLayout>
-                            </androidx.cardview.widget.CardView>
+                                <TextView
+                                    android:id="@+id/statusValueTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="2"
+                                    android:layout_gravity="end"
+                                    android:gravity="end" />
 
-                        </LinearLayout>
+                                <ImageView
+                                    android:id="@+id/voltageIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="1"
+                                    android:layout_column="0"
+                                    app:srcCompat="@drawable/baseline_electric_meter_24" />
 
-                    </RelativeLayout>
-                </LinearLayout>
-            </ScrollView>
-        </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/voltageTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="1"
+                                    android:layout_column="1"
+                                    android:layout_gravity="start"
+                                    android:gravity="start"
+                                    android:text="@string/voltage_string" />
+
+                                <TextView
+                                    android:id="@+id/voltageValueTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="1"
+                                    android:layout_column="2"
+                                    android:layout_gravity="end"
+                                    android:gravity="end" />
+
+                                <ImageView
+                                    android:id="@+id/healthIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="2"
+                                    android:layout_column="0"
+                                    app:srcCompat="@drawable/baseline_health_and_safety_24" />
+
+                                <TextView
+                                    android:id="@+id/healthTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="2"
+                                    android:layout_column="1"
+                                    android:layout_gravity="start"
+                                    android:gravity="start"
+                                    android:text="@string/health_string" />
+
+                                <TextView
+                                    android:id="@+id/healthValueTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="2"
+                                    android:layout_column="2"
+                                    android:layout_gravity="end"
+                                    android:gravity="end" />
+
+                            </GridLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/secondCardView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="15dp"
+                            app:cardElevation="7dp">
+
+                            <GridLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:columnCount="3"
+                                android:rowCount="3"
+                                android:useDefaultMargins="true">
+
+                                <ImageView
+                                    android:id="@+id/temperatureIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="0"
+                                    app:srcCompat="@drawable/baseline_thermostat_24" />
+
+                                <TextView
+                                    android:id="@+id/temperatureTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="1"
+                                    android:layout_gravity="start"
+                                    android:gravity="start"
+                                    android:text="@string/temperature_string" />
+
+                                <TextView
+                                    android:id="@+id/temperatureValueTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="0"
+                                    android:layout_column="2"
+                                    android:layout_gravity="end"
+                                    android:gravity="end" />
+
+                                <ImageView
+                                    android:id="@+id/powerIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="1"
+                                    android:layout_column="0"
+                                    app:srcCompat="@drawable/baseline_electric_meter_24" />
+
+                                <TextView
+                                    android:id="@+id/powerTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="1"
+                                    android:layout_column="1"
+                                    android:layout_gravity="start"
+                                    android:gravity="start"
+                                    android:text="@string/power_string" />
+
+                                <TextView
+                                    android:id="@+id/powerValueTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="1"
+                                    android:layout_column="2"
+                                    android:layout_gravity="end"
+                                    android:gravity="end"
+                                    android:textSize="@dimen/text_view_size" />
+
+                                <ImageView
+                                    android:id="@+id/levelIcon"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="2"
+                                    android:layout_column="0"
+                                    app:srcCompat="@drawable/baseline_battery_2_bar_24" />
+
+                                <TextView
+                                    android:id="@+id/levelTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="2"
+                                    android:layout_column="1"
+                                    android:layout_gravity="start"
+                                    android:gravity="start"
+                                    android:text="@string/level_string" />
+
+                                <TextView
+                                    android:id="@+id/levelValueTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_row="2"
+                                    android:layout_column="2"
+                                    android:layout_gravity="end"
+                                    android:gravity="end" />
+                            </GridLayout>
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/charge_menu_button"
+                        style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/batteryDescription"
+                        android:layout_marginTop="@dimen/default_margin_battery"
+                        android:text="@string/show_charge_options" />
+
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
 
         <ScrollView
             android:id="@+id/batterySaverContainer"

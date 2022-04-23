@@ -48,4 +48,5 @@
     <string name="charging_status">Charging status</string>
     <string name="saver">Saver</string>
     <string name="statistics">Statistics</string>
+    <string name="show_charge_options">Show charge options</string>
 </resources>

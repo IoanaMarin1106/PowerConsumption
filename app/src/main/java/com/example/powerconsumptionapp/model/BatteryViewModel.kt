@@ -1,6 +1,7 @@
 package com.example.powerconsumptionapp.model
 
 import android.os.BatteryManager
+import android.util.Log
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.ScrollView
@@ -64,15 +65,18 @@ class BatteryViewModel: ViewModel() {
     }
 
     fun containerHandler(
-        informationContainer: RelativeLayout,
+        informationContainer: ScrollView,
         saverContainer: ScrollView,
         statisticsContainer: LinearLayout,
         infoVisibility: Int,
         saverVisibility: Int,
         statsVisibility: Int
     ) {
+        Log.v("debug", "si aici intra")
         infoVisibility.also { informationContainer.visibility = it }
         saverVisibility.also { saverContainer.visibility = it }
         statsVisibility.also { statisticsContainer.visibility = it }
+        Log.v("debug", "siiii aici intra")
+
     }
 }
