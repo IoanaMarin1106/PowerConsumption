@@ -15,7 +15,7 @@
             android:layout_weight="4"
             android:layout_gravity="center"
             app:batteryMeterChargeLevel="50"
-            app:batteryMeterChargingColor="@color/indigo_dark"
+            app:batteryMeterChargingColor="@color/green"
             app:batteryMeterColor="@color/indigo_light"
             app:batteryMeterCriticalColor="@color/indigo"
             app:batteryMeterIndicatorColor="@android:color/transparent"
