@@ -72,11 +72,8 @@ class BatteryViewModel: ViewModel() {
         saverVisibility: Int,
         statsVisibility: Int
     ) {
-        Log.v("debug", "si aici intra")
         infoVisibility.also { informationContainer.visibility = it }
         saverVisibility.also { saverContainer.visibility = it }
         statsVisibility.also { statisticsContainer.visibility = it }
-        Log.v("debug", "siiii aici intra")
-
     }
 }

@@ -49,4 +49,8 @@
     <string name="saver">Saver</string>
     <string name="statistics">Statistics</string>
     <string name="show_charge_options">Show charge options</string>
+    <string name="ac_charger">AC Charger</string>
+    <string name="usb_charger">USB Charger</string>
+    <string name="wireless_charger">Wireless Charger</string>
+    <string name="bluetooth_charger">Bluetooth Charger</string>
 </resources>

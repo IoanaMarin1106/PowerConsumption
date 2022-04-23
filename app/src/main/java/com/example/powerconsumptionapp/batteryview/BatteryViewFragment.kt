@@ -22,6 +22,19 @@ import com.example.powerconsumptionapp.model.BatteryViewModel
 import java.util.*
 import kotlin.math.roundToInt
 import android.view.WindowManager
+import androidx.annotation.MenuRes
+import androidx.appcompat.widget.AppCompatButton
+import android.graphics.drawable.Drawable
+import android.media.Image
+
+import android.widget.FrameLayout
+
+import android.widget.PopupWindow
+
+import android.widget.TextView
+
+import android.view.LayoutInflater
+
 
 
 class BatteryViewFragment() : Fragment() {
@@ -37,6 +50,9 @@ class BatteryViewFragment() : Fragment() {
     private lateinit var tvBatteryPercentage: TextView
     private lateinit var batteryLevelIndicator: ProgressBar
     private lateinit var chargingBattery: ImageView
+    private var hasACCharger: Boolean = false
+    private var hasUSBCharger: Boolean = false
+    private var hasWirelessCharger: Boolean = false
 
     // Battery temperature
     private lateinit var temperatureProgressBar: ProgressBar
@@ -59,6 +75,9 @@ class BatteryViewFragment() : Fragment() {
     private lateinit var timeoutSpinner: Spinner
     private lateinit var contentResolver: ContentResolver
     private lateinit var window: Window
+
+    private lateinit var mDropdown: PopupWindow
+    private lateinit var mInflater: LayoutInflater
 
     init {
         screenWidth = Resources.getSystem().displayMetrics.widthPixels / 2
@@ -140,20 +159,62 @@ class BatteryViewFragment() : Fragment() {
                     convertFahrenheitToCelsius()
                 }
             }
+
+            chargeMenuButton.setOnClickListener {
+                initiatePopupWindow()
+            }
         }
 
         // Setup brightness control to reduce battery consumption
         brightnessControlHandler()
 
-        Log.v("baaaaa", "nu intra aici")
         // Setup the timeout spinner
         spinnerHandler()
     }
 
+    private fun initiatePopupWindow(): PopupWindow? {
+        try {
+            mInflater = this.context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            val layout: View = mInflater.inflate(R.layout.popup_window_row, null)
+            setPopupWindowIcons(layout)
+            layout.measure(
+                View.MeasureSpec.UNSPECIFIED,
+                View.MeasureSpec.UNSPECIFIED
+            )
+            mDropdown = PopupWindow(
+                layout, FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT, true
+            )
+            mDropdown.showAsDropDown(binding.chargeMenuButton)
+
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+        return mDropdown
+    }
+
+    private fun setPopupWindowIcons(layout: View){
+        if (hasACCharger) {
+            layout.findViewById<ImageView>(R.id.itemA_icon).setImageResource(R.drawable.ic_baseline_check_24)
+        } else {
+            layout.findViewById<ImageView>(R.id.itemA_icon).setImageResource(R.drawable.ic_baseline_question_mark_24)
+        }
+
+        if (hasWirelessCharger) {
+            layout.findViewById<ImageView>(R.id.itemB_icon).setImageResource(R.drawable.ic_baseline_check_24)
+        } else {
+            layout.findViewById<ImageView>(R.id.itemB_icon).setImageResource(R.drawable.ic_baseline_question_mark_24)
+        }
+
+        if (hasUSBCharger) {
+            layout.findViewById<ImageView>(R.id.itemD_icon).setImageResource(R.drawable.ic_baseline_check_24)
+        } else {
+            layout.findViewById<ImageView>(R.id.itemD_icon).setImageResource(R.drawable.ic_baseline_question_mark_24)
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.M)
     private fun brightnessControlHandler() {
-        Log.v("debug", "luminozitate intra")
-
         // handle brightness control
         // Check whether has the write settings permission or not.
         val settingsCanWrite = hasWriteSettingsPermission(this.requireContext())
@@ -194,8 +255,6 @@ class BatteryViewFragment() : Fragment() {
     }
 
     private fun spinnerHandler() {
-        Log.v("debug", "spinner1 intra")
-
         val timeoutTimes = resources.getStringArray(R.array.Times)
         val adapter = object: ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item, timeoutTimes) {
             override fun isEnabled(position: Int): Boolean {
@@ -217,7 +276,6 @@ class BatteryViewFragment() : Fragment() {
                 return view
             }
         }
-        Log.v("debug", "spinnerrrr intra")
 
         timeoutSpinner.adapter = adapter
         timeoutSpinner.onItemSelectedListener = object :
@@ -330,9 +388,18 @@ class BatteryViewFragment() : Fragment() {
 
     private fun setPowerAdapter(chargePlug: Int) {
         when(chargePlug) {
-            BatteryManager.BATTERY_PLUGGED_AC -> powerValueTextView.text = Constants.AC_CHARGER
-            BatteryManager.BATTERY_PLUGGED_WIRELESS -> powerValueTextView.text = Constants.WIRELESS
-            BatteryManager.BATTERY_PLUGGED_USB -> powerValueTextView.text = Constants.USB
+            BatteryManager.BATTERY_PLUGGED_AC -> {
+                powerValueTextView.text = Constants.AC_CHARGER
+                hasACCharger = true
+            }
+            BatteryManager.BATTERY_PLUGGED_WIRELESS -> {
+                powerValueTextView.text = Constants.WIRELESS
+                hasWirelessCharger = true
+            }
+            BatteryManager.BATTERY_PLUGGED_USB ->  {
+                powerValueTextView.text = Constants.USB
+                hasUSBCharger = true
+            }
             else -> powerValueTextView.text = Constants.NONE
         }
     }

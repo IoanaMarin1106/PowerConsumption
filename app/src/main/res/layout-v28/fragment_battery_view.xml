@@ -399,13 +399,13 @@
 
                     </LinearLayout>
 
-                    <Button
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/charge_menu_button"
-                        style="@android:style/Widget.Material.Light.Button.Borderless.Small"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/batteryDescription"
-                        android:layout_marginTop="@dimen/default_margin_battery"
+                        android:layout_marginTop="20dp"
+                        android:backgroundTint="@color/deep_purple_light"
                         android:text="@string/show_charge_options" />
 
                 </RelativeLayout>
