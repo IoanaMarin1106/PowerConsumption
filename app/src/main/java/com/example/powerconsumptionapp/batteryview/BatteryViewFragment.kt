@@ -59,10 +59,8 @@ class BatteryViewFragment() : Fragment() {
     private lateinit var timeoutSpinner: Spinner
     private lateinit var contentResolver: ContentResolver
     private lateinit var window: Window
-    private lateinit var charginStatusSpinner : Spinner
 
-
-        init {
+    init {
         screenWidth = Resources.getSystem().displayMetrics.widthPixels / 2
     }
 
@@ -103,7 +101,7 @@ class BatteryViewFragment() : Fragment() {
                 batteryViewModel.containerHandler(
                     batteryInfoContainer!!,
                     batterySaverContainer!!,
-                    levelStatisticsContainer!!,
+                    statisticsContainer!!,
                     View.VISIBLE,
                     View.GONE,
                     View.GONE
@@ -114,7 +112,7 @@ class BatteryViewFragment() : Fragment() {
                 batteryViewModel.containerHandler(
                     batteryInfoContainer!!,
                     batterySaverContainer!!,
-                    levelStatisticsContainer!!,
+                    statisticsContainer!!,
                     View.GONE,
                     View.VISIBLE,
                     View.GONE
@@ -125,7 +123,7 @@ class BatteryViewFragment() : Fragment() {
                 batteryViewModel.containerHandler(
                     batteryInfoContainer!!,
                     batterySaverContainer!!,
-                    levelStatisticsContainer!!,
+                    statisticsContainer!!,
                     View.GONE,
                     View.GONE,
                     View.VISIBLE
@@ -148,49 +146,6 @@ class BatteryViewFragment() : Fragment() {
 
         // Setup the timeout spinner
         spinnerHandler()
-
-        // Setup charging status spinner
-        chargingStatusSpinner()
-    }
-
-    private fun chargingStatusSpinner() {
-        val pluggedInOptions = resources.getStringArray(R.array.PluggedInOpt)
-        val adapter = object: ArrayAdapter<String>(this.requireContext(), android.R.layout.simple_spinner_item, pluggedInOptions) {
-            override fun isEnabled(position: Int): Boolean {
-                // Disable the first item from Spinner
-                // First item will be used for hint
-                return position != 0
-            }
-
-            override fun getDropDownView(
-                position: Int,
-                convertView: View?,
-                parent: ViewGroup
-            ): View {
-                val view: TextView = super.getDropDownView(position, convertView, parent) as TextView
-                //set the color of first item in the drop down list to gray
-                if(position == 0) {
-                    view.setTextColor(Color.GRAY)
-                }
-                return view
-            }
-        }
-
-        charginStatusSpinner.adapter = adapter
-        charginStatusSpinner.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>,
-                                        view: View, position: Int, id: Long) {
-
-                val value = parent!!.getItemAtPosition(position).toString()
-                if(value == pluggedInOptions[0]) {
-                    (view as TextView).setTextColor(Color.GRAY)
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {
-            }
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -325,7 +280,6 @@ class BatteryViewFragment() : Fragment() {
         timeoutSpinner = binding.timeoutSpinner!!
         contentResolver = this.requireContext().contentResolver
         window = this.requireActivity().window
-        charginStatusSpinner = binding.chargingStatusSpinner!!
     }
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -403,9 +357,9 @@ class BatteryViewFragment() : Fragment() {
             }
             temperatureValueTextView.text = it.toString()
 
-            if (it > Constants.HIGH_TEMPERATURE) {
+            if (it > Constants.HIGH_CELSIUS_TEMPERATURE) {
                 temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_warning_24)
-            } else if (it < Constants.NORMAL_TEMPERATURE) {
+            } else if (it < Constants.NORMAL_CELSIUS_TEMPERATURE) {
                 temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_done_all_24)
             } else {
                 temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_back_hand_24)
@@ -430,10 +384,9 @@ class BatteryViewFragment() : Fragment() {
     }
 
     private fun convertFahrenheitToCelsius() {
-        val celsiusTemp = Util.convertFahrenheitToCelsius(temperatureProgressBar.progress)
-        temperatureProgressBar.progress = celsiusTemp
+        val celsiusTemp = temperatureProgressBar.progress
         batteryTemperatureTextView.apply {
-            text = "$celsiusTemp${Constants.CELSIUS_DEGREES}"
+            text = "$celsiusTemp${Constants.CELSIUS_DEGREES}/${Constants.HIGH_CELSIUS_TEMPERATURE}${Constants.CELSIUS_DEGREES}"
             hint = Constants.CELSIUS_DEGREES
         }
         temperatureValueTextView.text = "$celsiusTemp${Constants.CELSIUS_DEGREES}"
@@ -441,9 +394,8 @@ class BatteryViewFragment() : Fragment() {
 
     private fun convertCelsiusToFahrenheit() {
         val fahrenheitTemp = Util.convertCelsiusToFahrenheit(temperatureProgressBar.progress)
-        temperatureProgressBar.progress = fahrenheitTemp
         batteryTemperatureTextView.apply {
-            text = "$fahrenheitTemp${Constants.FAHRENHEIT_DEGREES}"
+            text = "$fahrenheitTemp${Constants.FAHRENHEIT_DEGREES}/${Constants.HIGH_FAHRENHEIT_TEMPERATURE}${Constants.FAHRENHEIT_DEGREES}"
             hint = Constants.FAHRENHEIT_DEGREES
         }
         temperatureValueTextView.text = "$fahrenheitTemp${Constants.FAHRENHEIT_DEGREES}"

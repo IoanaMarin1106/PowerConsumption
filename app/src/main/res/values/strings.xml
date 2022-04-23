@@ -46,4 +46,6 @@
     <string name="text_percentage">Text Percentage</string>
     <string name="screen_timeout">Screen Timeout</string>
     <string name="charging_status">Charging status</string>
+    <string name="saver">Saver</string>
+    <string name="statistics">Statistics</string>
 </resources>

@@ -66,13 +66,13 @@ class BatteryViewModel: ViewModel() {
     fun containerHandler(
         informationContainer: RelativeLayout,
         saverContainer: ScrollView,
-        levelStatisticsContainer: LinearLayout,
+        statisticsContainer: LinearLayout,
         infoVisibility: Int,
         saverVisibility: Int,
         statsVisibility: Int
     ) {
         infoVisibility.also { informationContainer.visibility = it }
         saverVisibility.also { saverContainer.visibility = it }
-        statsVisibility.also { levelStatisticsContainer.visibility = it }
+        statsVisibility.also { statisticsContainer.visibility = it }
     }
 }

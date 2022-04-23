@@ -1,8 +1,11 @@
 package com.example.powerconsumptionapp.general
 
 object Constants {
-    const val HIGH_TEMPERATURE = 40
-    const val NORMAL_TEMPERATURE = 36
+    // Temperature (F/C) thresholds
+    const val HIGH_CELSIUS_TEMPERATURE = 40
+    const val NORMAL_CELSIUS_TEMPERATURE = 36
+    const val HIGH_FAHRENHEIT_TEMPERATURE = 104
+
 
     const val FAHRENHEIT_DEGREES = "\u2109"
     const val CELSIUS_DEGREES = "\u2103"
