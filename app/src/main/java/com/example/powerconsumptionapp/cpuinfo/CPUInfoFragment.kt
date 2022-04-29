@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.activityViewModels
@@ -41,6 +42,7 @@ class CPUInfoFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -70,6 +72,8 @@ class CPUInfoFragment : Fragment() {
             cpuCurrFrequencyTextView?.text = cpuViewModel.getFreq(Constants.CURR_FREQ).toString()
             cpuMaxFrequencyTextViewValue?.text = cpuViewModel.getFreq(Constants.MAX_FREQ).toString()
             cpuMinFrequencyTextView?.text = cpuViewModel.getFreq(Constants.MIN_FREQ).toString()
+
+            cpuViewModel.getCoresLoad(cpuCoresTextViewValue.text.toString().toInt())
 
             cpuViewModel.populateGridLayoutItems(cpuCoresTextViewValue.text.toString().toInt())
             binding.cpuInfoRecyclerView?.apply {

@@ -128,7 +128,6 @@ class BatteryViewFragment() : Fragment() {
             }
 
             batterySaverBttn.setOnClickListener {
-                Log.v("debug", "aici intra")
                 batteryViewModel.containerHandler(
                     batteryInfoContainer,
                     batterySaverContainer,
@@ -418,7 +417,7 @@ class BatteryViewFragment() : Fragment() {
         (batteryTemperature?.div(10))?.toFloat()!!.roundToInt().also {
             temperatureProgressBar.progress = it
             batteryTemperatureTextView.apply {
-                text = "$it${Constants.CELSIUS_DEGREES}"
+                text = "$it${Constants.CELSIUS_DEGREES}/${Constants.HIGH_CELSIUS_TEMPERATURE}${Constants.CELSIUS_DEGREES}\""
                 hint = Constants.CELSIUS_DEGREES
             }
             temperatureValueTextView.text = it.toString()

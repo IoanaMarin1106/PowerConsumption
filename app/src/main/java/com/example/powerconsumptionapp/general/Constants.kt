@@ -45,5 +45,5 @@ object Constants {
     const val CURR_FREQ = "/sdcard/temp_files/cpu_curr_freq"
     const val MIN_FREQ = "/sdcard/temp_files/cpu_min_freq"
     const val MAX_FREQ = "/sdcard/temp_files/cpu_max_freq"
-
+    const val CPU_CORES_LOADAVG = "/sdcard/temp_files/cores_loadavg"
 }
