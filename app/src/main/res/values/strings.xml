@@ -30,12 +30,10 @@
     <string name="level_value">Level value</string>
     <string name="power_string">Power</string>
     <string name="health_string">Health</string>
-    <string name="overall_cpu_usage">Overall Cpu Usage</string>
     <string name="default_temp_hint">38</string>
     <string name="default_cpu_temp">38℃</string>
     <string name="cpu_hardware">CPU Hardware</string>
     <string name="cpu_cores">CPU Cores</string>
-    <string name="cpu_frequency">CPU Frequency</string>
     <string name="zero_progress">0</string>
     <string name="progress_20">20</string>
     <string name="progress_40">40</string>
@@ -53,4 +51,8 @@
     <string name="usb_charger">USB Charger</string>
     <string name="wireless_charger">Wireless Charger</string>
     <string name="bluetooth_charger">Bluetooth Charger</string>
+    <string name="overall_cpu_usage">Overall CPU Usage</string>
+    <string name="cpu_min_frequency">CPU Min Frequency</string>
+    <string name="cpu_current_frequency">CPU Current Frequency</string>
+    <string name="cpu_max_frequency">CPU Max Frequency</string>
 </resources>

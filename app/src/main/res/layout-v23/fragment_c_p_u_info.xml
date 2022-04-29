@@ -80,11 +80,10 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:columnCount="5"
-                        android:rowCount="5"
+                        android:rowCount="7"
                         android:useDefaultMargins="true">
 
                         <TextView
-                            android:id="@+id/cpuUsageTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_row="0"
@@ -94,6 +93,7 @@
                             android:textStyle="bold" />
 
                         <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+                            android:id="@+id/cpuUsageProgressbar"
                             android:layout_width="280dp"
                             android:layout_height="40dp"
                             android:layout_row="1"
@@ -109,7 +109,6 @@
                             app:rcSecondaryProgress="100"
                             app:rcSecondaryProgressColor="@color/grey_gainsboro"
                             app:rcTextPositionPriority="outside"
-                            app:rcTextProgress="40%"
                             app:rcTextProgressColor="#111111" />
 
                         <TextView
@@ -122,8 +121,7 @@
                             android:layout_columnSpan="2"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:lines="1"
-                            android:text="@string/default_cpu_temp" />
+                            android:lines="1" />
 
                         <ImageView
                             android:id="@+id/cpuHardwareIcon"
@@ -177,7 +175,6 @@
                             android:layout_gravity="center" />
 
                         <ImageView
-                            android:id="@+id/cpuFrequencyIcon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_row="4"
@@ -185,22 +182,67 @@
                             app:srcCompat="@drawable/ic_baseline_ssid_chart_24" />
 
                         <TextView
-                            android:id="@+id/cpuFrequencyTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_row="4"
                             android:layout_column="1"
-                            android:text="@string/cpu_frequency" />
+                            android:text="@string/cpu_current_frequency" />
 
                         <TextView
-                            android:id="@+id/cpuFrequencyTextViewValue"
+                            android:id="@+id/cpuCurrFrequencyTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_row="4"
                             android:layout_column="2"
                             android:layout_columnSpan="3"
-                            android:layout_gravity="center"
-                            android:text="1 x 2.84 GHz, 4 x 1.80 GHz, 3,42 GHz" />
+                            android:layout_gravity="center" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="5"
+                            android:layout_column="0"
+                            app:srcCompat="@drawable/ic_baseline_ssid_chart_24" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="5"
+                            android:layout_column="1"
+                            android:text="@string/cpu_min_frequency" />
+
+                        <TextView
+                            android:id="@+id/cpuMinFrequencyTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="5"
+                            android:layout_column="2"
+                            android:layout_columnSpan="3"
+                            android:layout_gravity="center" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="6"
+                            android:layout_column="0"
+                            app:srcCompat="@drawable/ic_baseline_ssid_chart_24" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="6"
+                            android:layout_column="1"
+                            android:text="@string/cpu_max_frequency" />
+
+                        <TextView
+                            android:id="@+id/cpuMaxFrequencyTextViewValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="6"
+                            android:layout_column="2"
+                            android:layout_columnSpan="3"
+                            android:layout_gravity="center" />
+
                     </GridLayout>
 
                 </androidx.cardview.widget.CardView>

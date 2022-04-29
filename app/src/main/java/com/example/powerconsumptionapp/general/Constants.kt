@@ -1,6 +1,9 @@
 package com.example.powerconsumptionapp.general
 
+import java.util.regex.Pattern
+
 object Constants {
+
     // Temperature (F/C) thresholds
     const val HIGH_CELSIUS_TEMPERATURE = 40
     const val NORMAL_CELSIUS_TEMPERATURE = 36
@@ -37,6 +40,10 @@ object Constants {
 
     // CPU details
     const val CPU_CORES_PATH = "/sys/devices/system/cpu/"
-    const val CPU_TEMPERATURE_PATH = "/sys/devices/virtual/thermal/thermal_zone0"
-//    const val CPU_TEMPERATURE_PATH = "/sys/class/thermal/thermal_zone0"
+    const val CPU_TEMPERATURE_PATH = "/sdcard/temp_files/cpu_overall_temp"
+    const val CPU_LOADAVG = "/sdcard/temp_files/cpu_loadavg"
+    const val CURR_FREQ = "/sdcard/temp_files/cpu_curr_freq"
+    const val MIN_FREQ = "/sdcard/temp_files/cpu_min_freq"
+    const val MAX_FREQ = "/sdcard/temp_files/cpu_max_freq"
+
 }

@@ -2,18 +2,21 @@ package com.example.powerconsumptionapp.cpuinfo
 
 import android.os.Build
 import android.os.Bundle
+import android.os.HardwarePropertiesManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentCPUInfoBinding
+import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.model.CPUViewModel
 import com.example.powerconsumptionapp.startfragment.buttonsList
 
@@ -59,9 +62,16 @@ class CPUInfoFragment : Fragment() {
 
             cpuCoresTextViewValue.text = cpuViewModel.getNumberOfCores().toString()
             cpuHardwareTextViewValue.text = Build.HARDWARE
-            cpuViewModel.getCpuTemp()
+            "${cpuViewModel.getCpuTemp()}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
 
-            cpuViewModel.populateGridLayoutItems(2)
+            cpuUsageProgressbar?.progress = cpuViewModel.getLoadAvg().toFloat()
+            Toast.makeText(context, cpuViewModel.getLoadAvg().toFloat().toString(), Toast.LENGTH_SHORT).show()
+
+            cpuCurrFrequencyTextView?.text = cpuViewModel.getFreq(Constants.CURR_FREQ).toString()
+            cpuMaxFrequencyTextViewValue?.text = cpuViewModel.getFreq(Constants.MAX_FREQ).toString()
+            cpuMinFrequencyTextView?.text = cpuViewModel.getFreq(Constants.MIN_FREQ).toString()
+
+            cpuViewModel.populateGridLayoutItems(cpuCoresTextViewValue.text.toString().toInt())
             binding.cpuInfoRecyclerView?.apply {
                 layoutManager = GridLayoutManager(requireActivity().application, 1)
                 adapter = ItemAdapter(itemsList)

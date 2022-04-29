@@ -408,6 +408,7 @@
                         android:backgroundTint="@color/deep_purple_light"
                         android:text="@string/show_charge_options" />
 
+
                 </RelativeLayout>
             </LinearLayout>
         </ScrollView>
