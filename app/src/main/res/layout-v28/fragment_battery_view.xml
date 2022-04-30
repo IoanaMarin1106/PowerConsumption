@@ -175,7 +175,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
-                                    android:hint="\u2103"
+                                    android:hint="@string/celsius_degree"
                                     android:textColor="@color/black"
                                     android:textSize="25sp" />
 

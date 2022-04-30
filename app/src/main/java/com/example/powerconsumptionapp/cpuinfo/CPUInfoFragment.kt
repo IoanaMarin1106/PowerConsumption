@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.HardwarePropertiesManager
 import android.util.Log
+import android.view.ContentInfo
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentCPUInfoBinding
 import com.example.powerconsumptionapp.general.Constants
+import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.CPUViewModel
 import com.example.powerconsumptionapp.startfragment.buttonsList
 
@@ -63,14 +65,44 @@ class CPUInfoFragment : Fragment() {
             }
 
             cpuCoresTextViewValue.text = cpuViewModel.getNumberOfCores().toString()
-            cpuHardwareTextViewValue.text = Build.HARDWARE
+
+            val (modelName, model_freq) = cpuViewModel.getCpuModelName()
+            cpuFreqTextViewValue.text = model_freq
+            cpuHardwareTextViewValue.text = modelName
+
             "${cpuViewModel.getCpuTemp()}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
+            cpuTemperatureTextView.hint = Constants.CELSIUS_DEGREES
 
-            cpuUsageProgressbar?.progress = cpuViewModel.getLoadAvg().toFloat()
+            cpuTemperatureTextView.setOnClickListener {
+                val degrees = cpuTemperatureTextView.text.toString().filter { it.isDigit() }.toInt()
 
-            cpuCurrFrequencyTextView?.text = cpuViewModel.getFreq(Constants.CURR_FREQ).toString()
-            cpuMaxFrequencyTextViewValue?.text = cpuViewModel.getFreq(Constants.MAX_FREQ).toString()
-            cpuMinFrequencyTextView?.text = cpuViewModel.getFreq(Constants.MIN_FREQ).toString()
+                if (cpuTemperatureTextView.hint.equals(Constants.CELSIUS_DEGREES)) {
+                    cpuTemperatureTextView.text = "${Util.convertCelsiusToFahrenheit(degrees).toString()}${Constants.FAHRENHEIT_DEGREES}"
+                    cpuTemperatureTextView.hint = Constants.FAHRENHEIT_DEGREES
+                } else if (cpuTemperatureTextView.hint.equals(Constants.FAHRENHEIT_DEGREES)) {
+                    cpuTemperatureTextView.text = "${Util.convertFahrenheitToCelsius(degrees).toString()}${Constants.CELSIUS_DEGREES}"
+                    cpuTemperatureTextView.hint = Constants.CELSIUS_DEGREES
+                }
+            }
+            cpuUsageProgressbar.progress = cpuViewModel.getLoadAvg().toFloat()
+
+            if (cpuViewModel.getFreq(Constants.CURR_FREQ) == 0) {
+                cpuCurrFrequencyTextView.text = "-"
+            } else {
+                cpuCurrFrequencyTextView.text = cpuViewModel.getFreq(Constants.CURR_FREQ).toString()
+            }
+
+            if (cpuViewModel.getFreq(Constants.MIN_FREQ) == 0) {
+                cpuMinFrequencyTextView.text = "-"
+            } else {
+                cpuMinFrequencyTextView.text = cpuViewModel.getFreq(Constants.MIN_FREQ).toString()
+            }
+
+            if (cpuViewModel.getFreq(Constants.MAX_FREQ) == 0) {
+                cpuMaxFrequencyTextView.text = "-"
+            } else {
+                cpuMaxFrequencyTextView.text = cpuViewModel.getFreq(Constants.MAX_FREQ).toString()
+            }
 
             cpuViewModel.populateGridLayoutItems(cpuCoresTextViewValue.text.toString().toInt())
             binding.cpuInfoRecyclerView?.apply {

@@ -9,5 +9,9 @@ class Util {
         fun convertCelsiusToFahrenheit(celsiusTemp: Int): Int {
             return celsiusTemp * 9 / 5 + 32
         }
+
+        fun convertFahrenheitToCelsius(fahrenheitTemp: Int): Int {
+            return (fahrenheitTemp - 32) * 5 / 9
+        }
     }
 }

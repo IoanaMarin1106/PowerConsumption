@@ -55,4 +55,6 @@
     <string name="cpu_min_frequency">CPU Min Frequency</string>
     <string name="cpu_current_frequency">CPU Current Frequency</string>
     <string name="cpu_max_frequency">CPU Max Frequency</string>
+    <string name="cpu_frequency_ghz">CPU Frequency (GHz)</string>
+    <string name="celsius_degree">℃</string>
 </resources>

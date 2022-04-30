@@ -32,6 +32,25 @@ class CPUViewModel: ViewModel() {
         }?.size
     }
 
+    fun getCpuModelName(): Pair<String, String> {
+        val cpuinfoFile = File(Constants.CPU_MODEL_NAME)
+        try {
+            BufferedReader(FileReader(cpuinfoFile)).use { br ->
+                var line: String?
+                while (br.readLine().also { line = it } != null) {
+                    val words = line?.split(':')?.toMutableList()
+
+                    if (words?.size == 2 && words[0].contains("model name")) {
+                        return words[1].split("@")[0] to words[1].split("@")[1]
+                    }
+                }
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return "" to ""
+    }
+
     // Get the CPU temp from /sys/devices/virtual/thermal/thermal_zone0/temp
     fun getCpuTemp(): Int {
         val reader = RandomAccessFile(Constants.CPU_TEMPERATURE_PATH, "r")
@@ -46,9 +65,12 @@ class CPUViewModel: ViewModel() {
         return (words[2].toFloat() * 100).roundToInt()
     }
 
-    // Check if /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-    //          /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    //          /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+    /*
+        Check if /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+              /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+              /sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq
+        exist
+    */
     fun getFreq(fileName: String) : Int {
         var file = File(fileName)
         if (file.exists()) {
@@ -71,14 +93,27 @@ class CPUViewModel: ViewModel() {
         if (itemsList.isEmpty()) {
             val coresLoad: HashMap<Int, Int> = getCoreLoad(itemsNumber)
             for (i in 0 until itemsNumber step 2) {
+                val leftFilePath = "/sdcard/temp_files/cpu${i}_freq"
+                val rightFilePath = "/sdcard/temp_files/cpu${i+1}_freq"
+
+                var leftFreq = "-"
+                var rightFreq = "-"
+
+                if (getFreq(leftFilePath) != 0) {
+                    leftFreq = getFreq(leftFilePath).toString()
+                }
+                if (getFreq(rightFilePath) != 0) {
+                    rightFreq = getFreq(rightFilePath).toString()
+                }
+
                 val coreGroup = GridItem(
                     "cpu" + "${i}",
-                    "1.34GHZ",
+                    " ${leftFreq} [MHz]",
                     coresLoad.getOrDefault(i, 0),
-                    "cpu" + "${i+1}",
-                    "1.35GHz",
+                    "cpu" + "${i + 1}",
+                    " ${rightFreq} [MHz]" ,
                     coresLoad.getOrDefault(i + 1, 0),
-                    )
+                )
 
                 itemsList.add(coreGroup)
             }

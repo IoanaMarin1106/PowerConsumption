@@ -1,5 +1,6 @@
 package com.example.powerconsumptionapp.general
 
+import android.annotation.SuppressLint
 import java.util.regex.Pattern
 
 object Constants {
@@ -8,7 +9,6 @@ object Constants {
     const val HIGH_CELSIUS_TEMPERATURE = 40
     const val NORMAL_CELSIUS_TEMPERATURE = 36
     const val HIGH_FAHRENHEIT_TEMPERATURE = 104
-
 
     const val FAHRENHEIT_DEGREES = "\u2109"
     const val CELSIUS_DEGREES = "\u2103"
@@ -36,7 +36,6 @@ object Constants {
 
     // Screen brightness
     const val MAX_BRIGHTNESS = 255
-    const val BRIGHTNESS_THRESHOLD = 5
 
     // CPU details
     const val CPU_CORES_PATH = "/sys/devices/system/cpu/"
@@ -46,6 +45,7 @@ object Constants {
     const val MIN_FREQ = "/sdcard/temp_files/cpu_min_freq"
     const val MAX_FREQ = "/sdcard/temp_files/cpu_max_freq"
     const val CPU_CORES_LOADAVG = "/sdcard/temp_files/cores_loadavg"
+    const val CPU_MODEL_NAME = "/proc/cpuinfo"
 
     // CPU Stats
     const val USER = 1          // Normal processes executing in user mode

@@ -76,11 +76,11 @@
                     app:cardElevation="7dp">
 
                     <GridLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:columnCount="5"
-                        android:rowCount="7"
+                        android:rowCount="8"
                         android:useDefaultMargins="true">
 
                         <TextView
@@ -121,6 +121,7 @@
                             android:layout_columnSpan="2"
                             android:layout_gravity="center"
                             android:gravity="center"
+                            android:hint=""
                             android:lines="1" />
 
                         <ImageView
@@ -129,14 +130,15 @@
                             android:layout_height="wrap_content"
                             android:layout_row="2"
                             android:layout_column="0"
+                            android:layout_rowSpan="2"
                             app:srcCompat="@drawable/baseline_cpu_24" />
 
                         <TextView
-                            android:id="@+id/cpuHardwareTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_row="2"
                             android:layout_column="1"
+                            android:layout_rowSpan="2"
                             android:text="@string/cpu_hardware" />
 
                         <TextView
@@ -146,22 +148,46 @@
                             android:layout_row="2"
                             android:layout_column="2"
                             android:layout_columnSpan="3"
-                            android:layout_gravity="center"
-                            android:text="Qualcomm Technologies, INC, Kona" />
+                            android:inputType="textMultiLine"
+                            android:layout_gravity="start" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="3"
+                            android:layout_column="0"
+                            android:layout_rowSpan="2"
+                            app:srcCompat="@drawable/ic_baseline_ssid_chart_24" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="3"
+                            android:layout_column="1"
+                            android:layout_rowSpan="2"
+                            android:text="@string/cpu_frequency_ghz" />
+
+                        <TextView
+                            android:id="@+id/cpuFreqTextViewValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_row="3"
+                            android:layout_column="2"
+                            android:layout_columnSpan="3"
+                            android:layout_gravity="center" />
 
                         <ImageView
                             android:id="@+id/cpuCoresIcon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="3"
+                            android:layout_row="4"
                             android:layout_column="0"
                             app:srcCompat="@drawable/baseline_cpu_24" />
 
                         <TextView
-                            android:id="@+id/cpuCoresTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="3"
+                            android:layout_row="4"
                             android:layout_column="1"
                             android:text="@string/cpu_cores" />
 
@@ -169,7 +195,7 @@
                             android:id="@+id/cpuCoresTextViewValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="3"
+                            android:layout_row="4"
                             android:layout_column="2"
                             android:layout_columnSpan="3"
                             android:layout_gravity="center" />
@@ -177,14 +203,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="4"
+                            android:layout_row="5"
                             android:layout_column="0"
                             app:srcCompat="@drawable/ic_baseline_ssid_chart_24" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="4"
+                            android:layout_row="5"
                             android:layout_column="1"
                             android:text="@string/cpu_current_frequency" />
 
@@ -192,7 +218,7 @@
                             android:id="@+id/cpuCurrFrequencyTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="4"
+                            android:layout_row="5"
                             android:layout_column="2"
                             android:layout_columnSpan="3"
                             android:layout_gravity="center" />
@@ -200,14 +226,14 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="5"
+                            android:layout_row="6"
                             android:layout_column="0"
                             app:srcCompat="@drawable/ic_baseline_ssid_chart_24" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="5"
+                            android:layout_row="6"
                             android:layout_column="1"
                             android:text="@string/cpu_min_frequency" />
 
@@ -215,7 +241,7 @@
                             android:id="@+id/cpuMinFrequencyTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="5"
+                            android:layout_row="6"
                             android:layout_column="2"
                             android:layout_columnSpan="3"
                             android:layout_gravity="center" />
@@ -223,22 +249,22 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="6"
+                            android:layout_row="7"
                             android:layout_column="0"
                             app:srcCompat="@drawable/ic_baseline_ssid_chart_24" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="6"
+                            android:layout_row="7"
                             android:layout_column="1"
                             android:text="@string/cpu_max_frequency" />
 
                         <TextView
-                            android:id="@+id/cpuMaxFrequencyTextViewValue"
+                            android:id="@+id/cpuMaxFrequencyTextView"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_row="6"
+                            android:layout_row="7"
                             android:layout_column="2"
                             android:layout_columnSpan="3"
                             android:layout_gravity="center" />

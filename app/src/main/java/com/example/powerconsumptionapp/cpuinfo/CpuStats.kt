@@ -1,8 +1,5 @@
 package com.example.powerconsumptionapp.cpuinfo
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
 import com.example.powerconsumptionapp.general.Constants
 import java.io.File
 import kotlin.math.roundToInt
