@@ -6,13 +6,13 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
+import com.example.powerconsumptionapp.cpuinfo.CpuStats
 import com.example.powerconsumptionapp.cpuinfo.GridItem
 import com.example.powerconsumptionapp.cpuinfo.itemsList
 import com.example.powerconsumptionapp.general.Constants
 import java.io.*
 import java.util.regex.Pattern
 import kotlin.math.roundToInt
-import kotlin.random.Random
 
 class CPUViewModel: ViewModel() {
     fun containerHandler(
@@ -44,7 +44,6 @@ class CPUViewModel: ViewModel() {
         val line = reader.readLine()
         val words = line.split("\\s".toRegex()).toTypedArray()
         return (words[2].toFloat() * 100).roundToInt()
-        return 0
     }
 
     // Check if /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
@@ -62,42 +61,24 @@ class CPUViewModel: ViewModel() {
         return 0
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
-    fun getCoresLoad(coresNumber: Int): List<Int> {
-        val file = File(Constants.CPU_CORES_LOADAVG)
-        try {
-            BufferedReader(FileReader(file)).use { br ->
-                br.lines().forEach {
-                    val words = it.split("\\s".toRegex()).toTypedArray()
-                    for (i in 0..coresNumber) {
-                        val currentCore = "cpu" + "${i}"
-                        if (words[0] == currentCore) {
-                            words.drop(1)
-                            val longs = words.map { it.toLong() }.toTypedArray()
-                            val coreUsage = longs.sum()
-                            break;
-                        }
-                    }
-                }
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-
-        return listOf(0, 1)
+    private fun getCoreLoad(coresNumber: Int): HashMap<Int, Int> {
+        val cpuStats = CpuStats(coresNumber)
+        return cpuStats.getCoresUsage()
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun populateGridLayoutItems(itemsNumber: Int) {
         if (itemsList.isEmpty()) {
-            for (i in 1..itemsNumber step 2) {
+            val coresLoad: HashMap<Int, Int> = getCoreLoad(itemsNumber)
+            for (i in 0 until itemsNumber step 2) {
                 val coreGroup = GridItem(
                     "cpu" + "${i}",
                     "1.34GHZ",
-                    74,
+                    coresLoad.getOrDefault(i, 0),
                     "cpu" + "${i+1}",
                     "1.35GHz",
-                    73
-                )
+                    coresLoad.getOrDefault(i + 1, 0),
+                    )
 
                 itemsList.add(coreGroup)
             }

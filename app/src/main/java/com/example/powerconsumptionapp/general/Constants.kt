@@ -46,4 +46,13 @@ object Constants {
     const val MIN_FREQ = "/sdcard/temp_files/cpu_min_freq"
     const val MAX_FREQ = "/sdcard/temp_files/cpu_max_freq"
     const val CPU_CORES_LOADAVG = "/sdcard/temp_files/cores_loadavg"
+
+    // CPU Stats
+    const val USER = 1          // Normal processes executing in user mode
+    const val NICE = 2          // Niced processes executing in user mode
+    const val SYSTEM = 3        // Processes executing in kernel mode
+    const val IDLE = 4          // Twiddling thumbs
+    const val IOWAIT = 5        // Waiting for I/O to complete
+    const val IRQ = 6           // Servicing interrupts
+    const val SOFTIRQ = 7      // Servicing softirqs
 }

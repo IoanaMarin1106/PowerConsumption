@@ -67,13 +67,10 @@ class CPUInfoFragment : Fragment() {
             "${cpuViewModel.getCpuTemp()}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
 
             cpuUsageProgressbar?.progress = cpuViewModel.getLoadAvg().toFloat()
-            Toast.makeText(context, cpuViewModel.getLoadAvg().toFloat().toString(), Toast.LENGTH_SHORT).show()
 
             cpuCurrFrequencyTextView?.text = cpuViewModel.getFreq(Constants.CURR_FREQ).toString()
             cpuMaxFrequencyTextViewValue?.text = cpuViewModel.getFreq(Constants.MAX_FREQ).toString()
             cpuMinFrequencyTextView?.text = cpuViewModel.getFreq(Constants.MIN_FREQ).toString()
-
-            cpuViewModel.getCoresLoad(cpuCoresTextViewValue.text.toString().toInt())
 
             cpuViewModel.populateGridLayoutItems(cpuCoresTextViewValue.text.toString().toInt())
             binding.cpuInfoRecyclerView?.apply {
