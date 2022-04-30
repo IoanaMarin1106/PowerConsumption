@@ -2,18 +2,12 @@ package com.example.powerconsumptionapp.cpuinfo
 
 import android.os.Build
 import android.os.Bundle
-import android.os.HardwarePropertiesManager
-import android.util.Log
-import android.view.ContentInfo
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentContainer
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.R
@@ -21,7 +15,6 @@ import com.example.powerconsumptionapp.databinding.FragmentCPUInfoBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.CPUViewModel
-import com.example.powerconsumptionapp.startfragment.buttonsList
 
 class CPUInfoFragment : Fragment() {
 
@@ -33,7 +26,7 @@ class CPUInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate<FragmentCPUInfoBinding>(
+        binding = DataBindingUtil.inflate (
             inflater,
             R.layout.fragment_c_p_u_info,
             container,
@@ -77,10 +70,10 @@ class CPUInfoFragment : Fragment() {
                 val degrees = cpuTemperatureTextView.text.toString().filter { it.isDigit() }.toInt()
 
                 if (cpuTemperatureTextView.hint.equals(Constants.CELSIUS_DEGREES)) {
-                    cpuTemperatureTextView.text = "${Util.convertCelsiusToFahrenheit(degrees).toString()}${Constants.FAHRENHEIT_DEGREES}"
+                    "${Util.convertCelsiusToFahrenheit(degrees)}${Constants.FAHRENHEIT_DEGREES}".also { cpuTemperatureTextView.text = it }
                     cpuTemperatureTextView.hint = Constants.FAHRENHEIT_DEGREES
                 } else if (cpuTemperatureTextView.hint.equals(Constants.FAHRENHEIT_DEGREES)) {
-                    cpuTemperatureTextView.text = "${Util.convertFahrenheitToCelsius(degrees).toString()}${Constants.CELSIUS_DEGREES}"
+                    "${Util.convertFahrenheitToCelsius(degrees)}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
                     cpuTemperatureTextView.hint = Constants.CELSIUS_DEGREES
                 }
             }
@@ -105,7 +98,7 @@ class CPUInfoFragment : Fragment() {
             }
 
             cpuViewModel.populateGridLayoutItems(cpuCoresTextViewValue.text.toString().toInt())
-            binding.cpuInfoRecyclerView?.apply {
+            binding.cpuInfoRecyclerView.apply {
                 layoutManager = GridLayoutManager(requireActivity().application, 1)
                 adapter = ItemAdapter(itemsList)
             }
