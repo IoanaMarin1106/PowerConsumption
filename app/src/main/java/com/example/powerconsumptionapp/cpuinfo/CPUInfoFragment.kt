@@ -1,5 +1,6 @@
 package com.example.powerconsumptionapp.cpuinfo
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,10 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.powerconsumptionapp.R
+import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.databinding.FragmentCPUInfoBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.general.Util
@@ -20,6 +23,7 @@ class CPUInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentCPUInfoBinding
     private val cpuViewModel: CPUViewModel by activityViewModels()
+    private lateinit var appContext: Context
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +32,7 @@ class CPUInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate (
             inflater,
-            R.layout.fragment_c_p_u_info,
+            com.example.powerconsumptionapp.R.layout.fragment_c_p_u_info,
             container,
             false
         )
@@ -45,6 +49,7 @@ class CPUInfoFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
             cpuFragment = this@CPUInfoFragment
             viewModel = cpuViewModel
+            appContext = activity!!.applicationContext
         }
 
         binding.apply {
@@ -101,6 +106,11 @@ class CPUInfoFragment : Fragment() {
             binding.cpuInfoRecyclerView.apply {
                 layoutManager = GridLayoutManager(requireActivity().application, 1)
                 adapter = ItemAdapter(itemsList)
+            }
+
+            fab.setOnClickListener {
+                var dialog = InfoDialogFragment()
+                dialog.show((activity as MainActivity).supportFragmentManager, "customDialog")
             }
         }
 

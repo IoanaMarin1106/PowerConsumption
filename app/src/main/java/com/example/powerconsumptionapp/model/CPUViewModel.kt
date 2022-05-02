@@ -102,6 +102,7 @@ class CPUViewModel: ViewModel() {
                 if (getFreq(leftFilePath) != 0) {
                     leftFreq = getFreq(leftFilePath).toString()
                 }
+
                 if (getFreq(rightFilePath) != 0) {
                     rightFreq = getFreq(rightFilePath).toString()
                 }
