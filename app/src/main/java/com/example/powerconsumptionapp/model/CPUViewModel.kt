@@ -126,5 +126,6 @@ class CPUViewModel: ViewModel() {
             }
         }
     }
+
 }
 

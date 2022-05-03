@@ -17,6 +17,9 @@ import com.example.powerconsumptionapp.databinding.FragmentCPUInfoBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.CPUViewModel
+import android.content.Intent
+import android.net.Uri
+
 
 class CPUInfoFragment : Fragment() {
 
@@ -67,6 +70,15 @@ class CPUInfoFragment : Fragment() {
             cpuFreqTextViewValue.text = model_freq
             cpuHardwareTextViewValue.text = modelName
 
+            cpuHardwareTextViewValue.setOnClickListener {
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://www.google.com/#q=" + "${cpuHardwareTextViewValue.text}@${cpuFreqTextViewValue}")
+                    )
+                )
+            }
+
             if (cpuViewModel.getCpuTemp() != 0) {
                 "${cpuViewModel.getCpuTemp()}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
                 cpuTemperatureTextView.hint = Constants.CELSIUS_DEGREES
@@ -113,16 +125,30 @@ class CPUInfoFragment : Fragment() {
             }
 
             fab.setOnClickListener {
-                var dialogText: String = ""
-                if (cpuInfoContainer.visibility.equals(View.VISIBLE)) {
-                    dialogText = getString(R.string.help_text)
+                val dialogText = if (cpuInfoContainer.visibility == View.VISIBLE) {
+                    getString(R.string.help_text)
                 } else {
-                    dialogText = "Text aici pt statistics"
+                    "Text aici pt statistics"
                 }
-                var dialog = InfoDialogFragment(getString(R.string.help), dialogText)
-                dialog.show((activity as MainActivity).supportFragmentManager, "customDialog")
+                showDialog(getString(R.string.help), dialogText)
+            }
+
+            cpuCurrFrequencyTextView.setOnClickListener {
+                showDialog(Constants.CURR_CPU_FRQ, Constants.CURR_CPU_FRQ_DESC)
+            }
+
+            cpuMaxFrequencyTextView.setOnClickListener {
+                showDialog(Constants.MAX_CPU_FRQ, Constants.MAX_MIN_CPU_FREQ_DESC)
+            }
+
+            cpuMinFrequencyTextView.setOnClickListener {
+                showDialog(Constants.MIN_CPU_FRQ, Constants.MAX_MIN_CPU_FREQ_DESC)
             }
         }
-
     }
+
+    private fun showDialog(dialogTitle: String, dialogText: String) {
+        InfoDialogFragment(dialogTitle, dialogText).show((activity as MainActivity).supportFragmentManager, "customDialog")
+    }
+
 }

@@ -55,4 +55,10 @@ object Constants {
     const val IOWAIT = 5        // Waiting for I/O to complete
     const val IRQ = 6           // Servicing interrupts
     const val SOFTIRQ = 7      // Servicing softirqs
+
+    const val CURR_CPU_FRQ = "Current CPU Frequency"
+    const val MAX_CPU_FRQ = "Max CPU Frequency"
+    const val MIN_CPU_FRQ = "Min CPU Frequency"
+    const val CURR_CPU_FRQ_DESC = "Current frequency of the CPU as determined by the governor and cpufreq core. If the corresponding file is not found, the value will be replaced with the character -."
+    const val MAX_MIN_CPU_FREQ_DESC = "Current \"policy limits\". If the corresponding file is not found, the value will be replaced with the character -."
 }
