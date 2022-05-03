@@ -177,7 +177,7 @@
                                     android:layout_gravity="center"
                                     android:hint="@string/celsius_degree"
                                     android:textColor="@color/black"
-                                    android:textSize="25sp" />
+                                    android:textSize="22sp" />
 
                                 <ImageView
                                     android:id="@+id/temperatureFeedbackImage"
@@ -399,14 +399,18 @@
 
                     </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/charge_menu_button"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/batteryDescription"
                         android:layout_marginTop="20dp"
+                        android:layout_marginHorizontal="8dp"
+                        android:textColor="#666666"
                         android:backgroundTint="@color/deep_purple_light"
-                        android:text="@string/show_charge_options" />
+                        android:text="@string/show_charge_options"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        app:cornerRadius="20dp" />
 
 
                 </RelativeLayout>

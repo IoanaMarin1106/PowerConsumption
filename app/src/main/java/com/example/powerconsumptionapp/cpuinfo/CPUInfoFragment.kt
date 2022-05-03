@@ -8,12 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.MainActivity
+import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentCPUInfoBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.general.Util
@@ -109,7 +108,13 @@ class CPUInfoFragment : Fragment() {
             }
 
             fab.setOnClickListener {
-                var dialog = InfoDialogFragment()
+                var dialogText: String = ""
+                if (cpuInfoContainer.visibility.equals(View.VISIBLE)) {
+                    dialogText = getString(R.string.help_text)
+                } else {
+                    dialogText = "Text aici pt statistics"
+                }
+                var dialog = InfoDialogFragment(getString(R.string.help), dialogText)
                 dialog.show((activity as MainActivity).supportFragmentManager, "customDialog")
             }
         }
