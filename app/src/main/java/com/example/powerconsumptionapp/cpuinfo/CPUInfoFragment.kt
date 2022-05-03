@@ -67,20 +67,25 @@ class CPUInfoFragment : Fragment() {
             cpuFreqTextViewValue.text = model_freq
             cpuHardwareTextViewValue.text = modelName
 
-            "${cpuViewModel.getCpuTemp()}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
-            cpuTemperatureTextView.hint = Constants.CELSIUS_DEGREES
+            if (cpuViewModel.getCpuTemp() != 0) {
+                "${cpuViewModel.getCpuTemp()}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
+                cpuTemperatureTextView.hint = Constants.CELSIUS_DEGREES
 
-            cpuTemperatureTextView.setOnClickListener {
-                val degrees = cpuTemperatureTextView.text.toString().filter { it.isDigit() }.toInt()
+                cpuTemperatureTextView.setOnClickListener {
+                    val degrees = cpuTemperatureTextView.text.toString().filter { it.isDigit() }.toInt()
 
-                if (cpuTemperatureTextView.hint.equals(Constants.CELSIUS_DEGREES)) {
-                    "${Util.convertCelsiusToFahrenheit(degrees)}${Constants.FAHRENHEIT_DEGREES}".also { cpuTemperatureTextView.text = it }
-                    cpuTemperatureTextView.hint = Constants.FAHRENHEIT_DEGREES
-                } else if (cpuTemperatureTextView.hint.equals(Constants.FAHRENHEIT_DEGREES)) {
-                    "${Util.convertFahrenheitToCelsius(degrees)}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
-                    cpuTemperatureTextView.hint = Constants.CELSIUS_DEGREES
+                    if (cpuTemperatureTextView.hint.equals(Constants.CELSIUS_DEGREES)) {
+                        "${Util.convertCelsiusToFahrenheit(degrees)}${Constants.FAHRENHEIT_DEGREES}".also { cpuTemperatureTextView.text = it }
+                        cpuTemperatureTextView.hint = Constants.FAHRENHEIT_DEGREES
+                    } else if (cpuTemperatureTextView.hint.equals(Constants.FAHRENHEIT_DEGREES)) {
+                        "${Util.convertFahrenheitToCelsius(degrees)}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
+                        cpuTemperatureTextView.hint = Constants.CELSIUS_DEGREES
+                    }
                 }
+            } else {
+                cpuTemperatureTextView.text = "-"
             }
+
             cpuUsageProgressbar.progress = cpuViewModel.getLoadAvg().toFloat()
 
             if (cpuViewModel.getFreq(Constants.CURR_FREQ) == 0) {

@@ -61,8 +61,11 @@ class CpuStats(coresNumber: Int) {
     }
 
     private fun readFile(): Int {
-        cpuStatFile = File(Constants.CPU_CORES_LOADAVG)
-        return 0
+        if (File(Constants.CPU_CORES_LOADAVG).exists()) {
+            cpuStatFile = File(Constants.CPU_CORES_LOADAVG)
+            return 0
+        }
+        return -1
     }
 
     fun getCoresUsage(): HashMap<Int, Int> = coresUsage

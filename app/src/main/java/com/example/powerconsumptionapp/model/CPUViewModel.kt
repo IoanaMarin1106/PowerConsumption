@@ -53,16 +53,22 @@ class CPUViewModel: ViewModel() {
 
     // Get the CPU temp from /sys/devices/virtual/thermal/thermal_zone0/temp
     fun getCpuTemp(): Int {
-        val reader = RandomAccessFile(Constants.CPU_TEMPERATURE_PATH, "r")
-        return (reader.readLine().toInt() / 1000)
+        if (File(Constants.CPU_TEMPERATURE_PATH).exists()) {
+            val reader = RandomAccessFile(Constants.CPU_TEMPERATURE_PATH, "r")
+            return (reader.readLine().toInt() / 1000)
+        }
+        return 0
     }
 
     // Get the CPU load average from /proc/loadavg
     fun getLoadAvg() : Int {
-        val reader = RandomAccessFile(Constants.CPU_LOADAVG, "r")
-        val line = reader.readLine()
-        val words = line.split("\\s".toRegex()).toTypedArray()
-        return (words[2].toFloat() * 100).roundToInt()
+        if (File(Constants.CPU_LOADAVG).exists()) {
+            val reader = RandomAccessFile(Constants.CPU_LOADAVG, "r")
+            val line = reader.readLine()
+            val words = line.split("\\s".toRegex()).toTypedArray()
+            return (words[2].toFloat() * 100).roundToInt()
+        }
+        return 0
     }
 
     /*
