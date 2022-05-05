@@ -75,12 +75,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <RelativeLayout
+                    android:id="@+id/infoContainerFirstLayout"
+                    android:clickable="true"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:focusable="true">
 
                     <LinearLayout
                         android:id="@+id/progressBarContainer"
@@ -404,14 +407,62 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/batteryDescription"
-                        android:layout_marginTop="20dp"
                         android:layout_marginHorizontal="8dp"
-                        android:textColor="#666666"
-                        android:backgroundTint="@color/deep_purple_light"
+                        android:layout_marginTop="20dp"
+                        android:backgroundTint="@color/deep_purple"
                         android:text="@string/show_charge_options"
                         android:theme="@style/Theme.MaterialComponents.Light"
                         app:cornerRadius="20dp" />
 
+                    <HorizontalScrollView
+                        android:id="@+id/chargeOptionsHorizotalScrollView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/charge_menu_button"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/acChargerOption"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="8dp"
+                                android:backgroundTint="@color/deep_purple"
+                                android:text="@string/ac_charger"
+                                android:theme="@style/Theme.MaterialComponents.Light"
+                                app:cornerRadius="30dp"
+                                app:icon="@drawable/ic_baseline_question_mark_24"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/wirelessChargerOption"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="8dp"
+                                android:backgroundTint="@color/deep_purple"
+                                android:text="@string/wireless_charger"
+                                android:drawableStart="@drawable/ic_baseline_hardware_24"
+                                android:theme="@style/Theme.MaterialComponents.Light"
+                                app:cornerRadius="30dp"
+                                app:icon="@drawable/ic_baseline_question_mark_24"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/usbChargerOption"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="8dp"
+                                android:backgroundTint="@color/deep_purple"
+                                android:text="@string/usb_charger"
+                                android:drawableStart="@drawable/ic_baseline_question_mark_24"
+                                android:theme="@style/Theme.MaterialComponents.Light"
+                                app:cornerRadius="30dp"
+                                app:icon="@drawable/ic_baseline_question_mark_24"/>
+
+                        </LinearLayout>
+                    </HorizontalScrollView>
 
                 </RelativeLayout>
             </LinearLayout>
@@ -516,6 +567,18 @@
                     </GridLayout>
 
                 </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/deep_purple_light"
+                    android:text="Button"
+                    android:textColor="#666666"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:cornerRadius="20dp" />
+
 
             </LinearLayout>
         </ScrollView>

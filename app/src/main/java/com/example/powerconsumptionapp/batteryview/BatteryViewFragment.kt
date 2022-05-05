@@ -26,6 +26,8 @@ import androidx.annotation.MenuRes
 import androidx.appcompat.widget.AppCompatButton
 import android.graphics.drawable.Drawable
 import android.media.Image
+import android.opengl.Visibility
+import android.os.PowerManager
 
 import android.widget.FrameLayout
 
@@ -34,7 +36,10 @@ import android.widget.PopupWindow
 import android.widget.TextView
 
 import android.view.LayoutInflater
-
+import androidx.annotation.VisibleForTesting
+import androidx.appcompat.widget.MenuPopupWindow
+import com.google.android.material.button.MaterialButton
+import com.madrapps.plot.line.LinePlot
 
 
 class BatteryViewFragment() : Fragment() {
@@ -75,9 +80,11 @@ class BatteryViewFragment() : Fragment() {
     private lateinit var timeoutSpinner: Spinner
     private lateinit var contentResolver: ContentResolver
     private lateinit var window: Window
+    private lateinit var acChargerOption: Button
+    private lateinit var wirelessChargerOption: Button
+    private lateinit var usbChargerOption: Button
 
-    private lateinit var mDropdown: PopupWindow
-    private lateinit var mInflater: LayoutInflater
+    private var areChargingOptionsVisible: Boolean = false
 
     init {
         screenWidth = Resources.getSystem().displayMetrics.widthPixels / 2
@@ -160,7 +167,13 @@ class BatteryViewFragment() : Fragment() {
             }
 
             chargeMenuButton.setOnClickListener {
-                initiatePopupWindow()
+                if (!areChargingOptionsVisible) {
+                    areChargingOptionsVisible = true
+                    chargeOptionsHorizotalScrollView.visibility = View.VISIBLE
+                } else {
+                    areChargingOptionsVisible = false
+                    chargeOptionsHorizotalScrollView.visibility = View.GONE
+                }
             }
         }
 
@@ -169,47 +182,6 @@ class BatteryViewFragment() : Fragment() {
 
         // Setup the timeout spinner
         spinnerHandler()
-    }
-
-    private fun initiatePopupWindow(): PopupWindow? {
-        try {
-            mInflater = this.context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val layout: View = mInflater.inflate(R.layout.popup_window_row, null)
-            setPopupWindowIcons(layout)
-            layout.measure(
-                View.MeasureSpec.UNSPECIFIED,
-                View.MeasureSpec.UNSPECIFIED
-            )
-            mDropdown = PopupWindow(
-                layout, FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT, true
-            )
-            mDropdown.showAsDropDown(binding.chargeMenuButton)
-
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
-        }
-        return mDropdown
-    }
-
-    private fun setPopupWindowIcons(layout: View){
-        if (hasACCharger) {
-            layout.findViewById<ImageView>(R.id.itemA_icon).setImageResource(R.drawable.ic_baseline_check_24)
-        } else {
-            layout.findViewById<ImageView>(R.id.itemA_icon).setImageResource(R.drawable.ic_baseline_question_mark_24)
-        }
-
-        if (hasWirelessCharger) {
-            layout.findViewById<ImageView>(R.id.itemB_icon).setImageResource(R.drawable.ic_baseline_check_24)
-        } else {
-            layout.findViewById<ImageView>(R.id.itemB_icon).setImageResource(R.drawable.ic_baseline_question_mark_24)
-        }
-
-        if (hasUSBCharger) {
-            layout.findViewById<ImageView>(R.id.itemD_icon).setImageResource(R.drawable.ic_baseline_check_24)
-        } else {
-            layout.findViewById<ImageView>(R.id.itemD_icon).setImageResource(R.drawable.ic_baseline_question_mark_24)
-        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -297,6 +269,8 @@ class BatteryViewFragment() : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {
             }
         }
+
+        println("ieeeei " + context?.let { isIgnoringBatteryOptimizations(it) })
     }
 
     // Check whether this app has android write settings permission.
@@ -336,6 +310,10 @@ class BatteryViewFragment() : Fragment() {
         timeoutSpinner = binding.timeoutSpinner
         contentResolver = this.requireContext().contentResolver
         window = this.requireActivity().window
+
+        acChargerOption = binding.acChargerOption
+        wirelessChargerOption = binding.wirelessChargerOption
+        usbChargerOption = binding.usbChargerOption
     }
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -389,15 +367,17 @@ class BatteryViewFragment() : Fragment() {
         when(chargePlug) {
             BatteryManager.BATTERY_PLUGGED_AC -> {
                 powerValueTextView.text = Constants.AC_CHARGER
-                hasACCharger = true
+                acChargerOption.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_check_24, 0, 0, 0)
             }
+
             BatteryManager.BATTERY_PLUGGED_WIRELESS -> {
                 powerValueTextView.text = Constants.WIRELESS
-                hasWirelessCharger = true
+                wirelessChargerOption.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_check_24, 0, 0, 0)
             }
+
             BatteryManager.BATTERY_PLUGGED_USB ->  {
                 powerValueTextView.text = Constants.USB
-                hasUSBCharger = true
+                wirelessChargerOption.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_check_24, 0, 0, 0)
             }
             else -> powerValueTextView.text = Constants.NONE
         }
@@ -471,6 +451,15 @@ class BatteryViewFragment() : Fragment() {
         requireActivity().applicationContext.registerReceiver(broadcastReceiver, iFilter)
     }
 
+    fun isIgnoringBatteryOptimizations(context: Context): Boolean {
+        val pwrm = context.applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
+        val name = context.applicationContext.packageName
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return pwrm.isIgnoringBatteryOptimizations(name)
+        }
+        return true
+    }
+
     override fun onResume() {
         super.onResume()
         requireActivity().applicationContext.registerReceiver(broadcastReceiver, iFilter)
@@ -481,7 +470,5 @@ class BatteryViewFragment() : Fragment() {
         super.onPause()
     }
 }
-
-
 
 
