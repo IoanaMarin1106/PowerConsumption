@@ -17,16 +17,6 @@ import java.util.regex.Pattern
 import kotlin.math.roundToInt
 
 class CPUViewModel: ViewModel() {
-    fun containerHandler(
-        cpuInfoContainer: ScrollView,
-        statisticsContainer: LinearLayout,
-        cpuInfoVisibility: Int,
-        statisticsVisibility: Int
-    ) {
-        cpuInfoVisibility.also { cpuInfoContainer.visibility = it }
-        statisticsVisibility.also { statisticsContainer.visibility = it }
-    }
-
     // Get the CPU cores from /sys/devices/system/cpu/
     fun getNumberOfCores(): Int? {
         return File(Constants.CPU_CORES_PATH).listFiles { pathname ->
