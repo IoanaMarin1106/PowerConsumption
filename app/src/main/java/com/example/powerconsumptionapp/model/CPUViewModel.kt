@@ -6,8 +6,10 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
+import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.cpuinfo.CpuStats
 import com.example.powerconsumptionapp.cpuinfo.GridItem
+import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
 import com.example.powerconsumptionapp.cpuinfo.itemsList
 import com.example.powerconsumptionapp.general.Constants
 import java.io.*
@@ -127,5 +129,11 @@ class CPUViewModel: ViewModel() {
         }
     }
 
+    fun showDialog(mainActivity: MainActivity, dialogTitle: String, dialogText: String) {
+        InfoDialogFragment(
+            dialogTitle,
+            dialogText
+        ).show(mainActivity.supportFragmentManager, "customDialog")
+    }
 }
 
