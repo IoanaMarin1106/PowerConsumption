@@ -4,13 +4,16 @@ import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import androidx.viewpager.widget.ViewPager
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentBatteryViewBinding
@@ -18,7 +21,7 @@ import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.google.android.material.tabs.TabLayout
 
 
-class BatteryViewFragment() : Fragment() {
+class BatteryViewFragment : Fragment() {
 
     private lateinit var binding: FragmentBatteryViewBinding
     private val batteryViewModel: BatteryViewModel by activityViewModels()
@@ -29,6 +32,11 @@ class BatteryViewFragment() : Fragment() {
 
     init {
         screenWidth = Resources.getSystem().displayMetrics.widthPixels / 2
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(
@@ -94,6 +102,20 @@ class BatteryViewFragment() : Fragment() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.battery_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.batterySettingsFragment -> {
+                val action = BatteryViewFragmentDirections.actionBatteryViewFragmentToBatterySettingsFragment()
+                NavHostFragment.findNavController(this@BatteryViewFragment).navigate(action)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }
 
 

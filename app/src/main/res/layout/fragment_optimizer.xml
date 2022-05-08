@@ -112,18 +112,6 @@
 
             </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/deep_purple_light"
-                android:text="Button"
-                android:textColor="#666666"
-                android:theme="@style/Theme.MaterialComponents.Light"
-                app:cornerRadius="20dp" />
-
-
         </LinearLayout>
     </ScrollView>
 

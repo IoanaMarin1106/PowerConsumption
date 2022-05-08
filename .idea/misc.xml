@@ -38,6 +38,7 @@
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/card_layout.xml" value="0.1736842105263158" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/cpu_row_item.xml" value="0.2" />
+        <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_battery_settings.xml" value="0.20625" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_c_p_u_info.xml" value="0.264" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_c_p_u_information.xml" value="0.20625" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_c_p_u_statistics.xml" value="0.1" />
@@ -49,9 +50,12 @@
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/nav_header.xml" value="0.20625" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/popup_window_row.xml" value="0.1719869706840391" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/toolbar_layout.xml" value="0.20625" />
+        <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/toolbar_with_settings_layout.xml" value="0.20625" />
+        <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/menu/battery_menu.xml" value="0.20625" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/menu/navdrawer_menu.xml" value="0.20625" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/menu/options_menu.xml" value="0.20625" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/menu/popup_menu.xml" value="0.1719869706840391" />
+        <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/menu/settings_menu.xml" value="0.20625" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2911458333333333" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable/ic_baseline_battery_charging_full_24.xml" value="0.2911458333333333" />
         <entry key="..\:/Users/ioana.marin1106/Downloads/PowerConsumptionApp2/app/src/main/res/drawable/ic_baseline_battery_saver_24.xml" value="0.2911458333333333" />

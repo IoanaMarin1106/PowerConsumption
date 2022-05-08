@@ -13,4 +13,5 @@
     <dimen name="text_view_size">14sp</dimen>
     <dimen name="default_margin_buttons">4dp</dimen>
     <dimen name="tabs_padding">4dp</dimen>
+    <dimen name="settings_text_size">16sp</dimen>
 </resources>

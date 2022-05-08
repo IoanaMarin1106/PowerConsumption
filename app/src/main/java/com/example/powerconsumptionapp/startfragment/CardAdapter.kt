@@ -42,9 +42,7 @@ class CardAdapter(
                     val action = StarterFragmentDirections.actionStarterFragmentToPerformanceManagerFragment()
                     NavHostFragment.findNavController(parentFragment).navigate(action)
                 }
-                Util.Button.SETTINGS.title -> Toast.makeText(holder.view.context, "nu am ecran de settings inca :)", Toast.LENGTH_SHORT).show()
             }
-
         }
     }
 

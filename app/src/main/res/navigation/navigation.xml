@@ -10,7 +10,12 @@
         android:id="@+id/batteryViewFragment"
         android:name="com.example.powerconsumptionapp.batteryview.BatteryViewFragment"
         android:label="@string/battery_view_fragment"
-        tools:layout="@layout/fragment_battery_view"/>
+        tools:layout="@layout/fragment_battery_view">
+        <action
+            android:id="@+id/action_batteryViewFragment_to_batterySettingsFragment"
+            app:destination="@id/batterySettingsFragment"
+            app:popUpTo="@id/batteryViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/CPUInfo"
         android:name="com.example.powerconsumptionapp.cpuinfo.CPUInfoFragment"
@@ -28,20 +33,29 @@
         tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_starterFragment_to_performanceManagerFragment"
-            app:destination="@id/performanceManagerFragment" />
-        <action
-            android:id="@+id/action_starterFragment_to_batteryViewFragment"
-            app:destination="@id/batteryViewFragment" />
+            app:destination="@id/performanceManagerFragment"
+            app:popUpTo="@id/starterFragment" />
         <action
             android:id="@+id/action_starterFragment_to_CPUInfo"
-            app:destination="@id/CPUInfo" />
+            app:destination="@id/CPUInfo"
+            app:popUpTo="@id/starterFragment" />
         <action
             android:id="@+id/action_starterFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
+            app:destination="@id/aboutFragment"
+            app:popUpTo="@id/starterFragment" />
+        <action
+            android:id="@+id/action_starterFragment_to_batteryViewFragment"
+            app:destination="@id/batteryViewFragment"
+            app:popUpTo="@id/starterFragment" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.powerconsumptionapp.about.AboutFragment"
         android:label="@string/about_fragment_title"
         tools:layout="@layout/fragment_about"/>
+    <fragment
+        android:id="@+id/batterySettingsFragment"
+        android:name="com.example.powerconsumptionapp.batteryview.BatterySettingsFragment"
+        android:label="BatterySettingsFragment"
+        tools:layout="@layout/fragment_battery_settings"/>
 </navigation>

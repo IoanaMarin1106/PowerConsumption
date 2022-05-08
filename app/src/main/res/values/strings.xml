@@ -60,6 +60,13 @@
     <string name="help">Help!</string>
     <string name="help_text">Frequency files may not exist on your device. This is marked in the corresponding places with the character <b>-</b>.</string>
     <string name="ok">OK</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="settings">Settings</string>
+    <string name="select_alarm_tone">Select Alarm Tone</string>
+    <string name="set_volume">Set Volume</string>
+    <string name="remind_me_to_switch_off_charger_adapter">Remind me to switch OFF\n charger adapter</string>
+    <string name="select_battery_level">Select Battery Level</string>
+    <string name="down_limit_battery_level">Down Limit Battery Level</string>
+    <string name="up_limit_battery_level">Up Limit Battery Level</string>
+    <string name="launch_app_when_power_n_connected">Launch app when power\n connected</string>
 </resources>
