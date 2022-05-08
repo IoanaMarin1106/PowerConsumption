@@ -5,23 +5,27 @@ import android.util.Log
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.annotation.RequiresApi
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.cpuinfo.CpuStats
 import com.example.powerconsumptionapp.cpuinfo.GridItem
 import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
 import com.example.powerconsumptionapp.cpuinfo.itemsList
 import com.example.powerconsumptionapp.general.Constants
+import kotlinx.coroutines.launch
 import java.io.*
 import java.util.regex.Pattern
 import kotlin.math.roundToInt
 
 class CPUViewModel: ViewModel() {
     // Get the CPU cores from /sys/devices/system/cpu/
-    fun getNumberOfCores(): Int? {
+    fun getNumberOfCores(): Int {
         return File(Constants.CPU_CORES_PATH).listFiles { pathname ->
             Pattern.matches("cpu[0-9]", pathname!!.name)
-        }?.size
+        }?.size ?: 0
     }
 
     fun getCpuModelName(): Pair<String, String> {

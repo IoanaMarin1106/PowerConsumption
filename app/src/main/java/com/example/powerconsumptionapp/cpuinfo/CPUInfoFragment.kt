@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
@@ -23,7 +24,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 class CPUInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentCPUInfoBinding
-    private val cpuViewModel: CPUViewModel by activityViewModels()
+    private lateinit var cpuViewModel: CPUViewModel
     private lateinit var pagerAdapter: CPUPagerAdapter
     private lateinit var viewPager: ViewPager
     private var selectedTab = -1
@@ -40,12 +41,14 @@ class CPUInfoFragment : Fragment() {
             false
         )
 
+        cpuViewModel = ViewModelProvider(this).get(CPUViewModel::class.java)
+
         // Set up the ViewPager with the sections adapter
         viewPager = binding.cpuViewPager
 
         //Create the adapter that will return a fragment for each of the three primary
         // sections of the fragment.
-        pagerAdapter = CPUPagerAdapter(fragmentManager)
+        pagerAdapter = CPUPagerAdapter(childFragmentManager)
         viewPager.adapter = pagerAdapter
 
         val tabLayout: TabLayout = binding.cpuTabs

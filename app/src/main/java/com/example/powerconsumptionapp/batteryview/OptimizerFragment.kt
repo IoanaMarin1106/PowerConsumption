@@ -33,6 +33,7 @@ class OptimizerFragment : Fragment() {
     private lateinit var contentResolver: ContentResolver
     private lateinit var window: Window
 
+
     companion object {
         @JvmStatic
         fun newInstance(): OptimizerFragment = OptimizerFragment()
@@ -57,7 +58,7 @@ class OptimizerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Assign class properties to XML attributes
+       //  Assign class properties to XML attributes
         assignClassProperties()
 
         binding.apply {

@@ -54,6 +54,11 @@ class InformationFragment : Fragment() {
 
     private var areChargingOptionsVisible: Boolean = false
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        println("a creat info")
+    }
+
     companion object {
         @JvmStatic
         fun newInstance(): InformationFragment = InformationFragment()
@@ -155,9 +160,11 @@ class InformationFragment : Fragment() {
             val batteryTemperature = intent?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)
             setBatteryTemperature(batteryTemperature)
 
+            // Get battery health
             val health = intent?.getIntExtra(BatteryManager.EXTRA_HEALTH, 0)
             setBatteryHealth(health)
 
+            // Get battery voltage
             val voltage = intent?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0)
             setBatteryVoltage(voltage)
         }

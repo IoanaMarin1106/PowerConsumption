@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
@@ -23,7 +24,7 @@ import com.example.powerconsumptionapp.model.CPUViewModel
 
 class CPUInformationFragment : Fragment() {
     private lateinit var binding: FragmentCPUInformationBinding
-    private val cpuViewModel: CPUViewModel by activityViewModels()
+    private lateinit var cpuViewModel: CPUViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +37,9 @@ class CPUInformationFragment : Fragment() {
             container,
             false
         )
+
+        cpuViewModel = ViewModelProvider(this).get(CPUViewModel::class.java)
+
         return binding.root
     }
 
