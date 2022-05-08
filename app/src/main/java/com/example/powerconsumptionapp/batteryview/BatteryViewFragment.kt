@@ -51,22 +51,9 @@ class BatteryViewFragment() : Fragment() {
         // sections of the fragment.
         pagerAdapter = BatteryPagerAdapter(childFragmentManager)
         viewPager.adapter = pagerAdapter
-        viewPager.offscreenPageLimit = 3
 
         val tabLayout: TabLayout = binding.batteryTabs
         tabLayout.setupWithViewPager(viewPager)
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                viewPager.currentItem = tab!!.position
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
-
         return binding.root
     }
 
@@ -85,21 +72,10 @@ class BatteryViewFragment() : Fragment() {
         FragmentPagerAdapter(fm!!) {
         override fun getItem(position: Int): Fragment {
             var fragment: Fragment? = null
-            println(position.toString() + "aiciiiiiiiiiiiii")
             when (position) {
-                0 -> {
-                    fragment = InformationFragment()
-                    println("recreeaza info fragment baterie")
-                }
-                1 -> {
-                    fragment = OptimizerFragment()
-                    println("recreeaza optimize fragment baterie")
-
-                }
-                2 -> {
-                    fragment = StatisticsFragment()
-                    println("recreeaza stats fragment baterie")
-                }
+                0 -> fragment = InformationFragment.newInstance()
+                1 -> fragment = OptimizerFragment.newInstance()
+                2 -> fragment = StatisticsFragment.newInstance()
             }
             return fragment!!
         }

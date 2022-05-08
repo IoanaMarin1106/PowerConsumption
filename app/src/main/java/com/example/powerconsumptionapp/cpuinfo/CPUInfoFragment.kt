@@ -24,7 +24,7 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 class CPUInfoFragment : Fragment() {
 
     private lateinit var binding: FragmentCPUInfoBinding
-    private lateinit var cpuViewModel: CPUViewModel
+    private val cpuViewModel: CPUViewModel by activityViewModels()
     private lateinit var pagerAdapter: CPUPagerAdapter
     private lateinit var viewPager: ViewPager
     private var selectedTab = -1
@@ -40,8 +40,6 @@ class CPUInfoFragment : Fragment() {
             container,
             false
         )
-
-        cpuViewModel = ViewModelProvider(this).get(CPUViewModel::class.java)
 
         // Set up the ViewPager with the sections adapter
         viewPager = binding.cpuViewPager

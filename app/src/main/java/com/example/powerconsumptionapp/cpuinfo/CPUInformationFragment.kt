@@ -24,7 +24,7 @@ import com.example.powerconsumptionapp.model.CPUViewModel
 
 class CPUInformationFragment : Fragment() {
     private lateinit var binding: FragmentCPUInformationBinding
-    private lateinit var cpuViewModel: CPUViewModel
+    private val cpuViewModel: CPUViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,9 +37,6 @@ class CPUInformationFragment : Fragment() {
             container,
             false
         )
-
-        cpuViewModel = ViewModelProvider(this).get(CPUViewModel::class.java)
-
         return binding.root
     }
 
