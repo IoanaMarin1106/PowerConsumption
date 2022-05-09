@@ -52,7 +52,6 @@ class BatterySettingsFragment : Fragment() {
             ringtoneSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>,
                                             view: View?, position: Int, id: Long) {
-                    Toast.makeText(context, "ai ales ${items[position]}", Toast.LENGTH_SHORT).show()
                     RingtoneManager.setActualDefaultRingtoneUri(
                         requireContext(),
                         RingtoneManager.TYPE_ALARM,

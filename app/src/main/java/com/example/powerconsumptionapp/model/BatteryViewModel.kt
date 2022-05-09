@@ -3,6 +3,7 @@ package com.example.powerconsumptionapp.model
 import android.database.Cursor
 import android.media.RingtoneManager
 import android.net.Uri
+import androidx.core.net.toUri
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -37,6 +38,7 @@ class BatteryViewModel: ViewModel() {
         val manager = RingtoneManager(activity)
         manager.setType(RingtoneManager.TYPE_RINGTONE)
         val cursor: Cursor = manager.cursor
+
         while (cursor.moveToNext()) {
             val title: String = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX)
             val ringtoneURI: Uri = manager.getRingtoneUri(cursor.position)

@@ -169,7 +169,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="@dimen/default_margin_buttons"
-                                    android:layout_gravity="center_horizontal" />
+                                    android:layout_gravity="center_horizontal"
+                                    app:maxValue="@{100}"
+                                    app:minValue="@{0}"/>
 
                             </LinearLayout>
 
@@ -202,7 +204,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:padding="@dimen/default_margin_buttons"
-                                    android:layout_gravity="center_horizontal" />
+                                    android:layout_gravity="center_horizontal"
+                                    app:maxValue="@{100}"
+                                    app:minValue="@{0}" />
                             </LinearLayout>
 
                         </androidx.cardview.widget.CardView>
