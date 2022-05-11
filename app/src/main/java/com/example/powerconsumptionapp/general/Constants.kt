@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import java.util.regex.Pattern
 
 object Constants {
+    const val UNKNOWN_MESSAGE = "Unknown"
 
     // Temperature (F/C) thresholds
     const val HIGH_CELSIUS_TEMPERATURE = 40

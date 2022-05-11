@@ -62,6 +62,13 @@ class BatterySettingsFragment : Fragment() {
                 }
             }
 
+            setAlarmButton.setOnClickListener {
+                it.visibility = View.GONE
+                alarmContainer.visibility = View.VISIBLE
+            }
+
+
+
         }
     }
 }

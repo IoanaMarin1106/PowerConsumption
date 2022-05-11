@@ -80,25 +80,25 @@ class CPUInformationFragment : Fragment() {
                     }
                 }
             } else {
-                cpuTemperatureTextView.text = "-"
+                cpuTemperatureTextView.text = Constants.UNKNOWN
             }
 
             cpuUsageProgressbar.progress = cpuViewModel.getLoadAvg().toFloat()
 
             if (cpuViewModel.getFreq(Constants.CURR_FREQ) == 0) {
-                cpuCurrFrequencyTextView.text = "-"
+                cpuCurrFrequencyTextView.text = Constants.UNKNOWN
             } else {
                 cpuCurrFrequencyTextView.text = cpuViewModel.getFreq(Constants.CURR_FREQ).toString()
             }
 
             if (cpuViewModel.getFreq(Constants.MIN_FREQ) == 0) {
-                cpuMinFrequencyTextView.text = "-"
+                cpuMinFrequencyTextView.text = Constants.UNKNOWN
             } else {
                 cpuMinFrequencyTextView.text = cpuViewModel.getFreq(Constants.MIN_FREQ).toString()
             }
 
             if (cpuViewModel.getFreq(Constants.MAX_FREQ) == 0) {
-                cpuMaxFrequencyTextView.text = "-"
+                cpuMaxFrequencyTextView.text = Constants.UNKNOWN
             } else {
                 cpuMaxFrequencyTextView.text = cpuViewModel.getFreq(Constants.MAX_FREQ).toString()
             }
