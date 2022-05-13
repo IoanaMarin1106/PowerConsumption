@@ -1,5 +1,6 @@
 package com.example.powerconsumptionapp.batteryview
 
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -10,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -21,6 +24,7 @@ import com.example.powerconsumptionapp.model.BatteryViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.math.roundToInt
+
 
 class InformationFragment : Fragment() {
 
@@ -266,7 +270,7 @@ class InformationFragment : Fragment() {
         batteryLevelIndicator.progress = batteryProcent!!
 
         if (batteryLevelIndicator.progress == BatterySettingsFragment.reminderBatteryLevel) {
-
+            sendNotification()
         }
 
         if (chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
@@ -276,6 +280,21 @@ class InformationFragment : Fragment() {
             chargingBattery.visibility = View.GONE
             tvBatteryPercentage.visibility = View.VISIBLE
         }
+    }
+
+    private fun sendNotification() {
+        var builder = NotificationCompat.Builder(requireActivity(), Constants.CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_baseline_notification_important_24)
+            .setContentTitle("My notification")
+            .setContentText("Much longer text that cannot fit one line...")
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText("Much longer text that cannot fit one line..."))
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        val mNotificationManager = requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
+        mNotificationManager!!.notify(
+            System.currentTimeMillis().toInt(),
+            builder.build()
+        )
     }
 
     private fun convertFahrenheitToCelsius() {
