@@ -9,10 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -21,6 +18,8 @@ import com.example.powerconsumptionapp.databinding.FragmentInformationBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.BatteryViewModel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlin.math.roundToInt
 
 class InformationFragment : Fragment() {
@@ -54,10 +53,6 @@ class InformationFragment : Fragment() {
 
     private var areChargingOptionsVisible: Boolean = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        println("a creat info")
-    }
 
     companion object {
         @JvmStatic
@@ -90,30 +85,37 @@ class InformationFragment : Fragment() {
             viewModel = batteryViewModel
         }
 
-        // Get battery attributes with action_battery_changed
-        getBatteryStatus()
-
-        binding.apply {
-            tempProgressBarElements.setOnClickListener {
-                // If current format is Celsius -> convert to Fahrenheit
-                if (batteryTemperatureTextView.hint.equals(Constants.CELSIUS_DEGREES)) {
-                    convertCelsiusToFahrenheit()
-                } else if (batteryTemperatureTextView.hint.equals(Constants.FAHRENHEIT_DEGREES)) {
-                    convertFahrenheitToCelsius()
-                }
-            }
-
-            chargeMenuButton.setOnClickListener {
-                if (!areChargingOptionsVisible) {
-                    areChargingOptionsVisible = true
-                    chargeOptionsHorizotalScrollView.visibility = View.VISIBLE
-                } else {
-                    areChargingOptionsVisible = false
-                    chargeOptionsHorizotalScrollView.visibility = View.GONE
-                }
+        runBlocking {
+            launch {
+                // Get battery attributes with action_battery_changed
+                getBatteryStatus()
             }
         }
 
+        Thread {
+            this.requireActivity().runOnUiThread(java.lang.Runnable {
+                binding.apply {
+                    tempProgressBarElements.setOnClickListener {
+                        // If current format is Celsius -> convert to Fahrenheit
+                        if (batteryTemperatureTextView.hint.equals(Constants.CELSIUS_DEGREES)) {
+                            convertCelsiusToFahrenheit()
+                        } else if (batteryTemperatureTextView.hint.equals(Constants.FAHRENHEIT_DEGREES)) {
+                            convertFahrenheitToCelsius()
+                        }
+                    }
+
+                    chargeMenuButton.setOnClickListener {
+                        if (!areChargingOptionsVisible) {
+                            areChargingOptionsVisible = true
+                            chargeOptionsHorizotalScrollView.visibility = View.VISIBLE
+                        } else {
+                            areChargingOptionsVisible = false
+                            chargeOptionsHorizotalScrollView.visibility = View.GONE
+                        }
+                    }
+                }
+            })
+        }.start()
     }
 
     private fun assignClassProperties() {
@@ -145,41 +147,57 @@ class InformationFragment : Fragment() {
                 (batteryLevel * 100 / scale.toFloat()).roundToInt()
             }
 
-            // Get charging status
-            val chargingStatus = intent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
-            setBatteryStatus(chargingStatus)
+            var chargingStatus: Int = 0
 
-            // Set battery percentage
-            setBatteryPercentage(batteryProcent, chargingStatus)
+            runBlocking {
+                launch {
+                    // Get charging status
+                    chargingStatus = intent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
+                    setBatteryStatus(chargingStatus)
+                }
 
-            // Get charge plug / if it plugged in or not
-            val chargePlug: Int = intent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: -1
-            setPowerAdapter(chargePlug)
+                launch {
+                    // Set battery percentage
+                    setBatteryPercentage(batteryProcent, chargingStatus)
+                }
 
-            // Get battery temperature
-            val batteryTemperature = intent?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)
-            setBatteryTemperature(batteryTemperature)
+                launch {
+                    // Get charge plug / if it plugged in or not
+                    val chargePlug: Int = intent?.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1) ?: -1
+                    setPowerAdapter(chargePlug)
+                }
 
-            // Get battery health
-            val health = intent?.getIntExtra(BatteryManager.EXTRA_HEALTH, 0)
-            setBatteryHealth(health)
+                launch {
+                    // Get battery temperature
+                    val batteryTemperature = intent?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0)
+                    setBatteryTemperature(batteryTemperature)
+                }
 
-            // Get battery voltage
-            val voltage = intent?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0)
-            setBatteryVoltage(voltage)
+                launch {
+                    // Get battery health
+                    val health = intent?.getIntExtra(BatteryManager.EXTRA_HEALTH, 0)
+                    setBatteryHealth(health)
+                }
+
+                launch {
+                    // Get battery voltage
+                    val voltage = intent?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0)
+                    setBatteryVoltage(voltage)
+                }
+            }
         }
     }
 
-    private fun getBatteryStatus() {
+    private suspend fun getBatteryStatus() {
         iFilter!!.addAction(Intent.ACTION_BATTERY_CHANGED)
         requireActivity().applicationContext.registerReceiver(broadcastReceiver, iFilter)
     }
 
-    private fun setBatteryVoltage(voltage: Int?) {
+    private suspend fun setBatteryVoltage(voltage: Int?) {
         voltageValueTextView.text = "$voltage mv"
     }
 
-    private fun setBatteryHealth(health: Int?) {
+    private suspend fun setBatteryHealth(health: Int?) {
         when (health) {
             BatteryManager.BATTERY_HEALTH_COLD -> healthValueTextView.text = Constants.COLD
             BatteryManager.BATTERY_HEALTH_DEAD -> healthValueTextView.text = Constants.DEAD
@@ -191,7 +209,7 @@ class InformationFragment : Fragment() {
         }
     }
 
-    private fun setPowerAdapter(chargePlug: Int) {
+    private suspend fun setPowerAdapter(chargePlug: Int) {
         when(chargePlug) {
             BatteryManager.BATTERY_PLUGGED_AC -> {
                 powerValueTextView.text = Constants.AC_CHARGER
@@ -211,7 +229,7 @@ class InformationFragment : Fragment() {
         }
     }
 
-    private fun setBatteryStatus(chargingStatus: Int) {
+    private suspend fun setBatteryStatus(chargingStatus: Int) {
         when(chargingStatus) {
             BatteryManager.BATTERY_STATUS_CHARGING -> statusValueTextView.text = Constants.CHARGING
             BatteryManager.BATTERY_STATUS_UNKNOWN -> statusValueTextView.text = Constants.UNKNOWN
@@ -221,7 +239,7 @@ class InformationFragment : Fragment() {
         }
     }
 
-    private fun setBatteryTemperature(batteryTemperature: Int?) {
+    private suspend fun setBatteryTemperature(batteryTemperature: Int?) {
         (batteryTemperature?.div(10))?.toFloat()!!.roundToInt().also {
             temperatureProgressBar.progress = it
             batteryTemperatureTextView.apply {
@@ -240,12 +258,16 @@ class InformationFragment : Fragment() {
         }
     }
 
-    private fun setBatteryPercentage(batteryProcent: Int?, chargingStatus: Int) {
+    private suspend fun setBatteryPercentage(batteryProcent: Int?, chargingStatus: Int) {
         "${batteryProcent.toString()}%".also {
             tvBatteryPercentage.text = it
             levelValueTextView.text = it
         }
         batteryLevelIndicator.progress = batteryProcent!!
+
+        if (batteryLevelIndicator.progress == BatterySettingsFragment.reminderBatteryLevel) {
+
+        }
 
         if (chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
             chargingBattery.visibility = View.VISIBLE

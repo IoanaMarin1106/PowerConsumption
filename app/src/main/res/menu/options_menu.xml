@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/batteryViewFragment"
-        android:title="@string/nav_battery_title" />
-
-    <item
-        android:id="@+id/CPUInfo"
-        android:title="@string/nav_cpu_title" />
-
+        android:id="@+id/batterySettingsFragment"
+        android:title="@string/battery_settings"/>
     <item
         android:id="@+id/aboutFragment"
         android:title="@string/nav_about" />

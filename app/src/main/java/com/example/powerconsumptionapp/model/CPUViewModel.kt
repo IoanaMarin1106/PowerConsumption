@@ -21,6 +21,7 @@ import java.util.regex.Pattern
 import kotlin.math.roundToInt
 
 class CPUViewModel: ViewModel() {
+
     // Get the CPU cores from /sys/devices/system/cpu/
     fun getNumberOfCores(): Int {
         return File(Constants.CPU_CORES_PATH).listFiles { pathname ->
@@ -74,7 +75,7 @@ class CPUViewModel: ViewModel() {
         exist
     */
     fun getFreq(fileName: String) : Int {
-        var file = File(fileName)
+        val file = File(fileName)
         if (file.exists()) {
             val reader = RandomAccessFile(fileName, "r")
             val line = reader.readLine()

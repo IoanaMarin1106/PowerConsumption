@@ -1,19 +1,27 @@
 package com.example.powerconsumptionapp.model
 
+import android.content.Context
 import android.database.Cursor
+import android.media.AudioManager
+import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
-import androidx.core.net.toUri
+import android.provider.MediaStore
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.startfragment.ButtonsInfo
 import com.example.powerconsumptionapp.startfragment.Util
 import com.example.powerconsumptionapp.startfragment.buttonsList
+import com.google.android.material.switchmaterial.SwitchMaterial
+import com.shawnlin.numberpicker.NumberPicker
 import kotlinx.coroutines.launch
+
 
 class BatteryViewModel: ViewModel() {
     var ringtonesList: HashMap<String, Uri> = HashMap()
@@ -45,5 +53,29 @@ class BatteryViewModel: ViewModel() {
             // Do something with the title and the URI of ringtone
             ringtonesList[title] = ringtoneURI
         }
+    }
+
+    fun setAlarmRingtone(context: Context, ringtoneSpinner: Spinner) {
+        val items = ringtonesList.keys.toTypedArray()
+        val adapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_item, items)
+        ringtoneSpinner.adapter = adapter
+        ringtoneSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>,
+                                        view: View?, position: Int, id: Long) {
+                RingtoneManager.setActualDefaultRingtoneUri(
+                    context,
+                    RingtoneManager.TYPE_ALARM,
+                    Uri.parse(ringtonesList[items[position]].toString()));
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+            }
+        }
+    }
+
+    fun playAlarm(context: Context) {
+        val ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        val ringtoneSound: Ringtone = RingtoneManager.getRingtone(context, ringtoneUri)
+        ringtoneSound.play()
     }
 }

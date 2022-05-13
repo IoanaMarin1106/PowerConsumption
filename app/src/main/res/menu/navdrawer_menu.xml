@@ -2,12 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/batteryViewFragment"
-        android:title="@string/nav_battery_title" />
+        android:id="@+id/batterySettingsFragment"
+        android:title="@string/battery_settings"/>
 
     <item
         android:id="@+id/CPUInfo"
         android:title="@string/nav_cpu_title" />
+
 
     <item
         android:id="@+id/aboutFragment"

@@ -81,4 +81,5 @@ dependencies {
     implementation 'com.akexorcist:round-corner-progress-bar:2.1.2'
     implementation 'com.github.madrapps:plot:0.1.1'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
 }

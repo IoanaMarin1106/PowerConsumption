@@ -67,11 +67,19 @@ class OptimizerFragment : Fragment() {
             viewModel = batteryViewModel
         }
 
-        // Setup brightness control to reduce battery consumption
-        brightnessControlHandler()
+        Thread {
+            requireActivity().runOnUiThread {
+                // Setup brightness control to reduce battery consumption
+                brightnessControlHandler()
+            }
+        }.start()
 
-        // Setup the timeout spinner
-        spinnerHandler()
+        Thread {
+            requireActivity().runOnUiThread {
+                // Setup the timeout spinner
+                spinnerHandler()
+            }
+        }.start()
     }
 
     private fun assignClassProperties() {

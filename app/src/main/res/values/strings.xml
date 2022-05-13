@@ -70,4 +70,6 @@
     <string name="up_limit_battery_level">Up Limit Battery Level</string>
     <string name="launch_app_when_power_n_connected">Launch app when power\n connected</string>
     <string name="set_alarm">Set Alarm</string>
+    <string name="battery_settings">Battery Settings</string>
+    <string name="_50_percent">50%</string>
 </resources>
