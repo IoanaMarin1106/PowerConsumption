@@ -31,6 +31,7 @@ class NotificationService : Service() {
             Log.i(TAG, "Reminder battery level: -1")
         }
 
+
         processingThread = ProcessingNotificationsThread(applicationContext, reminderBatteryLevel)
         processingThread.start()
         return super.onStartCommand(intent, flags, startId)

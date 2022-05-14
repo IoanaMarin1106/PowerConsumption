@@ -65,4 +65,5 @@ object Constants {
 
     const val CHANNEL_ID = "default"
     const val REMINDER_BATTERY_LEVEL = "Reminder Battery Level"
+    const val REMINDER_BATTERY_MESSAGE = ""
 }

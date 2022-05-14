@@ -21,6 +21,7 @@ import com.example.powerconsumptionapp.databinding.FragmentInformationBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.BatteryViewModel
+import com.example.powerconsumptionapp.service.NotificationService
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.math.roundToInt

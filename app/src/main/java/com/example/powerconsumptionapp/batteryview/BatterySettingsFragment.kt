@@ -15,6 +15,7 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.ankushyerwar.floatingsnackbar.SnackBar
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentBatterySettingsBinding
 import com.example.powerconsumptionapp.general.Constants
@@ -23,7 +24,6 @@ import com.example.powerconsumptionapp.service.NotificationService
 import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-
 
 class BatterySettingsFragment : Fragment() {
 
@@ -123,6 +123,7 @@ class BatterySettingsFragment : Fragment() {
                 val serviceIntent = Intent(requireActivity().applicationContext, NotificationService::class.java)
                 serviceIntent.putExtra(Constants.REMINDER_BATTERY_LEVEL, reminderBatteryLevel)
                 requireActivity().applicationContext.startService(serviceIntent)
+                SnackBar.success(view, "Charging battery reminder set to: $reminderBatteryLevel%", SnackBar.LENGTH_LONG).show();
             }
 
             alarmButton.setOnClickListener {
