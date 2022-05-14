@@ -1,14 +1,15 @@
 package com.example.powerconsumptionapp.batteryview
 
 import android.content.Context
+import android.content.Intent
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.SeekBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
@@ -16,15 +17,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentBatterySettingsBinding
+import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.model.BatteryViewModel
+import com.example.powerconsumptionapp.service.NotificationService
 import com.google.android.material.switchmaterial.SwitchMaterial
-import com.shawnlin.numberpicker.NumberPicker
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import java.util.*
 
 
-class BatterySettingsFragment() : Fragment() {
+class BatterySettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentBatterySettingsBinding
     private val batteryViewModel: BatteryViewModel by activityViewModels()
@@ -35,7 +36,7 @@ class BatterySettingsFragment() : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(
             inflater,
@@ -49,6 +50,7 @@ class BatterySettingsFragment() : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        reminderBatteryLevel = binding.batteryLevelReminder.value
 
         runBlocking {
             launch {
@@ -83,21 +85,15 @@ class BatterySettingsFragment() : Fragment() {
             ringtoneVolumeSeekbar.max = audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)
             audioManager.getStreamVolume(AudioManager.STREAM_ALARM).apply {
                 ringtoneVolumeSeekbar.progress = this
-                ringtoneVolumeTextView.text = "${
-                    ((this.toFloat() / audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)
-                        .toFloat()) * 100).toInt()
-                }%"
+                ((this.toFloat() / audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)
+                    .toFloat() * 100).toInt().toString() + "%").also { ringtoneVolumeTextView.text = it }
             }
 
             ringtoneVolumeSeekbar.setOnSeekBarChangeListener(object :
                 SeekBar.OnSeekBarChangeListener {
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                    // TODO Auto-generated method stub
-                }
 
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    // TODO Auto-generated method stub
-                }
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {}
 
                 override fun onProgressChanged(
                     seekBar: SeekBar?,
@@ -107,7 +103,7 @@ class BatterySettingsFragment() : Fragment() {
                     val seekBarProgress =
                         (progress.toFloat() / audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)
                             .toFloat()) * 100
-                    binding.ringtoneVolumeTextView.text = "${seekBarProgress.toInt()}%"
+                    "${seekBarProgress.toInt()}%".also { binding.ringtoneVolumeTextView.text = it }
                     audioManager.ringerMode = AudioManager.RINGER_MODE_NORMAL
                     audioManager.setStreamVolume(
                         AudioManager.STREAM_ALARM,
@@ -117,18 +113,35 @@ class BatterySettingsFragment() : Fragment() {
                 }
             })
 
-            setReminderChargerAdapterOff(chargerAdapterSwitch, batteryLevelReminder)
+            setReminderChargerAdapterOff(chargerAdapterSwitch, reminderLayout)
 
             batteryLevelReminder.setOnValueChangedListener { _, _, newVal ->
                 reminderBatteryLevel = newVal
             }
+
+            startNotificationService.setOnClickListener {
+                val serviceIntent = Intent(requireActivity().applicationContext, NotificationService::class.java)
+                serviceIntent.putExtra(Constants.REMINDER_BATTERY_LEVEL, reminderBatteryLevel)
+                requireActivity().applicationContext.startService(serviceIntent)
+            }
+
+            alarmButton.setOnClickListener {
+                if (alarmButton.text.equals(getString(R.string.ok))) {
+                    alarmButton.text = getString(R.string.close)
+                    Toast.makeText(context, "ceva chestie care se triggeruieste aici", Toast.LENGTH_SHORT).show()
+
+                } else if (alarmButton.text.equals(getString(R.string.close))) {
+                    alarmContainer.visibility = View.GONE
+                    setAlarmButton.visibility = View.VISIBLE
+                    alarmButton.text = getString(R.string.ok)
+                }
+            }
         }
     }
 
-    private fun setReminderChargerAdapterOff(switch: SwitchMaterial, levelReminder: NumberPicker) {
+    private fun setReminderChargerAdapterOff(switch: SwitchMaterial, reminder: LinearLayout) {
         switch.setOnCheckedChangeListener { _, isChecked ->
-            levelReminder.visibility = if (isChecked) View.VISIBLE else View.GONE
+            reminder.visibility = if (isChecked) View.VISIBLE else View.GONE
         }
     }
-
 }

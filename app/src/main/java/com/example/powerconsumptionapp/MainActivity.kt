@@ -28,13 +28,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.*
 import com.example.powerconsumptionapp.general.Constants
+import com.example.powerconsumptionapp.service.NotificationService
 import com.google.android.material.snackbar.Snackbar
 
-
-/**
- * This main activity is just a container for our fragments,
- * where the real action is.
- */
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityMainBinding
@@ -90,5 +86,13 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
         return NavigationUI.navigateUp(navController, drawerLayout)
+    }
+
+    override fun onDestroy() {
+        if (!isChangingConfigurations) {
+            val serviceNotificationIntent = Intent(applicationContext, NotificationService::class.java)
+            stopService(serviceNotificationIntent)
+        }
+        super.onDestroy()
     }
 }

@@ -269,10 +269,6 @@ class InformationFragment : Fragment() {
         }
         batteryLevelIndicator.progress = batteryProcent!!
 
-        if (batteryLevelIndicator.progress == BatterySettingsFragment.reminderBatteryLevel) {
-            sendNotification()
-        }
-
         if (chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
             chargingBattery.visibility = View.VISIBLE
             tvBatteryPercentage.visibility = View.GONE
@@ -280,21 +276,6 @@ class InformationFragment : Fragment() {
             chargingBattery.visibility = View.GONE
             tvBatteryPercentage.visibility = View.VISIBLE
         }
-    }
-
-    private fun sendNotification() {
-        var builder = NotificationCompat.Builder(requireActivity(), Constants.CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_baseline_notification_important_24)
-            .setContentTitle("My notification")
-            .setContentText("Much longer text that cannot fit one line...")
-            .setStyle(NotificationCompat.BigTextStyle()
-                .bigText("Much longer text that cannot fit one line..."))
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        val mNotificationManager = requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager?
-        mNotificationManager!!.notify(
-            System.currentTimeMillis().toInt(),
-            builder.build()
-        )
     }
 
     private fun convertFahrenheitToCelsius() {

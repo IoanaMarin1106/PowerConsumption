@@ -64,4 +64,5 @@ object Constants {
     const val MAX_MIN_CPU_FREQ_DESC = "Current \"policy limits\". If the corresponding file is not found, the value will be replaced with the character -."
 
     const val CHANNEL_ID = "default"
+    const val REMINDER_BATTERY_LEVEL = "Reminder Battery Level"
 }
