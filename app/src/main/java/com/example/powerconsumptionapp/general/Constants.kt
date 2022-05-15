@@ -65,5 +65,7 @@ object Constants {
 
     const val CHANNEL_ID = "default"
     const val REMINDER_BATTERY_LEVEL = "Reminder Battery Level"
-    const val REMINDER_BATTERY_MESSAGE = ""
+    const val REMINDER_BATTERY_MESSAGE = "Please switch off power adapter!"
+    const val REMINDER_NOTIFICATION_EXTRA_TEXT = "Please switch off power adapter! Your device has reached the level of "
+    const val REMINDER_BATTERY_NOTIFICATION_TITLE = "Charging battery reminder"
 }

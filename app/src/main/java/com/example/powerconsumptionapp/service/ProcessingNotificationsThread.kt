@@ -27,13 +27,12 @@ class ProcessingNotificationsThread(
     private var batteryPercent: Int? = 0
     private var chargingStatus: Int? = 0
 
-
     override fun run() {
         while (isRunning) {
             getBatteryStatus()
             if ((batteryPercent!! >= reminderBatteryLevel) and
                 (chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING)) {
-                sendNotification()
+                sendNotification(reminderBatteryLevel)
                 sleep(10000)
             }
         }
@@ -58,7 +57,7 @@ class ProcessingNotificationsThread(
         applicationContext.registerReceiver(broadcastReceiver, iFilter)
     }
 
-    private fun sendNotification() {
+    private fun sendNotification(reminderBatteryLevel: Int) {
         // Create an explicit intent for an Activity in your app
         val intent = Intent(applicationContext, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -67,9 +66,10 @@ class ProcessingNotificationsThread(
 
         val builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_baseline_notification_important_24)
-            .setContentTitle("My notification")
-            .setContentText("Hello World!")
+            .setContentTitle(Constants.REMINDER_BATTERY_NOTIFICATION_TITLE)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setStyle(NotificationCompat.BigTextStyle().bigText("${Constants.REMINDER_NOTIFICATION_EXTRA_TEXT}${reminderBatteryLevel}%"))
+            .setContentText("${Constants.REMINDER_NOTIFICATION_EXTRA_TEXT}${reminderBatteryLevel}%!")
             // Set the intent that will fire when the user taps the notification
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
