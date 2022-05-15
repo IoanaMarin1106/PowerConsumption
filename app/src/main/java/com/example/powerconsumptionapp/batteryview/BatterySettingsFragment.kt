@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -20,9 +19,12 @@ import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentBatterySettingsBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.model.BatteryViewModel
+import com.example.powerconsumptionapp.service.AlarmService
 import com.example.powerconsumptionapp.service.NotificationService
 import com.example.powerconsumptionapp.service.StartActivityService
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
+import com.shawnlin.numberpicker.NumberPicker
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -32,6 +34,8 @@ class BatterySettingsFragment : Fragment() {
     private val batteryViewModel: BatteryViewModel by activityViewModels()
     companion object {
         var reminderBatteryLevel: Int = -1
+        var bottomBatteryLimitLevel: Int = 1
+        var upperBatteryLimitLevel: Int = 100
     }
 
     override fun onCreateView(
@@ -127,29 +131,55 @@ class BatterySettingsFragment : Fragment() {
                 SnackBar.success(view, "Charging battery reminder set to: $reminderBatteryLevel%", SnackBar.LENGTH_LONG).show();
             }
 
-            alarmButton.setOnClickListener {
-                if (alarmButton.text.equals(getString(R.string.ok))) {
-                    alarmButton.text = getString(R.string.close)
-                    Toast.makeText(context, "ceva chestie care se triggeruieste aici", Toast.LENGTH_SHORT).show()
-
-                } else if (alarmButton.text.equals(getString(R.string.close))) {
-                    alarmContainer.visibility = View.GONE
-                    setAlarmButton.visibility = View.VISIBLE
-                    alarmButton.text = getString(R.string.ok)
-                }
-            }
-
             launchAppSwitch.setOnCheckedChangeListener { _, isChecked ->
-                val serviceIntent = Intent(requireActivity().applicationContext, StartActivityService::class.java)
-                if (isChecked) {
-                    // Start activity intent when power charger is connected
-                    requireActivity().startService(serviceIntent)
-                    SnackBar.info(view, Constants.LAUNCH_APP_POWER_CONNECTED_MESSAGE, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_info_24).show();
-                } else {
-                    requireActivity().stopService(serviceIntent)
-                    SnackBar.info(view, Constants.SWITCH_OFF_LAUNCH_APP_POWER_CONNECTED_MESSAGE, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_info_24).show();
-                }
+                launchAppHandler(isChecked)
             }
+
+            setBottomUpBatteryLimits(downLimitBatteryLevel, upLimitBatteryLevel)
+            alarmHandler(alarmButton, alarmContainer, setAlarmButton)
+        }
+    }
+
+    private fun alarmHandler(
+        alarmButton: MaterialButton,
+        alarmContainer: LinearLayout,
+        setAlarmButton: MaterialButton
+    ) {
+        alarmButton.setOnClickListener {
+            if (alarmButton.text.equals(getString(R.string.ok))) {
+                alarmButton.text = getString(R.string.close)
+                SnackBar.info(requireView(), "${Constants.ALARM_MESSAGE}${bottomBatteryLimitLevel}% and ${upperBatteryLimitLevel}%", SnackBar.LENGTH_LONG, R.drawable.ic_baseline_info_24).show();
+                val alarmServiceIntent = Intent(requireActivity().applicationContext, AlarmService::class.java)
+                alarmServiceIntent.putExtra(Constants.BOTTOM_LIMIT, bottomBatteryLimitLevel)
+                alarmServiceIntent.putExtra(Constants.UPPER_LIMIT, upperBatteryLimitLevel)
+                requireActivity().startService(alarmServiceIntent)
+            } else {
+                alarmContainer.visibility = View.GONE
+                setAlarmButton.visibility = View.VISIBLE
+                alarmButton.text = getString(R.string.ok)
+            }
+        }
+    }
+
+    private fun launchAppHandler(isChecked: Boolean) {
+        val serviceIntent = Intent(requireActivity().applicationContext, StartActivityService::class.java)
+        if (isChecked) {
+            // Start activity intent when power charger is connected
+            requireActivity().startService(serviceIntent)
+            SnackBar.info(requireView(), Constants.LAUNCH_APP_POWER_CONNECTED_MESSAGE, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_info_24).show();
+        } else {
+            requireActivity().stopService(serviceIntent)
+            SnackBar.info(requireView(), Constants.SWITCH_OFF_LAUNCH_APP_POWER_CONNECTED_MESSAGE, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_info_24).show();
+        }
+    }
+
+    private fun setBottomUpBatteryLimits(downLimitPicker: NumberPicker, upLimitPicker: NumberPicker) {
+        downLimitPicker.setOnValueChangedListener { _, _, newVal ->
+            bottomBatteryLimitLevel = newVal
+        }
+
+        upLimitPicker.setOnValueChangedListener { _, _, newVal ->
+            upperBatteryLimitLevel = newVal
         }
     }
 

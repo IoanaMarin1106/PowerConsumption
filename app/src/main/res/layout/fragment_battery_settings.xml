@@ -157,14 +157,19 @@
                                     android:layout_gravity="center"
                                     android:text="@string/down_limit_battery_level"/>
 
-                                <NumberPicker
+                                <com.shawnlin.numberpicker.NumberPicker
                                     android:id="@+id/downLimitBatteryLevel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/default_margin_buttons"
                                     android:layout_gravity="center_horizontal"
-                                    app:maxValue="@{100}"
-                                    app:minValue="@{0}"/>
+                                    android:padding="@dimen/default_margin_buttons"
+                                    app:np_dividerColor="?attr/colorPrimary"
+                                    app:np_selectedTextColor="?attr/colorPrimary"
+                                    app:np_selectedTextSize="@dimen/settings_text_size"
+                                    app:np_textColor="?attr/colorPrimary"
+                                    app:np_textSize="@dimen/text_view_size"
+                                    app:np_order="ascending"
+                                    app:np_value="1" />
 
                             </LinearLayout>
 
@@ -193,14 +198,20 @@
                                     android:layout_gravity="center"
                                     android:text="@string/up_limit_battery_level"/>
 
-                                <NumberPicker
+                                <com.shawnlin.numberpicker.NumberPicker
                                     android:id="@+id/upLimitBatteryLevel"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/default_margin_buttons"
                                     android:layout_gravity="center_horizontal"
-                                    app:maxValue="@{100}"
-                                    app:minValue="@{0}" />
+                                    android:padding="@dimen/default_margin_buttons"
+                                    app:np_dividerColor="?attr/colorPrimary"
+                                    app:np_selectedTextColor="?attr/colorPrimary"
+                                    app:np_selectedTextSize="@dimen/settings_text_size"
+                                    app:np_textColor="?attr/colorPrimary"
+                                    app:np_textSize="@dimen/text_view_size"
+                                    app:np_order="descending"
+                                    app:np_value="100" />
+
                             </LinearLayout>
 
                         </androidx.cardview.widget.CardView>

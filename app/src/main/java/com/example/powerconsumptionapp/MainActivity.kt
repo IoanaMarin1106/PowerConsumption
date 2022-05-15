@@ -28,6 +28,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.*
 import com.example.powerconsumptionapp.general.Constants
+import com.example.powerconsumptionapp.service.AlarmService
 import com.example.powerconsumptionapp.service.NotificationService
 import com.example.powerconsumptionapp.service.StartActivityService
 import com.google.android.material.snackbar.Snackbar
@@ -35,6 +36,11 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityMainBinding
+
+    companion object {
+        const val MY_READ_EXTERNAL_REQUEST : Int = 1
+        const val MY_WRITE_EXTERNAL_REQUEST: Int = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,9 +78,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getPermissions() {
-        val MY_READ_EXTERNAL_REQUEST : Int = 1
-        val MY_WRITE_EXTERNAL_REQUEST: Int = 1
-
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), MY_READ_EXTERNAL_REQUEST)
         }
@@ -96,6 +99,9 @@ class MainActivity : AppCompatActivity() {
 
             val serviceStartActivityIntent = Intent(applicationContext, StartActivityService::class.java)
             stopService(serviceStartActivityIntent)
+
+            val alarmServiceIntent = Intent(applicationContext, AlarmService::class.java)
+            stopService(alarmServiceIntent)
         }
         super.onDestroy()
     }

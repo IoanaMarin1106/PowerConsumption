@@ -73,4 +73,12 @@ object Constants {
     // Launch app when power connected
     const val LAUNCH_APP_POWER_CONNECTED_MESSAGE = "POW'R will be automatically launched when power connected!"
     const val SWITCH_OFF_LAUNCH_APP_POWER_CONNECTED_MESSAGE = "Launch app when power connected is off"
+
+    // Setup battery level limits
+    const val ALARM_MESSAGE = "The alarm has been set to: "
+    const val BOTTOM_LIMIT = "Bottom Limit"
+    const val UPPER_LIMIT = "Upper Limit"
+    const val LIMITS_NOTIFICATION_TITLE = "Battery level limits exceeded"
+    const val BOTTOM_LIMIT_DROPPED_MESSAGE = "The battery level has dropped below the limit!"
+    const val UPPER_LIMIT_DROPPED_MESSAGE = "The battery level has exceeded the upper limit!"
 }

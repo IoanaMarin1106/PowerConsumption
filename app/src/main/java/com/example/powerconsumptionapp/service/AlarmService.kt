@@ -1,33 +1,33 @@
 package com.example.powerconsumptionapp.service
 
 import android.app.Service
-import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.IBinder
 import android.util.Log
+import com.example.powerconsumptionapp.general.Constants
 
-class StartActivityService : Service() {
-
-    private lateinit var processingThread: ProcessingStartActivityThread
+class AlarmService : Service() {
+    private lateinit var processingThread: ProcessingAlarmThread
 
     companion object {
-        const val TAG = "SERVICE"
+        const val TAG = "ALARM_SERVICE"
     }
 
     override fun onCreate() {
         super.onCreate()
-        Log.i(TAG, "Activity power on service is started")
+        Log.i(TAG, "Alarm service is started")
     }
 
     override fun onDestroy() {
         processingThread.stopThread()
-        Log.i(TAG, "Activity power on service is destroyed")
+        Log.i(TAG, "Alarm service is destroyed")
         super.onDestroy()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        processingThread = ProcessingStartActivityThread(applicationContext)
+        val bottomLimit: Int = intent!!.getIntExtra(Constants.BOTTOM_LIMIT, 0)
+        val upperLimit: Int = intent!!.getIntExtra(Constants.UPPER_LIMIT, 100)
+        processingThread = ProcessingAlarmThread(applicationContext, bottomLimit, upperLimit)
         processingThread.start()
         return super.onStartCommand(intent, flags, startId)
     }
