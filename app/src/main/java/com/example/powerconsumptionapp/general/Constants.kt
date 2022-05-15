@@ -63,9 +63,14 @@ object Constants {
     const val CURR_CPU_FRQ_DESC = "Current frequency of the CPU as determined by the governor and cpufreq core. If the corresponding file is not found, the value will be replaced with the character -."
     const val MAX_MIN_CPU_FREQ_DESC = "Current \"policy limits\". If the corresponding file is not found, the value will be replaced with the character -."
 
+    // Notification Service
     const val CHANNEL_ID = "default"
     const val REMINDER_BATTERY_LEVEL = "Reminder Battery Level"
     const val REMINDER_BATTERY_MESSAGE = "Please switch off power adapter!"
     const val REMINDER_NOTIFICATION_EXTRA_TEXT = "Please switch off power adapter! Your device has reached the level of "
     const val REMINDER_BATTERY_NOTIFICATION_TITLE = "Charging battery reminder"
+
+    // Launch app when power connected
+    const val LAUNCH_APP_POWER_CONNECTED_MESSAGE = "POW'R will be automatically launched when power connected!"
+    const val SWITCH_OFF_LAUNCH_APP_POWER_CONNECTED_MESSAGE = "Launch app when power connected is off"
 }

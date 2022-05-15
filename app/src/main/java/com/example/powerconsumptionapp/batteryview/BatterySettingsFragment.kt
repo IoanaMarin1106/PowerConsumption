@@ -21,6 +21,7 @@ import com.example.powerconsumptionapp.databinding.FragmentBatterySettingsBindin
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.example.powerconsumptionapp.service.NotificationService
+import com.example.powerconsumptionapp.service.StartActivityService
 import com.google.android.material.switchmaterial.SwitchMaterial
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -135,6 +136,18 @@ class BatterySettingsFragment : Fragment() {
                     alarmContainer.visibility = View.GONE
                     setAlarmButton.visibility = View.VISIBLE
                     alarmButton.text = getString(R.string.ok)
+                }
+            }
+
+            launchAppSwitch.setOnCheckedChangeListener { _, isChecked ->
+                val serviceIntent = Intent(requireActivity().applicationContext, StartActivityService::class.java)
+                if (isChecked) {
+                    // Start activity intent when power charger is connected
+                    requireActivity().startService(serviceIntent)
+                    SnackBar.info(view, Constants.LAUNCH_APP_POWER_CONNECTED_MESSAGE, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_info_24).show();
+                } else {
+                    requireActivity().stopService(serviceIntent)
+                    SnackBar.info(view, Constants.SWITCH_OFF_LAUNCH_APP_POWER_CONNECTED_MESSAGE, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_info_24).show();
                 }
             }
         }

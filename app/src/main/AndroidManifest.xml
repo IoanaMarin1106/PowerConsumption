@@ -25,15 +25,22 @@
         android:theme="@style/Theme.PowerConsumptionApp">
 
         <service
-            android:name=".service.NotificationService"
+            android:name=".service.StartActivityService"
+            android:configChanges="keyboardHidden|orientation"
             android:enabled="true"
-            android:exported="true"
-            android:configChanges="keyboardHidden|orientation"></service>
+            android:exported="true">
+        </service>
+
+        <service
+            android:name=".service.NotificationService"
+            android:configChanges="keyboardHidden|orientation"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:configChanges="keyboardHidden|orientation" >
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

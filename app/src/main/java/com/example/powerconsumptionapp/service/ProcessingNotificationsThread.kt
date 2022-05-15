@@ -57,6 +57,7 @@ class ProcessingNotificationsThread(
         applicationContext.registerReceiver(broadcastReceiver, iFilter)
     }
 
+
     private fun sendNotification(reminderBatteryLevel: Int) {
         // Create an explicit intent for an Activity in your app
         val intent = Intent(applicationContext, MainActivity::class.java).apply {

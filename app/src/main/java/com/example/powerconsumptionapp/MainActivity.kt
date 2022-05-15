@@ -29,6 +29,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.*
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.service.NotificationService
+import com.example.powerconsumptionapp.service.StartActivityService
 import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity() {
@@ -92,6 +93,9 @@ class MainActivity : AppCompatActivity() {
         if (!isChangingConfigurations) {
             val serviceNotificationIntent = Intent(applicationContext, NotificationService::class.java)
             stopService(serviceNotificationIntent)
+
+            val serviceStartActivityIntent = Intent(applicationContext, StartActivityService::class.java)
+            stopService(serviceStartActivityIntent)
         }
         super.onDestroy()
     }

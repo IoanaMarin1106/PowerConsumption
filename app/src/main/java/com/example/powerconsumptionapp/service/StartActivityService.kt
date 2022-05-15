@@ -1,13 +1,15 @@
 package com.example.powerconsumptionapp.service
 
 import android.app.Service
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.IBinder
 import android.util.Log
-import com.example.powerconsumptionapp.general.Constants
 
-class NotificationService : Service() {
-    private lateinit var processingThread: ProcessingNotificationsThread
+class StartActivityService : Service() {
+
+    private lateinit var processingThread: ProcessingStartActivityThread
 
     companion object {
         const val TAG = "SERVICE"
@@ -25,11 +27,7 @@ class NotificationService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val reminderBatteryLevel: Int = intent!!.getIntExtra(Constants.REMINDER_BATTERY_LEVEL, -1)
-        if (reminderBatteryLevel == -1) {
-            Log.i(TAG, "Error: Reminder battery level: -1")
-        }
-        processingThread = ProcessingNotificationsThread(applicationContext, reminderBatteryLevel)
+        processingThread = ProcessingStartActivityThread(applicationContext)
         processingThread.start()
         return super.onStartCommand(intent, flags, startId)
     }
