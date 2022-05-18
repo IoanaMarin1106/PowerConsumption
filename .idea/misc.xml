@@ -19,6 +19,7 @@
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/ic_baseline_question_mark_24.xml" value="0.18208469055374593" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.18388157894736842" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/ic_baseline_ssid_chart_24.xml" value="0.145" />
+        <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/ic_baseline_system_security_update_warning_24.xml" value="0.1505" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/ic_baseline_verified_24.xml" value="0.18388157894736842" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/ic_baseline_warning_24.xml" value="0.18388157894736842" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.18208469055374593" />
@@ -48,7 +49,7 @@
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_information.xml" value="0.1" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_optimizer.xml" value="0.1" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_start.xml" value="0.176" />
-        <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_statistics.xml" value="0.1" />
+        <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/fragment_statistics.xml" value="0.2" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/nav_header.xml" value="0.20625" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/popup_window_row.xml" value="0.1719869706840391" />
         <entry key="..\:/Facultate/Anul4/Sem2/Licenta/PowerConsumptionApp/app/src/main/res/layout/toolbar_layout.xml" value="0.20625" />

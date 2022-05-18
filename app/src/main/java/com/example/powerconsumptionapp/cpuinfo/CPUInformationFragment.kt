@@ -55,11 +55,11 @@ class CPUInformationFragment : Fragment() {
             cpuCoresTextViewValue.text = cpuViewModel.getNumberOfCores().toString()
 
             Thread {
-                requireActivity().runOnUiThread(java.lang.Runnable {
+                requireActivity().runOnUiThread {
                     val (modelName, model_freq) = cpuViewModel.getCpuModelName()
                     cpuFreqTextViewValue.text = model_freq
                     cpuHardwareTextViewValue.text = modelName
-                })
+                }
             }.start()
 
             cpuHardwareTextViewValue.setOnClickListener {
@@ -72,62 +72,73 @@ class CPUInformationFragment : Fragment() {
             }
 
             Thread {
-                requireActivity().runOnUiThread(java.lang.Runnable {
+                requireActivity().runOnUiThread {
                     if (cpuViewModel.getCpuTemp() != 0) {
-                        "${cpuViewModel.getCpuTemp()}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
+                        "${cpuViewModel.getCpuTemp()}${Constants.CELSIUS_DEGREES}".also {
+                            cpuTemperatureTextView.text = it
+                        }
                         cpuTemperatureTextView.hint = Constants.CELSIUS_DEGREES
 
                         cpuTemperatureTextView.setOnClickListener {
-                            val degrees = cpuTemperatureTextView.text.toString().filter { it.isDigit() }.toInt()
+                            val degrees =
+                                cpuTemperatureTextView.text.toString().filter { it.isDigit() }
+                                    .toInt()
 
                             if (cpuTemperatureTextView.hint.equals(Constants.CELSIUS_DEGREES)) {
-                                "${Util.convertCelsiusToFahrenheit(degrees)}${Constants.FAHRENHEIT_DEGREES}".also { cpuTemperatureTextView.text = it }
+                                "${Util.convertCelsiusToFahrenheit(degrees)}${Constants.FAHRENHEIT_DEGREES}".also {
+                                    cpuTemperatureTextView.text = it
+                                }
                                 cpuTemperatureTextView.hint = Constants.FAHRENHEIT_DEGREES
                             } else if (cpuTemperatureTextView.hint.equals(Constants.FAHRENHEIT_DEGREES)) {
-                                "${Util.convertFahrenheitToCelsius(degrees)}${Constants.CELSIUS_DEGREES}".also { cpuTemperatureTextView.text = it }
+                                "${Util.convertFahrenheitToCelsius(degrees)}${Constants.CELSIUS_DEGREES}".also {
+                                    cpuTemperatureTextView.text = it
+                                }
                                 cpuTemperatureTextView.hint = Constants.CELSIUS_DEGREES
                             }
                         }
                     } else {
                         cpuTemperatureTextView.text = Constants.UNKNOWN
                     }
-                })
+                }
             }.start()
 
             Thread {
-                requireActivity().runOnUiThread(java.lang.Runnable {
+                requireActivity().runOnUiThread {
                     cpuUsageProgressbar.progress = cpuViewModel.getLoadAvg().toFloat()
-                })
+                }
             }.start()
 
             Thread {
-                requireActivity().runOnUiThread(java.lang.Runnable {
+                requireActivity().runOnUiThread {
                     if (cpuViewModel.getFreq(Constants.CURR_FREQ) == 0) {
                         cpuCurrFrequencyTextView.text = Constants.UNKNOWN
                     } else {
-                        cpuCurrFrequencyTextView.text = cpuViewModel.getFreq(Constants.CURR_FREQ).toString()
+                        cpuCurrFrequencyTextView.text =
+                            cpuViewModel.getFreq(Constants.CURR_FREQ).toString()
                     }
-                })
+                }
             }.start()
 
             Thread {
-                requireActivity().runOnUiThread(java.lang.Runnable {
+                requireActivity().runOnUiThread {
                     if (cpuViewModel.getFreq(Constants.MIN_FREQ) == 0) {
                         cpuMinFrequencyTextView.text = Constants.UNKNOWN
                     } else {
-                        cpuMinFrequencyTextView.text = cpuViewModel.getFreq(Constants.MIN_FREQ).toString()
+                        cpuMinFrequencyTextView.text =
+                            cpuViewModel.getFreq(Constants.MIN_FREQ).toString()
                     }
-                })
+                }
             }.start()
 
             Thread {
-                requireActivity().runOnUiThread(java.lang.Runnable {
+                requireActivity().runOnUiThread {
                     if (cpuViewModel.getFreq(Constants.MAX_FREQ) == 0) {
                         cpuMaxFrequencyTextView.text = Constants.UNKNOWN
                     } else {
-                        cpuMaxFrequencyTextView.text = cpuViewModel.getFreq(Constants.MAX_FREQ).toString()
+                        cpuMaxFrequencyTextView.text =
+                            cpuViewModel.getFreq(Constants.MAX_FREQ).toString()
                     }
-                })
+                }
             }.start()
 
             cpuViewModel.populateGridLayoutItems(cpuCoresTextViewValue.text.toString().toInt())

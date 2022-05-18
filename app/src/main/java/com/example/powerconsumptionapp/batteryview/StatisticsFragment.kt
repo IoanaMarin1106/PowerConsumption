@@ -1,35 +1,45 @@
 package com.example.powerconsumptionapp.batteryview
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.ankushyerwar.floatingsnackbar.SnackBar
+import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentStatisticsBinding
+import com.example.powerconsumptionapp.general.Constants
+import com.example.powerconsumptionapp.model.BatteryViewModel
+import com.example.powerconsumptionapp.service.BatteryMonitoringService
 import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
-import com.jjoe64.graphview.Viewport
+import com.jjoe64.graphview.helper.StaticLabelsFormatter
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
-import java.text.Format
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 
 class StatisticsFragment : Fragment() {
 
     private lateinit var binding: FragmentStatisticsBinding
     private lateinit var series: LineGraphSeries<DataPoint>
-    private var lastX: Double = 2.0
-    private var handler: Handler = Handler()
+    private lateinit var tempSeries: LineGraphSeries<DataPoint>
+    private var iFilter: IntentFilter? = IntentFilter()
+    private var lastX = 0.0
+    private var tempLastX = 0.0
+
+
+    private lateinit var batteryLevelGraph: GraphView
+    private lateinit var batteryTemperatureGraph: GraphView
 
     companion object {
         @JvmStatic
@@ -55,65 +65,146 @@ class StatisticsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val graph = binding.batteryGraph as GraphView
-        series = LineGraphSeries(
-            arrayOf(
-                DataPoint(Date(), 25.0),
-                DataPoint(Date(), 30.0),
-                DataPoint(Date(), 20.0),
-                DataPoint(Date(), 60.0),
-                DataPoint(Date(), 60.0),
-            )
-        )
-        graph.addSeries(series)
-        graph.gridLabelRenderer.numHorizontalLabels = 3
+        batteryLevelGraph = binding.batteryLevelGraph
+        batteryTemperatureGraph = binding.batteryTemperatureGraph
 
-        graph.gridLabelRenderer.labelFormatter = object : DefaultLabelFormatter() {
-            override fun formatLabel(value: Double, isValueX: Boolean): String {
-                if (isValueX) {
-                    val sdf = SimpleDateFormat("hh:mm:ss")
-                    return sdf.format(value)
+        binding.apply {
+            if (MainActivity.isMonitoringServiceRunning) {
+                startMonitoringService.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.gray)
+            }
+
+            startMonitoringService.setOnClickListener {
+                if (startMonitoringService.backgroundTintList == ContextCompat.getColorStateList(requireContext(), R.color.gray)) {
+                    SnackBar.warning(requireView(), Constants.MONITORING_SERVICE_RUNNING_WARNING, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_system_security_update_warning_24).show();
+
                 } else {
-                    return super.formatLabel(value, isValueX) + "%"
+                    SnackBar.success(requireView(), Constants.MONITORING_SERVICE_RUNNING_SUCCESS, SnackBar.LENGTH_LONG).show();
+                    MainActivity.isMonitoringServiceRunning = true
+                    startMonitoringService.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.gray)
+                    val monitoringService = Intent(context, BatteryMonitoringService::class.java)
+                    requireActivity().applicationContext.startService(monitoringService)
+                }
+            }
+
+            batteryLevelGraphHandler()
+            batteryTemperatureGraphHandler()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun batteryTemperatureGraphHandler() {
+        tempSeries = LineGraphSeries()
+        BatteryViewModel.batteryTemperatureTimeMap.forEach { (_, value) ->
+            tempSeries.appendData(DataPoint(tempLastX, value.toDouble()), false, 2500)
+            tempLastX += 4.0
+        }
+        batteryTemperatureGraph.addSeries(tempSeries)
+        tempSeries.apply {
+            isDrawDataPoints = true
+            dataPointsRadius = 10.0F
+        }
+
+        batteryTemperatureGraph.viewport.isXAxisBoundsManual = true
+        batteryTemperatureGraph.viewport.apply {
+            isYAxisBoundsManual = true
+            isXAxisBoundsManual = true
+            setMinY(0.0)
+            setMaxY(50.0)
+            isScrollable = true
+            isScalable = true
+        }
+
+        batteryTemperatureGraph.gridLabelRenderer.labelFormatter = object : DefaultLabelFormatter() {
+            override fun formatLabel(value: Double, isValueX: Boolean): String {
+                return if (isValueX) {
+                    // show normal x values
+                    super.formatLabel(value, isValueX)
+                } else {
+                    // show currency for y values
+                    super.formatLabel(value, isValueX) + Constants.CELSIUS_DEGREES
                 }
             }
         }
 
-        // customize graph view
-        var viewport: Viewport = graph.viewport
-        viewport.isScalable = true
-        viewport.setScalableY(true)
-        viewport.isYAxisBoundsManual = true
-        viewport.setMinY(0.0)
-        viewport.setMaxY(100.0)
+        if (BatteryViewModel.batteryTemperatureTimeMap.keys.size >= 2) {
+            val staticLabelsFormatter = StaticLabelsFormatter(batteryTemperatureGraph)
+            val labels = BatteryViewModel.batteryTemperatureTimeMap.keys.toTypedArray()
+            val stringLabels: MutableList<String> = mutableListOf()
+            for (element in labels) {
+                val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+                val formatted = element.format(formatter)
+                stringLabels.add(formatted)
+            }
 
-//        addDataPoint()
-
-        binding.hourButton.setOnClickListener {
-            val sdf = SimpleDateFormat("hh:mm")
-            val currentDate = sdf.format(Date())
-            Toast.makeText(context, currentDate.toString(), Toast.LENGTH_SHORT).show()
+            staticLabelsFormatter.setHorizontalLabels(
+                stringLabels.toTypedArray()
+            )
+            batteryTemperatureGraph.gridLabelRenderer.labelFormatter = staticLabelsFormatter
         }
 
-        val graph2 = binding.batteryGraph1 as GraphView
-        val series2: LineGraphSeries<DataPoint> = LineGraphSeries(
-            arrayOf(
-                DataPoint(0.0, 1.0),
-                DataPoint(1.0, 5.0),
-                DataPoint(2.0, 3.0),
-                DataPoint(3.0, 2.0),
-                DataPoint(4.0, 6.0)
-            )
-        )
-        graph2.addSeries(series2)
+        batteryTemperatureGraph.gridLabelRenderer.numHorizontalLabels = 4
+        batteryTemperatureGraph.gridLabelRenderer.apply {
+            isHorizontalLabelsVisible = true
+            horizontalAxisTitle = "Time"
+            verticalAxisTitle = "Battery Temperature"
+        }
     }
 
-//    //add data to the graph
-//    private fun addDataPoint() {
-//       handler.postDelayed({
-//           lastX += 0.5
-//           series.appendData(DataPoint(lastX, 4.0), false, 100)
-//           addDataPoint()
-//       }, 1000)
-//    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun batteryLevelGraphHandler() {
+        series = LineGraphSeries()
+        BatteryViewModel.batteryPercentTimeMap.forEach { (_, value) ->
+            series.appendData(DataPoint(lastX, value.toDouble()), false, 2500)
+            lastX += 4.0
+        }
+        batteryLevelGraph.addSeries(series)
+        series.apply {
+            isDrawDataPoints = true
+            dataPointsRadius = 10.0F
+        }
+
+        batteryLevelGraph.viewport.isXAxisBoundsManual = true
+        batteryLevelGraph.viewport.apply {
+            isYAxisBoundsManual = true
+            isXAxisBoundsManual = true
+            setMinY(0.0)
+            setMaxY(100.0)
+            isScrollable = true
+            isScalable = true
+        }
+
+        batteryLevelGraph.gridLabelRenderer.labelFormatter = object : DefaultLabelFormatter() {
+            override fun formatLabel(value: Double, isValueX: Boolean): String {
+                return if (isValueX) {
+                    // show normal x values
+                    super.formatLabel(value, isValueX)
+                } else {
+                    // show currency for y values
+                    super.formatLabel(value, isValueX) + "%"
+                }
+            }
+        }
+
+        if (BatteryViewModel.batteryPercentTimeMap.keys.size >= 2) {
+            val staticLabelsFormatter = StaticLabelsFormatter(batteryLevelGraph)
+            val labels = BatteryViewModel.batteryPercentTimeMap.keys.toTypedArray()
+            val stringLabels: MutableList<String> = mutableListOf()
+            for (element in labels) {
+                val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+                val formatted = element.format(formatter)
+                stringLabels.add(formatted)
+            }
+            staticLabelsFormatter.setHorizontalLabels(
+                stringLabels.toTypedArray()
+            )
+            batteryLevelGraph.gridLabelRenderer.labelFormatter = staticLabelsFormatter
+        }
+
+        batteryLevelGraph.gridLabelRenderer.numHorizontalLabels = 4
+        batteryLevelGraph.gridLabelRenderer.apply {
+            isHorizontalLabelsVisible = true
+            horizontalAxisTitle = "Time"
+            verticalAxisTitle = "Battery Procent"
+        }
+    }
 }

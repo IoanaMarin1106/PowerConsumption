@@ -1,11 +1,7 @@
 package com.example.powerconsumptionapp.general
 
-import android.annotation.SuppressLint
-import java.util.regex.Pattern
 
 object Constants {
-    const val UNKNOWN_MESSAGE = "Unknown"
-
     // Temperature (F/C) thresholds
     const val HIGH_CELSIUS_TEMPERATURE = 40
     const val NORMAL_CELSIUS_TEMPERATURE = 36
@@ -81,4 +77,14 @@ object Constants {
     const val LIMITS_NOTIFICATION_TITLE = "Battery level limits exceeded"
     const val BOTTOM_LIMIT_DROPPED_MESSAGE = "The battery level has dropped below the limit!"
     const val UPPER_LIMIT_DROPPED_MESSAGE = "The battery level has exceeded the upper limit!"
+
+    // Monitoring battery consumption
+    const val MONITORING_BATTERY_TITLE = "Battery Statistics"
+    const val MONITORING_BATTERY_MESSAGE = "Press OK if you allow POW'R to monitor battery consumption. You will be able to change this setting later through the application."
+    const val SERVICE_BATTERY_PERCENT = "battery percent"
+    const val SERVICE_BATTERY_TIME = "current time"
+    const val SERVICE_BATTERY_TEMPERATURE = "battery temperature"
+    const val MONITORING_ACTION = "battery monitoring action"
+    const val MONITORING_SERVICE_RUNNING_WARNING = "Monitoring service is already running on your device!"
+    const val MONITORING_SERVICE_RUNNING_SUCCESS= "Monitoring service is now running on your device!"
 }

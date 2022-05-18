@@ -23,21 +23,21 @@
         android:roundIcon="@mipmap/ic_battery"
         android:supportsRtl="true"
         android:theme="@style/Theme.PowerConsumptionApp">
-
+        <service
+            android:name=".service.BatteryMonitoringService"
+            android:configChanges="keyboardHidden|orientation"
+            android:enabled="true"
+            android:exported="true"></service>
         <service
             android:name=".service.AlarmService"
             android:configChanges="keyboardHidden|orientation"
             android:enabled="true"
-            android:exported="true">
-        </service>
-
+            android:exported="true"></service>
         <service
             android:name=".service.StartActivityService"
             android:configChanges="keyboardHidden|orientation"
             android:enabled="true"
-            android:exported="true">
-        </service>
-
+            android:exported="true"></service>
         <service
             android:name=".service.NotificationService"
             android:configChanges="keyboardHidden|orientation"
@@ -46,7 +46,7 @@
 
         <activity
             android:name=".MainActivity"
-            android:configChanges="keyboardHidden|orientation"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,4 +59,5 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
 </manifest>

@@ -2,11 +2,9 @@ package com.example.powerconsumptionapp.model
 
 import android.content.Context
 import android.database.Cursor
-import android.media.AudioManager
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
-import android.provider.MediaStore
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -18,13 +16,19 @@ import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.startfragment.ButtonsInfo
 import com.example.powerconsumptionapp.startfragment.Util
 import com.example.powerconsumptionapp.startfragment.buttonsList
-import com.google.android.material.switchmaterial.SwitchMaterial
-import com.shawnlin.numberpicker.NumberPicker
 import kotlinx.coroutines.launch
+import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class BatteryViewModel: ViewModel() {
     var ringtonesList: HashMap<String, Uri> = HashMap()
+
+    companion object {
+        var batteryPercentTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
+        var batteryTemperatureTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
+    }
 
     fun populateFragmentButtons() {
         viewModelScope.launch {

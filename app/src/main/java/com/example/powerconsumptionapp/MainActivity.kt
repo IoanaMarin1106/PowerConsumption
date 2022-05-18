@@ -4,34 +4,26 @@ import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.powerconsumptionapp.databinding.ActivityMainBinding
-import android.content.Intent
-import android.net.Uri
-
-import android.os.Build
-import android.provider.Settings
-import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.widget.Toolbar
-import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.*
 import com.example.powerconsumptionapp.general.Constants
+import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.service.AlarmService
+import com.example.powerconsumptionapp.service.BatteryMonitoringService
 import com.example.powerconsumptionapp.service.NotificationService
 import com.example.powerconsumptionapp.service.StartActivityService
-import com.google.android.material.snackbar.Snackbar
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
@@ -40,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val MY_READ_EXTERNAL_REQUEST : Int = 1
         const val MY_WRITE_EXTERNAL_REQUEST: Int = 1
+        var isMonitoringServiceRunning = false
+        var isOrientationChanged = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +52,11 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.navView, navController)
 
         createNotificationChannel()
+
+        println(isOrientationChanged)
+        if (!isOrientationChanged) {
+            Util.popupMessage(this, Constants.MONITORING_BATTERY_MESSAGE, Constants.MONITORING_BATTERY_TITLE, true)
+        }
     }
 
     private fun createNotificationChannel() {
@@ -102,7 +101,22 @@ class MainActivity : AppCompatActivity() {
 
             val alarmServiceIntent = Intent(applicationContext, AlarmService::class.java)
             stopService(alarmServiceIntent)
+
+            val monitoringService = Intent(applicationContext, BatteryMonitoringService::class.java)
+            stopService(monitoringService)
         }
         super.onDestroy()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        isOrientationChanged = true
+        super.onConfigurationChanged(newConfig)
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        if (isOrientationChanged) {
+            isOrientationChanged = false
+        }
     }
 }

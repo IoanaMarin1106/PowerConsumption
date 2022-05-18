@@ -10,25 +10,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/startMonitoringService"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginVertical="@dimen/default_margin_battery"
+            android:backgroundTint="?attr/colorPrimary"
+            android:text="@string/start_monitoring_service"
+            android:theme="@style/Theme.MaterialComponents.Light"
+            app:cornerRadius="20dp" />
+
         <com.jjoe64.graphview.GraphView
-            android:id="@+id/batteryGraph"
+            android:id="@+id/batteryLevelGraph"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
         <com.jjoe64.graphview.GraphView
-            android:id="@+id/batteryGraph1"
+            android:id="@+id/batteryTemperatureGraph"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/hourButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="aiciii"/>
-
-
 
     </LinearLayout>
 </layout>
