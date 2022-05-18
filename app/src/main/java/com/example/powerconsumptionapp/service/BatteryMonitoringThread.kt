@@ -45,7 +45,7 @@ class BatteryMonitoringThread(
             BatteryViewModel.batteryTemperatureTimeMap[current] = batteryTemperature
             sleep(SLEEP_TIME)
         }
-        Log.i(ProcessingNotificationsThread.TAG,"${currentThread()} has finished his job.")
+        Log.i(TAG,"${currentThread()} has finished his job.")
     }
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
