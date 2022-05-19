@@ -141,8 +141,8 @@ class StatisticsFragment : Fragment() {
         batteryTemperatureGraph.gridLabelRenderer.apply {
             numHorizontalLabels = 4
             isHorizontalLabelsVisible = true
-            horizontalAxisTitle = "Time"
-            verticalAxisTitle = "Battery Temperature"
+            horizontalAxisTitle = getString(R.string.time)
+            verticalAxisTitle = getString(R.string.battery_temperature)
         }
     }
 
@@ -198,8 +198,8 @@ class StatisticsFragment : Fragment() {
         batteryLevelGraph.gridLabelRenderer.apply {
             numHorizontalLabels = 4
             isHorizontalLabelsVisible = true
-            horizontalAxisTitle = "Time"
-            verticalAxisTitle = "Battery Procent"
+            horizontalAxisTitle = getString(R.string.time)
+            verticalAxisTitle = getString(R.string.battery_percent)
         }
     }
 }

@@ -136,8 +136,8 @@ class CPUStatisticsFragment : Fragment() {
         cpuLoadGraph.gridLabelRenderer.apply {
             numHorizontalLabels = 4
             isHorizontalLabelsVisible = true
-            horizontalAxisTitle = "Time"
-            verticalAxisTitle = "CPU Load"
+            horizontalAxisTitle = getString(R.string.time)
+            verticalAxisTitle = getString(R.string.cpu_load)
         }
     }
 
@@ -196,8 +196,8 @@ class CPUStatisticsFragment : Fragment() {
         cpuTemperatureGraph.gridLabelRenderer.apply {
             numHorizontalLabels = 4
             isHorizontalLabelsVisible = true
-            horizontalAxisTitle = "Time"
-            verticalAxisTitle = "CPU Temperature"
+            horizontalAxisTitle = getString(R.string.time)
+            verticalAxisTitle = getString(R.string.cpu_temperature)
         }
     }
 
