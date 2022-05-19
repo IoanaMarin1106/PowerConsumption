@@ -19,10 +19,7 @@ import androidx.navigation.ui.NavigationUI
 import com.example.powerconsumptionapp.databinding.ActivityMainBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.general.Util
-import com.example.powerconsumptionapp.service.AlarmService
-import com.example.powerconsumptionapp.service.BatteryMonitoringService
-import com.example.powerconsumptionapp.service.NotificationService
-import com.example.powerconsumptionapp.service.StartActivityService
+import com.example.powerconsumptionapp.service.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         const val MY_READ_EXTERNAL_REQUEST : Int = 1
         const val MY_WRITE_EXTERNAL_REQUEST: Int = 1
         var isMonitoringServiceRunning = false
+        var isCPUMonitoringServiceRunning = false
         var isOrientationChanged = false
     }
 
@@ -102,8 +100,11 @@ class MainActivity : AppCompatActivity() {
             val alarmServiceIntent = Intent(applicationContext, AlarmService::class.java)
             stopService(alarmServiceIntent)
 
-            val monitoringService = Intent(applicationContext, BatteryMonitoringService::class.java)
-            stopService(monitoringService)
+            val batteryMonitoringService = Intent(applicationContext, BatteryMonitoringService::class.java)
+            stopService(batteryMonitoringService)
+
+            val cpuMonitoringService = Intent(applicationContext, CPUMonitoringService::class.java)
+            stopService(cpuMonitoringService)
         }
         super.onDestroy()
     }

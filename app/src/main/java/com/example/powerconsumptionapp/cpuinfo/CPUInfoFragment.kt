@@ -75,7 +75,7 @@ class CPUInfoFragment : Fragment() {
             fab.setOnClickListener {
                 val dialogText = when (selectedTab) {
                     0 -> getString(R.string.help_text)
-                    1 -> "Text aici pt statistics"
+                    1 -> getString(R.string.statistics_help)
                     else -> {getString(R.string.help_text)}
                 }
                 cpuViewModel.showDialog((activity as MainActivity), getString(R.string.help), dialogText)

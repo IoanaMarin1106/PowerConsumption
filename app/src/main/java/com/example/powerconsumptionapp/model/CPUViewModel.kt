@@ -17,10 +17,17 @@ import com.example.powerconsumptionapp.cpuinfo.itemsList
 import com.example.powerconsumptionapp.general.Constants
 import kotlinx.coroutines.launch
 import java.io.*
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.util.*
 import java.util.regex.Pattern
+import kotlin.collections.HashMap
 import kotlin.math.roundToInt
 
 class CPUViewModel: ViewModel() {
+    companion object {
+        var cpuTemperatureTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
+    }
 
     // Get the CPU cores from /sys/devices/system/cpu/
     fun getNumberOfCores(): Int {

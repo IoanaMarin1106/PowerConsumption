@@ -40,9 +40,9 @@ class BatteryMonitoringThread(
             getBatteryStatus()
 
             // Get current time
-            val current = LocalDateTime.now()
-            BatteryViewModel.batteryPercentTimeMap[current] = batteryPercent!!
-            BatteryViewModel.batteryTemperatureTimeMap[current] = batteryTemperature
+            val currentTime = LocalDateTime.now()
+            BatteryViewModel.batteryPercentTimeMap[currentTime] = batteryPercent!!
+            BatteryViewModel.batteryTemperatureTimeMap[currentTime] = batteryTemperature
             sleep(SLEEP_TIME)
         }
         Log.i(TAG,"${currentThread()} has finished his job.")

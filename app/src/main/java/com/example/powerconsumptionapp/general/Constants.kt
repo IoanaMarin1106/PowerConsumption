@@ -81,10 +81,11 @@ object Constants {
     // Monitoring battery consumption
     const val MONITORING_BATTERY_TITLE = "Battery Statistics"
     const val MONITORING_BATTERY_MESSAGE = "Press OK if you allow POW'R to monitor battery consumption. You will be able to change this setting later through the application."
-    const val SERVICE_BATTERY_PERCENT = "battery percent"
-    const val SERVICE_BATTERY_TIME = "current time"
-    const val SERVICE_BATTERY_TEMPERATURE = "battery temperature"
-    const val MONITORING_ACTION = "battery monitoring action"
-    const val MONITORING_SERVICE_RUNNING_WARNING = "Monitoring service is already running on your device!"
-    const val MONITORING_SERVICE_RUNNING_SUCCESS= "Monitoring service is now running on your device!"
+    const val MONITORING_SERVICE_RUNNING_WARNING = "Battery monitoring service is already running on your device!"
+    const val MONITORING_SERVICE_RUNNING_SUCCESS= "Battery monitoring service is now running on your device!"
+
+    // CPU Monitoring Service
+    const val CPU_MONITORING_MESSAGE_ACTIVATED = "The processor load monitoring service is running on your device!"
+    const val CPU_MONITORING_SERVICE_RUNNING_WARNING = "The processor load monitoring service is already running on your device!"
+    const val MAX_DATA_POINTS = 5000
 }

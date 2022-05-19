@@ -4,10 +4,9 @@ import android.app.Service
 import android.content.Intent
 import android.os.IBinder
 import android.util.Log
-import com.example.powerconsumptionapp.general.Constants
 
-class BatteryMonitoringService : Service() {
-    lateinit var processingThread: BatteryMonitoringThread
+class CPUMonitoringService : Service() {
+    lateinit var processingThread: CPUMonitoringThread
 
     companion object {
         const val TAG = "SERVICE"
@@ -15,17 +14,11 @@ class BatteryMonitoringService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        Log.i(TAG, "Battery monitoring service is started")
-    }
-
-    override fun onDestroy() {
-        processingThread.stopThread()
-        Log.i(TAG, "Battery monitoring service is destroyed")
-        super.onDestroy()
+        Log.i(TAG, "CPU monitoring service is started")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        processingThread = BatteryMonitoringThread(applicationContext)
+        processingThread = CPUMonitoringThread()
         processingThread.start()
         return super.onStartCommand(intent, flags, startId)
     }
@@ -33,4 +26,11 @@ class BatteryMonitoringService : Service() {
     override fun onBind(intent: Intent): IBinder? {
         return null
     }
+
+    override fun onDestroy() {
+        processingThread.stopThread()
+        Log.i(BatteryMonitoringService.TAG, "CPU monitoring service is destroyed")
+        super.onDestroy()
+    }
+
 }

@@ -33,10 +33,8 @@ class StatisticsFragment : Fragment() {
     private lateinit var binding: FragmentStatisticsBinding
     private lateinit var series: LineGraphSeries<DataPoint>
     private lateinit var tempSeries: LineGraphSeries<DataPoint>
-    private var iFilter: IntentFilter? = IntentFilter()
     private var lastX = 0.0
     private var tempLastX = 0.0
-
 
     private lateinit var batteryLevelGraph: GraphView
     private lateinit var batteryTemperatureGraph: GraphView
@@ -74,18 +72,16 @@ class StatisticsFragment : Fragment() {
             }
 
             startMonitoringService.setOnClickListener {
-                if (startMonitoringService.backgroundTintList == ContextCompat.getColorStateList(requireContext(), R.color.gray)) {
+                if (it.backgroundTintList == ContextCompat.getColorStateList(requireContext(), R.color.gray)) {
                     SnackBar.warning(requireView(), Constants.MONITORING_SERVICE_RUNNING_WARNING, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_system_security_update_warning_24).show();
-
                 } else {
                     SnackBar.success(requireView(), Constants.MONITORING_SERVICE_RUNNING_SUCCESS, SnackBar.LENGTH_LONG).show();
                     MainActivity.isMonitoringServiceRunning = true
-                    startMonitoringService.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.gray)
+                    it.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.gray)
                     val monitoringService = Intent(context, BatteryMonitoringService::class.java)
                     requireActivity().applicationContext.startService(monitoringService)
                 }
             }
-
             batteryLevelGraphHandler()
             batteryTemperatureGraphHandler()
         }
@@ -95,16 +91,16 @@ class StatisticsFragment : Fragment() {
     private fun batteryTemperatureGraphHandler() {
         tempSeries = LineGraphSeries()
         BatteryViewModel.batteryTemperatureTimeMap.forEach { (_, value) ->
-            tempSeries.appendData(DataPoint(tempLastX, value.toDouble()), false, 2500)
+            tempSeries.appendData(DataPoint(tempLastX, value.toDouble()), false, Constants.MAX_DATA_POINTS)
             tempLastX += 4.0
         }
+
         batteryTemperatureGraph.addSeries(tempSeries)
         tempSeries.apply {
             isDrawDataPoints = true
             dataPointsRadius = 10.0F
         }
 
-        batteryTemperatureGraph.viewport.isXAxisBoundsManual = true
         batteryTemperatureGraph.viewport.apply {
             isYAxisBoundsManual = true
             isXAxisBoundsManual = true
@@ -142,8 +138,8 @@ class StatisticsFragment : Fragment() {
             batteryTemperatureGraph.gridLabelRenderer.labelFormatter = staticLabelsFormatter
         }
 
-        batteryTemperatureGraph.gridLabelRenderer.numHorizontalLabels = 4
         batteryTemperatureGraph.gridLabelRenderer.apply {
+            numHorizontalLabels = 4
             isHorizontalLabelsVisible = true
             horizontalAxisTitle = "Time"
             verticalAxisTitle = "Battery Temperature"
@@ -163,7 +159,6 @@ class StatisticsFragment : Fragment() {
             dataPointsRadius = 10.0F
         }
 
-        batteryLevelGraph.viewport.isXAxisBoundsManual = true
         batteryLevelGraph.viewport.apply {
             isYAxisBoundsManual = true
             isXAxisBoundsManual = true
@@ -200,8 +195,8 @@ class StatisticsFragment : Fragment() {
             batteryLevelGraph.gridLabelRenderer.labelFormatter = staticLabelsFormatter
         }
 
-        batteryLevelGraph.gridLabelRenderer.numHorizontalLabels = 4
         batteryLevelGraph.gridLabelRenderer.apply {
+            numHorizontalLabels = 4
             isHorizontalLabelsVisible = true
             horizontalAxisTitle = "Time"
             verticalAxisTitle = "Battery Procent"
