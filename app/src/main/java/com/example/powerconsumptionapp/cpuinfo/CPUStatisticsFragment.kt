@@ -16,7 +16,6 @@ import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentCPUStatisticsBinding
 import com.example.powerconsumptionapp.general.Constants
-import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.example.powerconsumptionapp.model.CPUViewModel
 import com.example.powerconsumptionapp.service.CPUMonitoringService
 import com.jjoe64.graphview.DefaultLabelFormatter
@@ -36,6 +35,9 @@ class CPUStatisticsFragment : Fragment() {
 
     private lateinit var tempSeries: LineGraphSeries<DataPoint>
     private var tempLastX: Double = 0.0
+
+    private lateinit var loadSeries: LineGraphSeries<DataPoint>
+    private var loadLastX: Double = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,6 +78,67 @@ class CPUStatisticsFragment : Fragment() {
             }
         }
         cpuTemperatureGraphHandler()
+        cpuLoadGraphHandler()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun cpuLoadGraphHandler() {
+        loadSeries = LineGraphSeries<DataPoint>()
+
+        CPUViewModel.cpuLoadTimeMap.forEach { (_, value) ->
+            loadSeries.appendData(DataPoint(loadLastX, value.toDouble()), false, Constants.MAX_DATA_POINTS)
+            loadLastX += 4.0
+        }
+
+        cpuLoadGraph.addSeries(loadSeries)
+        loadSeries.apply {
+            isDrawDataPoints = true
+            dataPointsRadius = 10.0F
+        }
+
+        cpuLoadGraph.viewport.apply {
+            isYAxisBoundsManual = true
+            isXAxisBoundsManual = true
+            setMinY(0.0)
+            setMaxY(100.0)
+            isScrollable = true
+            isScalable = true
+        }
+
+        cpuLoadGraph.gridLabelRenderer.labelFormatter = object : DefaultLabelFormatter() {
+            override fun formatLabel(value: Double, isValueX: Boolean): String {
+                return if (isValueX) {
+                    // show normal x values
+                    super.formatLabel(value, isValueX)
+                } else {
+                    // show currency for y values
+                    super.formatLabel(value, isValueX) + "%"
+                }
+            }
+        }
+
+        if (CPUViewModel.cpuLoadTimeMap.keys.size >= 2) {
+            val staticLabelsFormatter = StaticLabelsFormatter(cpuLoadGraph)
+            val labels = CPUViewModel.cpuLoadTimeMap.keys.toTypedArray()
+            val stringLabels: MutableList<String> = mutableListOf()
+            for (element in labels) {
+                val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+                val formatted = element.format(formatter)
+                stringLabels.add(formatted)
+            }
+
+            staticLabelsFormatter.setHorizontalLabels(
+                stringLabels.toTypedArray()
+            )
+            cpuLoadGraph.gridLabelRenderer.labelFormatter = staticLabelsFormatter
+        }
+
+        cpuLoadGraph.gridLabelRenderer.apply {
+            numHorizontalLabels = 4
+            isHorizontalLabelsVisible = true
+            horizontalAxisTitle = "Time"
+            verticalAxisTitle = "CPU Load"
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -136,7 +199,6 @@ class CPUStatisticsFragment : Fragment() {
             horizontalAxisTitle = "Time"
             verticalAxisTitle = "CPU Temperature"
         }
-
     }
 
     private fun startCpuService(applicationContext: Context) {

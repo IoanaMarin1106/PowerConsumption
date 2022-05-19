@@ -27,6 +27,7 @@ import kotlin.math.roundToInt
 class CPUViewModel: ViewModel() {
     companion object {
         var cpuTemperatureTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
+        var cpuLoadTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
     }
 
     // Get the CPU cores from /sys/devices/system/cpu/
