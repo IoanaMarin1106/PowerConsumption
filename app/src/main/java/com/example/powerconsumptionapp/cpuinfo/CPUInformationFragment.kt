@@ -159,6 +159,14 @@ class CPUInformationFragment : Fragment() {
             cpuMinFrequencyTextView.setOnClickListener {
                 cpuViewModel.showDialog((activity as MainActivity), Constants.MIN_CPU_FRQ, Constants.MAX_MIN_CPU_FREQ_DESC)
             }
+
+            Thread {
+                requireActivity().runOnUiThread {
+                    fab.setOnClickListener {
+                        cpuViewModel.showDialog((activity as MainActivity), getString(R.string.help), getString(R.string.help_text))
+                    }
+                }
+            }.start()
         }
     }
 

@@ -2,15 +2,16 @@ package com.example.powerconsumptionapp.cpuinfo
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.ankushyerwar.floatingsnackbar.SnackBar
 import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
@@ -20,14 +21,17 @@ import com.example.powerconsumptionapp.model.CPUViewModel
 import com.example.powerconsumptionapp.service.CPUMonitoringService
 import com.jjoe64.graphview.DefaultLabelFormatter
 import com.jjoe64.graphview.GraphView
+import com.jjoe64.graphview.LegendRenderer
 import com.jjoe64.graphview.helper.StaticLabelsFormatter
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 class CPUStatisticsFragment : Fragment() {
 
     private lateinit var binding: FragmentCPUStatisticsBinding
+    private val rnd = Random()
 
     private lateinit var cpuTemperatureGraph: GraphView
     private lateinit var coresGraph: GraphView
@@ -79,6 +83,91 @@ class CPUStatisticsFragment : Fragment() {
         }
         cpuTemperatureGraphHandler()
         cpuLoadGraphHandler()
+        cpuCoresLoadGraphHandler()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun cpuCoresLoadGraphHandler() {
+        coresGraph.viewport.apply {
+            isYAxisBoundsManual = true
+            isXAxisBoundsManual = true
+            setMinY(0.0)
+            setMaxY(120.0)
+            setMinX(0.0)
+            setMaxX(120.0)
+            isScrollable = true
+            isScalable = true
+        }
+
+        Thread {
+            for (i in 0 until CPUViewModel.cpuCoreLoadTime.size) {
+                val coreSeries = LineGraphSeries<DataPoint>()
+
+                // legend
+                coreSeries.title = "CPU${i}";
+                val color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+                coreSeries.color = color
+
+                var loadLastX = 0.0
+                CPUViewModel.cpuCoreLoadTime[i].forEach { (_, value) ->
+                    coreSeries.appendData(DataPoint(loadLastX, value.toDouble()), false, Constants.MAX_DATA_POINTS)
+                    loadLastX += 4.0
+                }
+
+                coreSeries.apply {
+                    isDrawDataPoints = true
+                    dataPointsRadius = 10.0F
+                }
+
+                requireActivity().runOnUiThread {
+                    coresGraph.addSeries(coreSeries)
+                }
+            }
+
+            requireActivity().runOnUiThread {
+                coresGraph.apply {
+                    legendRenderer.isVisible = true;
+                    legendRenderer.align = LegendRenderer.LegendAlign.TOP
+                }
+
+                coresGraph.gridLabelRenderer.labelFormatter = object : DefaultLabelFormatter() {
+                    override fun formatLabel(value: Double, isValueX: Boolean): String {
+                        return if (isValueX) {
+                            // show normal x values
+                            super.formatLabel(value, isValueX)
+                        } else {
+                            // show currency for y values
+                            super.formatLabel(value, isValueX) + "%"
+                        }
+                    }
+                }
+
+                for (i in 0 until CPUViewModel.cpuCoreLoadTime.size) {
+                    if (CPUViewModel.cpuCoreLoadTime[i].keys.size >= 2) {
+                        val staticLabelsFormatter = StaticLabelsFormatter(coresGraph)
+                        val labels = CPUViewModel.cpuCoreLoadTime[i].keys.toTypedArray()
+                        val stringLabels: MutableList<String> = mutableListOf()
+                        for (element in labels) {
+                            val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+                            val formatted = element.format(formatter)
+                            stringLabels.add(formatted)
+                        }
+
+                        staticLabelsFormatter.setHorizontalLabels(
+                            stringLabels.toTypedArray()
+                        )
+                        coresGraph.gridLabelRenderer.labelFormatter = staticLabelsFormatter
+                    }
+                }
+
+                coresGraph.gridLabelRenderer.apply {
+                    numHorizontalLabels = 4
+                    isHorizontalLabelsVisible = true
+                    horizontalAxisTitle = getString(R.string.time)
+                    verticalAxisTitle = getString(R.string.cpu_load)
+                }
+            }
+        }.start()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -101,6 +190,8 @@ class CPUStatisticsFragment : Fragment() {
             isXAxisBoundsManual = true
             setMinY(0.0)
             setMaxY(100.0)
+            setMinX(0.0)
+            setMaxX(120.0)
             isScrollable = true
             isScalable = true
         }
@@ -161,6 +252,8 @@ class CPUStatisticsFragment : Fragment() {
             isXAxisBoundsManual = true
             setMinY(0.0)
             setMaxY(50.0)
+            setMinX(0.0)
+            setMaxX(120.0)
             isScrollable = true
             isScalable = true
         }

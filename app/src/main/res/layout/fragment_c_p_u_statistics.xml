@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginVertical="@dimen/default_margin_battery"
+            android:layout_marginVertical="@dimen/default_margin_buttons"
             android:backgroundTint="?attr/colorPrimary"
             android:text="@string/start_monitoring_service"
             android:theme="@style/Theme.MaterialComponents.Light"

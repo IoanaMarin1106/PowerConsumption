@@ -28,6 +28,7 @@ class CPUViewModel: ViewModel() {
     companion object {
         var cpuTemperatureTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
         var cpuLoadTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
+        var cpuCoreLoadTime: MutableList<TreeMap<LocalDateTime, Int>> = mutableListOf()
     }
 
     // Get the CPU cores from /sys/devices/system/cpu/
@@ -111,22 +112,21 @@ class CPUViewModel: ViewModel() {
                 var rightFreq = "-"
 
                 if (getFreq(leftFilePath) != 0) {
-                    leftFreq = getFreq(leftFilePath).toString()
+                    leftFreq = (getFreq(leftFilePath) / 1000).toString()
                 }
 
                 if (getFreq(rightFilePath) != 0) {
-                    rightFreq = getFreq(rightFilePath).toString()
+                    rightFreq = (getFreq(rightFilePath) / 1000).toString()
                 }
 
                 val coreGroup = GridItem(
                     "cpu" + "${i}",
-                    " ${leftFreq} [MHz]",
+                    " $leftFreq [MHz]",
                     coresLoad.getOrDefault(i, 0),
                     "cpu" + "${i + 1}",
-                    " ${rightFreq} [MHz]" ,
+                    " $rightFreq [MHz]" ,
                     coresLoad.getOrDefault(i + 1, 0),
                 )
-
                 itemsList.add(coreGroup)
             }
         }
