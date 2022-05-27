@@ -4,20 +4,24 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
 import android.view.*
 import android.widget.*
-import androidx.fragment.app.Fragment
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
+import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
 import com.example.powerconsumptionapp.databinding.FragmentOptimizerBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.model.BatteryViewModel
+import com.google.android.material.switchmaterial.SwitchMaterial
 
 class OptimizerFragment : Fragment() {
 
@@ -32,7 +36,7 @@ class OptimizerFragment : Fragment() {
     private lateinit var timeoutSpinner: Spinner
     private lateinit var contentResolver: ContentResolver
     private lateinit var window: Window
-
+    private lateinit var turnOffDozeModeSwitch: SwitchMaterial
 
     companion object {
         @JvmStatic
@@ -80,14 +84,23 @@ class OptimizerFragment : Fragment() {
                 spinnerHandler()
             }
         }.start()
+
+        Thread {
+            requireActivity().runOnUiThread {
+                dozeModeHandler()
+            }
+        }.start()
+
+
     }
 
     private fun assignClassProperties() {
-        brightnessSeekBar = binding.brightnessSeekBar!!
-        textPercentage = binding.txtPercentage!!
+        brightnessSeekBar = binding.brightnessSeekBar
+        textPercentage = binding.txtPercentage
         timeoutSpinner = binding.timeoutSpinner
         contentResolver = this.requireContext().contentResolver
         window = this.requireActivity().window
+        turnOffDozeModeSwitch = binding.turnOffDozeModeSwitch
     }
 
     // Check whether this app has android write settings permission.
@@ -195,7 +208,6 @@ class OptimizerFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {
             }
         }
-        println("ieeeei " + context?.let { isIgnoringBatteryOptimizations(it) })
     }
 
     private fun isIgnoringBatteryOptimizations(context: Context): Boolean {
@@ -205,5 +217,30 @@ class OptimizerFragment : Fragment() {
             return pwrm.isIgnoringBatteryOptimizations(name)
         }
         return true
+    }
+
+    private fun turnOffDozeMode() {  //you can use with or without passing context
+        val intent = Intent()
+        val packageName = requireActivity().applicationContext.packageName
+        val pm = requireActivity().applicationContext.getSystemService(Context.POWER_SERVICE) as PowerManager
+        if (pm.isIgnoringBatteryOptimizations(packageName)) {// if you want to disable doze mode for this package
+            intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        } else { // if you want to enable doze mode
+            intent.action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+            intent.data = Uri.parse("package:$packageName")
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        requireActivity().applicationContext.startActivity(intent)
+        MainActivity.isInDozeMode = false
+    }
+
+    private fun dozeModeHandler() {
+        turnOffDozeModeSwitch.isChecked = !MainActivity.isInDozeMode
+
+        turnOffDozeModeSwitch.setOnCheckedChangeListener { _, _ ->
+            batteryViewModel.showDialog((activity as MainActivity), getString(R.string.doze_mode_title), getString(R.string.doze_mode_warning))
+            turnOffDozeMode()
+        }
     }
 }

@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         var isMonitoringServiceRunning = false
         var isCPUMonitoringServiceRunning = false
         var isOrientationChanged = false
+        var isInDozeMode = true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

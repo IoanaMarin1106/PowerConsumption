@@ -1,10 +1,14 @@
 package com.example.powerconsumptionapp.model
 
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
+import android.os.Build
+import android.os.PowerManager
+import android.provider.Settings
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -12,7 +16,9 @@ import android.widget.Spinner
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
+import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
 import com.example.powerconsumptionapp.startfragment.ButtonsInfo
 import com.example.powerconsumptionapp.startfragment.Util
 import com.example.powerconsumptionapp.startfragment.buttonsList
@@ -81,5 +87,14 @@ class BatteryViewModel: ViewModel() {
         val ringtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
         val ringtoneSound: Ringtone = RingtoneManager.getRingtone(context, ringtoneUri)
         ringtoneSound.play()
+    }
+
+    fun showDialog(mainActivity: MainActivity, dialogTitle: String, dialogText: String) {
+        InfoDialogFragment(
+            dialogTitle,
+            dialogText
+        ).apply {
+            show(mainActivity.supportFragmentManager, "customDialog")
+        }
     }
 }

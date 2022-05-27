@@ -22,7 +22,6 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 
 
 class CPUInfoFragment : Fragment() {
-
     private lateinit var binding: FragmentCPUInfoBinding
     private val cpuViewModel: CPUViewModel by activityViewModels()
     private lateinit var pagerAdapter: CPUPagerAdapter

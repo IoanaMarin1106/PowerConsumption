@@ -80,4 +80,10 @@
     <string name="battery_percent">Battery Percent</string>
     <string name="battery_temperature">Battery Temperature</string>
     <string name="cpu_load">CPU Load</string>
+    <string name="turn_off_doze_mode">Turn off Doze mode</string>
+    <string name="decline">Decline</string>
+    <string name="allow">Allow</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="doze_mode_title">Doze mode</string>
+    <string name="doze_mode_warning">Disabling <b>Doze</b> will exclude the application from saving battery power while your device is not being used for a long period of time. For more information, please click on <b>Help</b> button below.</string>
 </resources>
