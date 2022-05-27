@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val MY_READ_EXTERNAL_REQUEST : Int = 1
         const val MY_WRITE_EXTERNAL_REQUEST: Int = 1
+        const val MULTIPLE_PERMISSION_GRANTED: Int = 2
         var isMonitoringServiceRunning = false
         var isCPUMonitoringServiceRunning = false
         var isOrientationChanged = false
@@ -82,6 +83,26 @@ class MainActivity : AppCompatActivity() {
 
         if (ContextCompat.checkSelfPermission(applicationContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), MY_WRITE_EXTERNAL_REQUEST)
+        }
+
+        // Control that the required permissions is instantiated!
+        // Control that the required permissions is instantiated!
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.PACKAGE_USAGE_STATS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(
+                this,
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.PACKAGE_USAGE_STATS
+                ),
+                MULTIPLE_PERMISSION_GRANTED
+            )
         }
     }
 

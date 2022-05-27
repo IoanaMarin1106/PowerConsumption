@@ -87,4 +87,17 @@
     <string name="doze_mode_title">Doze mode</string>
     <string name="doze_mode_warning">Disabling <b>Doze</b> will exclude the application from saving battery power while your device is not being used for a long period of time. For more information, read the information below.</string>
     <string name="doze_mode_info">If a user leaves a device unplugged and stationary for a period of time, with the screen off, the device enters Doze mode. In Doze mode, the system attempts to conserve battery by restricting apps\' access to network and CPU-intensive services. It also prevents apps from accessing the network and defers their jobs, syncs, and standard alarms.</string>
+
+<!--    Standby Bucket-->
+    <string name="app_standby_bucket">App Standby Bucket</string>
+    <string name="active">Active Bucket</string>
+    <string name="active_info">An app is in the <b>active</b> bucket if the user is currently using the app or very recently used the app. If an app is in the active bucket, the system does not place any restrictions on the app\'s jobs or alarms.</string>
+    <string name="working_set">Working Set Bucket</string>
+    <string name="working_set_info">An app is in the <b>working set</b> bucket if it runs often but it is not currently active. For example, a social media app that the user launches most days is likely to be in the working set. Apps are also promoted to the working set bucket if they\'re used indirectly.</string>
+    <string name="rare">Rare Bucket </string>
+    <string name="rare_info">An app is in the <b>rare</b> bucket if it is not often used. For example, a hotel app that the user only runs while they\'re staying at that hotel might be in the rare bucket. If an app is in the rare bucket, the system imposes strict restrictions on its ability to run jobs and trigger alarms. The system also limits the app\'s ability to connect to the internet.</string>
+    <string name="frequent">Frequent</string>
+    <string name="frequent_info">An app is in the frequent bucket if it is used regularly, but not necessarily every day. For example, a workout-tracking app that the user runs at the gym might be in the frequent bucket. If an app is in the frequent bucket, the system imposes stronger restrictions on its ability to run jobs and trigger alarms.</string>
+    <string name="restricted">Restricted</string>
+    <string name="restricted_info">Your app is less likely to be placed in the restricted bucket if your app uses system resources more responsibly. Also, the system places your app in a less restrictive bucket if the user interacts directly with your app."</string>
 </resources>

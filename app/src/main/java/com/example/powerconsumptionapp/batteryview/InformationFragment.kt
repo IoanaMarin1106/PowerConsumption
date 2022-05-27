@@ -1,27 +1,34 @@
 package com.example.powerconsumptionapp.batteryview
 
 import android.app.NotificationManager
+import android.app.usage.UsageStatsManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.ankushyerwar.floatingsnackbar.SnackBar
+import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentInformationBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.example.powerconsumptionapp.service.NotificationService
+import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.math.roundToInt
@@ -58,10 +65,11 @@ class InformationFragment : Fragment() {
 
     private var areChargingOptionsVisible: Boolean = false
 
-
     companion object {
         @JvmStatic
         fun newInstance(): InformationFragment = InformationFragment()
+
+        var standbyBucketDescription = ""
     }
 
     override fun onCreateView(
@@ -145,6 +153,7 @@ class InformationFragment : Fragment() {
     }
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        @RequiresApi(Build.VERSION_CODES.P)
         override fun onReceive(context: Context?, intent: Intent?) {
             val batteryProcent: Int? = intent?.let {
                 var batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
@@ -189,7 +198,45 @@ class InformationFragment : Fragment() {
                     val voltage = intent?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0)
                     setBatteryVoltage(voltage)
                 }
+
+                Thread {
+                    requireActivity().runOnUiThread {
+                        binding.appStandbyBucketButton.apply {
+                            appStandbyBucketHandler((requireActivity().getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager).appStandbyBucket, this)
+                            setOnClickListener {
+//                                startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+                                batteryViewModel.showDialog((activity as MainActivity), this.text.toString(), standbyBucketDescription)
+                            }
+                        }
+                    }
+                }.start()
             }
+        }
+    }
+
+    private fun appStandbyBucketHandler(appStandbyBucket: Int, standbyBucketButton: MaterialButton) {
+        when (appStandbyBucket) {
+            UsageStatsManager.STANDBY_BUCKET_ACTIVE -> {
+                standbyBucketButton.text = getString(R.string.active)
+                standbyBucketDescription = getString(R.string.active_info)
+            }
+            UsageStatsManager.STANDBY_BUCKET_WORKING_SET -> {
+                standbyBucketButton.text = getString(R.string.working_set)
+                standbyBucketDescription = getString(R.string.working_set_info)
+            }
+            UsageStatsManager.STANDBY_BUCKET_FREQUENT -> {
+                standbyBucketButton.text = getString(R.string.frequent)
+                standbyBucketDescription = getString(R.string.frequent_info)
+            }
+            UsageStatsManager.STANDBY_BUCKET_RARE -> {
+                standbyBucketButton.text = getString(R.string.rare)
+                standbyBucketDescription = getString(R.string.rare_info)
+            }
+            UsageStatsManager.STANDBY_BUCKET_RESTRICTED -> {
+                standbyBucketButton.text = getString(R.string.restricted)
+                standbyBucketDescription = getString(R.string.restricted_info)
+            }
+            else -> view?.let { SnackBar.error(it, "Error accessing app standby bucket!", SnackBar.LENGTH_LONG).show() }
         }
     }
 

@@ -348,11 +348,59 @@
 
                 </LinearLayout>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/standbyBucketInfoCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/default_margin_battery"
+                    android:layout_below="@id/batteryDescription"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="7dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="bold"
+                                android:layout_marginStart="@dimen/default_margin_battery"
+                                android:textSize="@dimen/settings_text_size"
+                                android:text="@string/app_standby_bucket"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/appStandbyBucketButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textStyle="italic"
+                                android:textSize="@dimen/settings_text_size"
+                                android:layout_marginHorizontal="@dimen/default_margin_battery"
+                                android:theme="@style/Theme.MaterialComponents.Light"
+                                android:hint="@string/app_standby_bucket"
+                                android:backgroundTint="@color/deep_purple_dark"
+                                android:textColor="?attr/colorOnPrimary"
+                                app:cornerRadius="20dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/charge_menu_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/batteryDescription"
+                    android:layout_below="@id/standbyBucketInfoCard"
                     android:layout_marginHorizontal="8dp"
                     android:layout_marginTop="20dp"
                     android:backgroundTint="@color/deep_purple"

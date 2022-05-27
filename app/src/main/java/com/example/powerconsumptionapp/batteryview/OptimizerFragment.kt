@@ -1,5 +1,7 @@
 package com.example.powerconsumptionapp.batteryview
 
+import android.app.usage.UsageStats
+import android.app.usage.UsageStatsManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -90,8 +92,6 @@ class OptimizerFragment : Fragment() {
                 dozeModeHandler()
             }
         }.start()
-
-
     }
 
     private fun assignClassProperties() {
