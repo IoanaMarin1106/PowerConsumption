@@ -238,8 +238,13 @@ class OptimizerFragment : Fragment() {
     private fun dozeModeHandler() {
         turnOffDozeModeSwitch.isChecked = !MainActivity.isInDozeMode
 
-        turnOffDozeModeSwitch.setOnCheckedChangeListener { _, _ ->
-            batteryViewModel.showDialog((activity as MainActivity), getString(R.string.doze_mode_title), getString(R.string.doze_mode_warning))
+        turnOffDozeModeSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                batteryViewModel.showDialog((activity as MainActivity), getString(R.string.doze_mode_title), getString(R.string.doze_mode_warning))
+                binding.dozeModeInfoText.visibility = View.VISIBLE
+            } else {
+                binding.dozeModeInfoText.visibility = View.GONE
+            }
             turnOffDozeMode()
         }
     }
