@@ -1,7 +1,7 @@
 #!/bin/bash
 mkdir temp_files
 
-source_cpu_temp_file="/sys/devices/virtual/thermal/thermal_zone0/temp"
+source_cpu_temp_file="/sys/class/thermal/thermal_zone0/temp"
 dest_cpu_temp_file="./temp_files/cpu_overall_temp"
 
 source_load_avg="/proc/loadavg"

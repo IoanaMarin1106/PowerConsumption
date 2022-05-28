@@ -1,29 +1,24 @@
 package com.example.powerconsumptionapp.cpuinfo
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import androidx.core.widget.ListViewAutoScrollHelper
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
-import com.example.powerconsumptionapp.databinding.FragmentCPUInfoBinding
 import com.example.powerconsumptionapp.databinding.FragmentCPUInformationBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.CPUViewModel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class CPUInformationFragment : Fragment() {
     private lateinit var binding: FragmentCPUInformationBinding
@@ -113,8 +108,7 @@ class CPUInformationFragment : Fragment() {
                     if (cpuViewModel.getFreq(Constants.CURR_FREQ) == 0) {
                         cpuCurrFrequencyTextView.text = Constants.UNKNOWN
                     } else {
-                        cpuCurrFrequencyTextView.text =
-                            cpuViewModel.getFreq(Constants.CURR_FREQ).toString()
+                        "${cpuViewModel.getFreq(Constants.CURR_FREQ)}GHz".also { cpuCurrFrequencyTextView.text = it }
                     }
                 }
             }.start()
@@ -124,19 +118,18 @@ class CPUInformationFragment : Fragment() {
                     if (cpuViewModel.getFreq(Constants.MIN_FREQ) == 0) {
                         cpuMinFrequencyTextView.text = Constants.UNKNOWN
                     } else {
-                        cpuMinFrequencyTextView.text =
-                            cpuViewModel.getFreq(Constants.MIN_FREQ).toString()
+                        "${cpuViewModel.getFreq(Constants.MIN_FREQ)}GHz".also { cpuMinFrequencyTextView.text = it }
                     }
                 }
             }.start()
 
+            println(Environment.getExternalStorageState())
             Thread {
                 requireActivity().runOnUiThread {
                     if (cpuViewModel.getFreq(Constants.MAX_FREQ) == 0) {
                         cpuMaxFrequencyTextView.text = Constants.UNKNOWN
                     } else {
-                        cpuMaxFrequencyTextView.text =
-                            cpuViewModel.getFreq(Constants.MAX_FREQ).toString()
+                        "${cpuViewModel.getFreq(Constants.MAX_FREQ)}GHz".also { cpuMaxFrequencyTextView.text = it }
                     }
                 }
             }.start()

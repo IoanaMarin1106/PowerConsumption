@@ -29,6 +29,7 @@ import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.example.powerconsumptionapp.service.NotificationService
 import com.google.android.material.button.MaterialButton
+import com.jaredrummler.android.processes.models.AndroidProcess
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.math.roundToInt
@@ -210,6 +211,7 @@ class InformationFragment : Fragment() {
                         }
                     }
                 }.start()
+
             }
         }
     }

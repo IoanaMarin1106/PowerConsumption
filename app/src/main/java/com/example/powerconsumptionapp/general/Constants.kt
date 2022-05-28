@@ -37,11 +37,15 @@ object Constants {
     // CPU details
     const val CPU_CORES_PATH = "/sys/devices/system/cpu/"
     const val CPU_TEMPERATURE_PATH = "/sdcard/temp_files/cpu_overall_temp"
+//    const val CPU_TEMPERATURE_PATH = "/sys/class/thermal/thermal_zone0/temp"
+
     const val CPU_LOADAVG = "/sdcard/temp_files/cpu_loadavg"
-    const val CURR_FREQ = "/sdcard/temp_files/cpu_curr_freq"
-    const val MIN_FREQ = "/sdcard/temp_files/cpu_min_freq"
-    const val MAX_FREQ = "/sdcard/temp_files/cpu_max_freq"
-    const val CPU_CORES_LOADAVG = "/sdcard/temp_files/cores_loadavg"
+    const val MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
+    const val MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
+    const val CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq"
+//    const val CPU_CORES_LOADAVG = "/proc/stat"
+    const val CPU_CORES_LOADAVG = "/sdcard/temp_files/stat"
+
     const val CPU_MODEL_NAME = "/proc/cpuinfo"
 
     // CPU Stats
@@ -57,7 +61,7 @@ object Constants {
     const val MAX_CPU_FRQ = "Max CPU Frequency"
     const val MIN_CPU_FRQ = "Min CPU Frequency"
     const val CURR_CPU_FRQ_DESC = "Current frequency of the CPU as determined by the governor and cpufreq core. If the corresponding file is not found, the value will be replaced with the character -."
-    const val MAX_MIN_CPU_FREQ_DESC = "Current \"policy limits\". If the corresponding file is not found, the value will be replaced with the character -."
+    const val MAX_MIN_CPU_FREQ_DESC = "Current \"policy limits\". If the corresponding file is not found, the value will be replaced with \"unknown\"."
 
     // Notification Service
     const val CHANNEL_ID = "default"

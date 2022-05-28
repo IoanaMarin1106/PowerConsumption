@@ -1,6 +1,7 @@
 package com.example.powerconsumptionapp.model
 
 import android.os.Build
+import android.os.HardwarePropertiesManager
 import android.util.Log
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -58,6 +59,7 @@ class CPUViewModel: ViewModel() {
     }
 
     // Get the CPU temp from /sys/devices/virtual/thermal/thermal_zone0/temp
+    @RequiresApi(Build.VERSION_CODES.N)
     fun getCpuTemp(): Int {
         if (File(Constants.CPU_TEMPERATURE_PATH).exists()) {
             val reader = RandomAccessFile(Constants.CPU_TEMPERATURE_PATH, "r")
@@ -67,6 +69,7 @@ class CPUViewModel: ViewModel() {
     }
 
     // Get the CPU load average from /proc/loadavg
+    // incepand cu API 26 Google a restrictionat accesul la fisierele /proc/loadavg sau /proc/stats
     fun getLoadAvg() : Int {
         if (File(Constants.CPU_LOADAVG).exists()) {
             val reader = RandomAccessFile(Constants.CPU_LOADAVG, "r")
@@ -88,7 +91,7 @@ class CPUViewModel: ViewModel() {
         if (file.exists()) {
             val reader = RandomAccessFile(fileName, "r")
             val line = reader.readLine()
-            return (line.toInt() / 100)
+            return line.toInt()
         } else {
             Log.e("[ERROR]", "File does not exist")
         }
@@ -105,26 +108,26 @@ class CPUViewModel: ViewModel() {
         if (itemsList.isEmpty()) {
             val coresLoad: HashMap<Int, Int> = getCoreLoad(itemsNumber)
             for (i in 0 until itemsNumber step 2) {
-                val leftFilePath = "/sdcard/temp_files/cpu${i}_freq"
-                val rightFilePath = "/sdcard/temp_files/cpu${i+1}_freq"
+                val leftFilePath = "/sys/devices/system/cpu/cpu${i}/cpufreq/scaling_cur_freq"
+                val rightFilePath = "/sys/devices/system/cpu/cpu${i+1}/cpufreq/scaling_cur_freq"
 
                 var leftFreq = "-"
                 var rightFreq = "-"
 
                 if (getFreq(leftFilePath) != 0) {
-                    leftFreq = (getFreq(leftFilePath) / 1000).toString()
+                    leftFreq = getFreq(leftFilePath).toString()
                 }
 
                 if (getFreq(rightFilePath) != 0) {
-                    rightFreq = (getFreq(rightFilePath) / 1000).toString()
+                    rightFreq = getFreq(rightFilePath).toString()
                 }
 
                 val coreGroup = GridItem(
                     "cpu" + "${i}",
-                    " $leftFreq [MHz]",
+                    " ${leftFreq}GHz",
                     coresLoad.getOrDefault(i, 0),
                     "cpu" + "${i + 1}",
-                    " $rightFreq [MHz]" ,
+                    " ${rightFreq}GHz" ,
                     coresLoad.getOrDefault(i + 1, 0),
                 )
                 itemsList.add(coreGroup)

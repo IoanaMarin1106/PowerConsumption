@@ -5,10 +5,9 @@ import java.io.File
 import kotlin.math.roundToInt
 
 //  CPU Utilization since boot = (user + nice + system + iowait + irq + softirq) / (user + nice + system +iowait + irq + softirq + idle)
-class CpuStats(coresNumber: Int) {
+class CpuStats(private val coresNumber: Int) {
     private var coresUsage: HashMap<Int, Int> = HashMap<Int, Int>(coresNumber + 1)
     private lateinit var cpuStatFile: File
-    private val coresNumber = coresNumber
 
     init {
         getCpuUsage()
