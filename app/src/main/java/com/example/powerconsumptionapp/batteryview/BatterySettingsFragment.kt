@@ -5,6 +5,7 @@ import android.content.Intent
 import android.media.AudioManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,9 +20,11 @@ import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentBatterySettingsBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.model.BatteryViewModel
+import com.example.powerconsumptionapp.service.ActionBatteryLowService
 import com.example.powerconsumptionapp.service.AlarmService
 import com.example.powerconsumptionapp.service.NotificationService
 import com.example.powerconsumptionapp.service.StartActivityService
+import com.example.powerconsumptionapp.startfragment.StarterFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.shawnlin.numberpicker.NumberPicker
@@ -149,6 +152,15 @@ class BatterySettingsFragment : Fragment() {
             if (alarmButton.text.equals(getString(R.string.ok))) {
                 alarmButton.text = getString(R.string.close)
                 SnackBar.info(requireView(), "${Constants.ALARM_MESSAGE}${bottomBatteryLimitLevel}% and ${upperBatteryLimitLevel}%", SnackBar.LENGTH_LONG, R.drawable.ic_baseline_info_24).show();
+                StarterFragment.isActiveAlarmLimitsService = true
+
+                if (StarterFragment.isActiveActionBatteryService) {
+                    StarterFragment.isActiveActionBatteryService = false
+                    Log.i(ActionBatteryLowService.TAG, "Alarm service is disabled.")
+                    val intentActionBattery = Intent(requireActivity().applicationContext, ActionBatteryLowService::class.java)
+                    requireActivity().stopService(intentActionBattery)
+                }
+
                 val alarmServiceIntent = Intent(requireActivity().applicationContext, AlarmService::class.java)
                 alarmServiceIntent.putExtra(Constants.BOTTOM_LIMIT, bottomBatteryLimitLevel)
                 alarmServiceIntent.putExtra(Constants.UPPER_LIMIT, upperBatteryLimitLevel)

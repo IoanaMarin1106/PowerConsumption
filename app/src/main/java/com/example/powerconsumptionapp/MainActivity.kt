@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
 
         createNotificationChannel()
 
-        println(isOrientationChanged)
         if (!isOrientationChanged) {
             Util.popupMessage(this, Constants.MONITORING_BATTERY_MESSAGE, Constants.MONITORING_BATTERY_TITLE, true)
         }
@@ -127,6 +126,9 @@ class MainActivity : AppCompatActivity() {
 
             val cpuMonitoringService = Intent(applicationContext, CPUMonitoringService::class.java)
             stopService(cpuMonitoringService)
+
+            val actionBatteryLowService = Intent(applicationContext, ActionBatteryLowService::class.java)
+            stopService(actionBatteryLowService)
         }
         super.onDestroy()
     }

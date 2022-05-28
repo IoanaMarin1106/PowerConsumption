@@ -14,14 +14,10 @@
     <uses-permission
         android:name="android.permission.ACCESS_FINE_LOCATION"
         tools:ignore="CoarseFineLocation" />
-
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-
-
-    <uses-permission
-        android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:allowBackup="true"
@@ -31,10 +27,16 @@
         android:roundIcon="@mipmap/ic_battery"
         android:supportsRtl="true"
         android:theme="@style/Theme.PowerConsumptionApp">
+
+        <service
+            android:name=".service.ActionBatteryLowService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
         <service
             android:name=".service.CPUMonitoringService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
         <service
             android:name=".service.BatteryMonitoringService"
             android:configChanges="keyboardHidden|orientation"

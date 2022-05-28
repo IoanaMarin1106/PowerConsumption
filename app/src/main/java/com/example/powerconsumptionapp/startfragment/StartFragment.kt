@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
@@ -16,17 +17,21 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentStartBinding
 import com.example.powerconsumptionapp.model.BatteryViewModel
+import com.example.powerconsumptionapp.service.ActionBatteryLowService
 import eo.view.batterymeter.BatteryMeterView
 import kotlin.math.roundToInt
 
-class StarterFragment() : Fragment() {
+class StarterFragment : Fragment() {
 
     private lateinit var batteryLevelIndicator: BatteryMeterView
-
     private val batteryViewModel: BatteryViewModel by activityViewModels()
     private lateinit var binding: FragmentStartBinding
-
     private var iFilter: IntentFilter? = IntentFilter()
+
+    companion object {
+        var isActiveActionBatteryService = false
+        var isActiveAlarmLimitsService = false
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +71,21 @@ class StarterFragment() : Fragment() {
 
         // Setez optiunea de a avea un option menu
         setHasOptionsMenu(true)
+
+        // pornesc serviciul pentru a notifica user-ul cand bateria lui trebuie incarcata deoarece
+        // a ajuns la un nivel prea scazut
+        serviceHandler()
+    }
+
+    private fun serviceHandler() {
+        if (!isActiveAlarmLimitsService) {
+            if (!isActiveActionBatteryService) {
+                isActiveActionBatteryService = true
+                Log.i(ActionBatteryLowService.TAG, "Alarm service is loading...")
+                val actionBatteryLowIntent = Intent(requireActivity().applicationContext, ActionBatteryLowService::class.java)
+                requireActivity().startService(actionBatteryLowIntent)
+            }
+        }
     }
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
