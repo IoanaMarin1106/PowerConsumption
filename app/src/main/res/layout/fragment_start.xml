@@ -25,21 +25,31 @@
             android:layout_height="200dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/default_margin_battery"
-            android:layout_marginBottom="@dimen/default_margin_battery"
             app:batteryMeterChargingColor="@color/green"
-            app:batteryMeterColor="@color/indigo_light"
+            app:batteryMeterColor="@color/deep_purple_dark"
+            app:batteryMeterCriticalChargeLevel="15"
+            app:batteryMeterCriticalColor="@color/red"
             app:batteryMeterIndicatorColor="@android:color/transparent"
             app:batteryMeterIsCharging="false"
             app:batteryMeterTheme="rounded"
             app:batteryMeterUnknownColor="@color/deep_purple_dark" />
 
+        <ImageView
+            android:id="@+id/snuffBatteryIndicator"
+            android:layout_width="135dp"
+            android:layout_height="56dp"
+            android:layout_below="@id/batteryLevelIndicator"
+            android:layout_centerHorizontal="true"
+            android:layout_marginVertical="@dimen/custom_margin"
+            android:visibility="gone"
+            app:srcCompat="@drawable/charger_svgrepo_com__2_" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewFragmentStart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/batteryLevelIndicator"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="0dp">
+            android:layout_below="@id/snuffBatteryIndicator"
+            android:layout_alignParentBottom="true">
 
         </androidx.recyclerview.widget.RecyclerView>
 

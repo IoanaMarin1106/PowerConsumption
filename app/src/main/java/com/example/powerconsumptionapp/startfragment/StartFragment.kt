@@ -4,10 +4,12 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.os.BatteryManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
@@ -90,18 +92,27 @@ class StarterFragment : Fragment() {
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val batteryProcent: Int? = intent?.let {
+            val batteryPercent: Int? = intent?.let {
                 val batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
                 val scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
                 (batteryLevel * 100 / scale.toFloat()).roundToInt()
             }
 
+            checkBatteryPercent(batteryPercent)
             val chargingStatus = intent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
 
             batteryLevelIndicator.apply {
-                this.chargeLevel = batteryProcent
+                this.chargeLevel = batteryPercent
                 this.isCharging = chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING
             }
+        }
+    }
+
+    private fun checkBatteryPercent(batteryPercent: Int?) {
+        if (batteryPercent != null) {
+            println(batteryPercent)
+            if (batteryPercent <= 15) binding.snuffBatteryIndicator!!.visibility =
+                View.VISIBLE else binding.snuffBatteryIndicator!!.visibility = View.GONE
         }
     }
 
