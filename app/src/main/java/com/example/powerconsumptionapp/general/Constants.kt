@@ -2,6 +2,8 @@ package com.example.powerconsumptionapp.general
 
 
 object Constants {
+
+    const val ERROR = "error"
     // Temperature (F/C) thresholds
     const val HIGH_CELSIUS_TEMPERATURE = 40
     const val NORMAL_CELSIUS_TEMPERATURE = 36
@@ -40,11 +42,16 @@ object Constants {
 //    const val CPU_TEMPERATURE_PATH = "/sys/class/thermal/thermal_zone0/temp"
 
     const val CPU_LOADAVG = "/sdcard/temp_files/cpu_loadavg"
-    const val MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
-    const val MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
+//    const val MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
+//    const val MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
     const val CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq"
+    const val MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
+    const val MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq"
+    const val AVAILABLE_FREQUENCIES = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies"
+    const val AVAILABLE_GOVERNORS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors"
 //    const val CPU_CORES_LOADAVG = "/proc/stat"
     const val CPU_CORES_LOADAVG = "/sdcard/temp_files/stat"
+    const val CURRENT_SCALING_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
 
     const val CPU_MODEL_NAME = "/proc/cpuinfo"
 
@@ -92,4 +99,7 @@ object Constants {
     const val CPU_MONITORING_MESSAGE_ACTIVATED = "The processor load monitoring service is running on your device!"
     const val CPU_MONITORING_SERVICE_RUNNING_WARNING = "The processor load monitoring service is already running on your device!"
     const val MAX_DATA_POINTS = 5000
+
+    const val FREQUENCY = "freq"
+    const val GOVERNOR = "governor"
 }

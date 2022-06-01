@@ -18,6 +18,7 @@ import com.example.powerconsumptionapp.cpuinfo.itemsList
 import com.example.powerconsumptionapp.general.Constants
 import kotlinx.coroutines.launch
 import java.io.*
+import java.lang.Error
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
@@ -123,11 +124,11 @@ class CPUViewModel: ViewModel() {
                 }
 
                 val coreGroup = GridItem(
-                    "cpu" + "${i}",
-                    " ${leftFreq}GHz",
+                    "cpu$i",
+                    " $leftFreq KHz",
                     coresLoad.getOrDefault(i, 0),
                     "cpu" + "${i + 1}",
-                    " ${rightFreq}GHz" ,
+                    " $rightFreq KHz" ,
                     coresLoad.getOrDefault(i + 1, 0),
                 )
                 itemsList.add(coreGroup)
@@ -140,6 +141,25 @@ class CPUViewModel: ViewModel() {
             dialogTitle,
             dialogText
         ).show(mainActivity.supportFragmentManager, "customDialog")
+    }
+
+    fun getCPUGovernor(fileName: String): String {
+        val file = File(fileName)
+        return if (file.exists()) {
+            RandomAccessFile(fileName, "r").readLine()
+        } else {
+            Log.e("[ERROR]", "File does not exist")
+            Constants.ERROR
+        }
+    }
+
+    fun getAvailableResources(fileName: String): MutableList<String> {
+        var availableFreqList = mutableListOf<String>()
+        val file = File(fileName)
+        if (file.exists()) {
+            availableFreqList = RandomAccessFile(fileName, "r").readLine().toString().trim().split("\\s+".toRegex()).toMutableList()
+        }
+        return availableFreqList
     }
 }
 

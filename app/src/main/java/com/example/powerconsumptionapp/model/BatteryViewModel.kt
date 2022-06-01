@@ -41,12 +41,12 @@ class BatteryViewModel: ViewModel() {
             if (buttonsList.isEmpty()) {
                 val batteryViewButton = ButtonsInfo(Util.Button.BATTERY_VIEW.title, R.drawable.battery_icon_2_)
                 val cpuInfoButton = ButtonsInfo(Util.Button.CPU_INFO.title, R.drawable.cpu_icon)
-                val performanceManagerBttn = ButtonsInfo(Util.Button.PERFORMANCE_MANAGER.title, R.drawable.performance_manager)
+                val performanceManagerButton = ButtonsInfo(Util.Button.PERFORMANCE_MANAGER.title, R.drawable.performance_svgrepo_com__1_)
 
                 buttonsList.apply {
                     add(batteryViewButton)
                     add(cpuInfoButton)
-                    add(performanceManagerBttn)
+                    add(performanceManagerButton)
                 }
             }
         }

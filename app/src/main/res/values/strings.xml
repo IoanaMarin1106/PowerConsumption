@@ -100,11 +100,14 @@
     <string name="frequent_info">An app is in the frequent bucket if it is used regularly, but not necessarily every day. For example, a workout-tracking app that the user runs at the gym might be in the frequent bucket. If an app is in the frequent bucket, the system imposes stronger restrictions on its ability to run jobs and trigger alarms.</string>
     <string name="restricted">Restricted</string>
     <string name="restricted_info">Your app is less likely to be placed in the restricted bucket if your app uses system resources more responsibly. Also, the system places your app in a less restrictive bucket if the user interacts directly with your app."</string>
-    <string name="current_frequency_mhz">Current Frequency [MHz]</string>
+    <string name="current_frequency_khz">Current Frequency [KHz]</string>
     <string name="current_scaling_governor">Current scaling governor</string>
     <string name="max">Max</string>
     <string name="max_freq">Max Freq</string>
     <string name="min">Min</string>
     <string name="min_freq">Min Freq</string>
     <string name="max_frequency">Max Frequency</string>
+    <string name="min_frequency">Min Frequency</string>
+    <string name="scaling">Scaling</string>
+    <string name="choose_governor">Choose Governor</string>
 </resources>

@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">    <!-- Base application theme. -->
-    <style name="Theme.PowerConsumptionApp" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme.PowerConsumptionApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/indigo</item>
         <item name="colorPrimaryVariant">@color/indigo_dark</item>

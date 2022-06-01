@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="governorsType">
+        <item>Performance</item>
+        <item>Powersave</item>
+        <item>Userspace</item>
+        <item>Ondemand</item>
+        <item>Conservative</item>
+        <item>Schedutil</item>
+    </string-array>
+</resources>

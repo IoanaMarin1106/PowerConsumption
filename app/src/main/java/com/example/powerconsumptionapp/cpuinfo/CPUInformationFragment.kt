@@ -108,7 +108,7 @@ class CPUInformationFragment : Fragment() {
                     if (cpuViewModel.getFreq(Constants.CURR_FREQ) == 0) {
                         cpuCurrFrequencyTextView.text = Constants.UNKNOWN
                     } else {
-                        "${cpuViewModel.getFreq(Constants.CURR_FREQ)}GHz".also { cpuCurrFrequencyTextView.text = it }
+                        "${cpuViewModel.getFreq(Constants.CURR_FREQ)} KHz".also { cpuCurrFrequencyTextView.text = it }
                     }
                 }
             }.start()
@@ -118,7 +118,7 @@ class CPUInformationFragment : Fragment() {
                     if (cpuViewModel.getFreq(Constants.MIN_FREQ) == 0) {
                         cpuMinFrequencyTextView.text = Constants.UNKNOWN
                     } else {
-                        "${cpuViewModel.getFreq(Constants.MIN_FREQ)}GHz".also { cpuMinFrequencyTextView.text = it }
+                        "${cpuViewModel.getFreq(Constants.MIN_FREQ)} KHz".also { cpuMinFrequencyTextView.text = it }
                     }
                 }
             }.start()
@@ -129,7 +129,7 @@ class CPUInformationFragment : Fragment() {
                     if (cpuViewModel.getFreq(Constants.MAX_FREQ) == 0) {
                         cpuMaxFrequencyTextView.text = Constants.UNKNOWN
                     } else {
-                        "${cpuViewModel.getFreq(Constants.MAX_FREQ)}GHz".also { cpuMaxFrequencyTextView.text = it }
+                        "${cpuViewModel.getFreq(Constants.MAX_FREQ)} KHz".also { cpuMaxFrequencyTextView.text = it }
                     }
                 }
             }.start()
