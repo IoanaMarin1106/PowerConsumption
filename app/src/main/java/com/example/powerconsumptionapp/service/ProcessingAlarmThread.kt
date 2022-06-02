@@ -37,10 +37,10 @@ class ProcessingAlarmThread(
             getBatteryStatus()
             if (batteryPercent!! != 0) {
                 if (batteryPercent!! < bottomLimit) {
-                    startAlarm(Constants.BOTTOM_LIMIT_DROPPED_MESSAGE)
+                    sendNotification(Constants.BOTTOM_LIMIT_DROPPED_MESSAGE)
                     sleep(SLEEP_TIME)
                 } else if (batteryPercent!! > upperLimit) {
-                    startAlarm(Constants.UPPER_LIMIT_DROPPED_MESSAGE)
+                    sendNotification(Constants.UPPER_LIMIT_DROPPED_MESSAGE)
                     sleep(SLEEP_TIME)
                 }
             }
@@ -61,10 +61,6 @@ class ProcessingAlarmThread(
     private fun getBatteryStatus() {
         iFilter!!.addAction(Intent.ACTION_BATTERY_CHANGED)
         applicationContext.registerReceiver(broadcastReceiver, iFilter)
-    }
-
-    private fun startAlarm(notificationMessage: String) {
-        sendNotification(notificationMessage)
     }
 
     private fun sendNotification(notificationMessage: String) {

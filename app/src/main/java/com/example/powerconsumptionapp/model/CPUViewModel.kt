@@ -16,6 +16,7 @@ import com.example.powerconsumptionapp.cpuinfo.GridItem
 import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
 import com.example.powerconsumptionapp.cpuinfo.itemsList
 import com.example.powerconsumptionapp.general.Constants
+import com.example.powerconsumptionapp.performancemanager.PerformanceManagerFragment
 import kotlinx.coroutines.launch
 import java.io.*
 import java.lang.Error
@@ -160,6 +161,59 @@ class CPUViewModel: ViewModel() {
             availableFreqList = RandomAccessFile(fileName, "r").readLine().toString().trim().split("\\s+".toRegex()).toMutableList()
         }
         return availableFreqList
+    }
+
+    private fun writeFile(fileName: String, text: String): String {
+        val file = File(fileName)
+        if (file.exists()) {
+            file.printWriter().use { out ->
+                out.println(text)
+            }
+        } else {
+            return Constants.ERROR
+        }
+        return Constants.OK
+    }
+
+    fun cpuSettingsHandler(text: String, resourceType: String) {
+        val newValue = text.trim().split("\\s+".toRegex()).toTypedArray()[0]
+        when (resourceType) {
+            Constants.GOVERNOR -> {
+                val result = writeFile(Constants.CPU_NEW_GOVERNOR, newValue)
+                if (result == Constants.ERROR) {
+                    Log.e("[ERROR]", "File does not exist - NEW CPU GOVERNOR")
+                } else {
+                    Log.i(PerformanceManagerFragment.TAG,"User has changed CPU governor to $newValue")
+                }
+            }
+
+            Constants.MIN_CPU_FRQ -> {
+                val result = writeFile(Constants.CPU_NEW_MIN_FREQ, newValue)
+                if (result == Constants.ERROR) {
+                    Log.e("[ERROR]", "File does not exist - NEW CPU MIN FREQ")
+                } else {
+                    Log.i(PerformanceManagerFragment.TAG,"User has changed CPU min frequency to $newValue")
+                }
+            }
+
+            Constants.MAX_CPU_FRQ -> {
+                val result = writeFile(Constants.CPU_NEW_MAX_FREQ, newValue)
+                if (result == Constants.ERROR) {
+                    Log.e("[ERROR]", "File does not exist - NEW CPU MAX FREQ")
+                } else {
+                    Log.i(PerformanceManagerFragment.TAG,"User has changed CPU min frequency to $newValue")
+                }
+            }
+
+            Constants.CURR_CPU_FRQ -> {
+                val result = writeFile(Constants.CPU_NEW_CURR_FREQ, newValue)
+                if (result == Constants.ERROR) {
+                    Log.e("[ERROR]", "File does not exist - NEW CPU CURR FREQ")
+                } else {
+                    Log.i(PerformanceManagerFragment.TAG,"User has changed current CPU frequency to $newValue")
+                }
+            }
+        }
     }
 }
 

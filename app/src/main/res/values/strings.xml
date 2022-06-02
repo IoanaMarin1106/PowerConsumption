@@ -110,4 +110,5 @@
     <string name="min_frequency">Min Frequency</string>
     <string name="scaling">Scaling</string>
     <string name="choose_governor">Choose Governor</string>
+    <string name="current_frequency">Current Frequency</string>
 </resources>

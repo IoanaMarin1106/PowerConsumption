@@ -1,9 +1,12 @@
 package com.example.powerconsumptionapp.general
 
+import android.annotation.SuppressLint
+
 
 object Constants {
-
     const val ERROR = "error"
+    const val OK = "ok"
+
     // Temperature (F/C) thresholds
     const val HIGH_CELSIUS_TEMPERATURE = 40
     const val NORMAL_CELSIUS_TEMPERATURE = 36
@@ -38,19 +41,19 @@ object Constants {
 
     // CPU details
     const val CPU_CORES_PATH = "/sys/devices/system/cpu/"
-    const val CPU_TEMPERATURE_PATH = "/sdcard/temp_files/cpu_overall_temp"
-//    const val CPU_TEMPERATURE_PATH = "/sys/class/thermal/thermal_zone0/temp"
+    @SuppressLint("SdCardPath")
+    const val CPU_TEMPERATURE_PATH = "/data/data/com.example.powerconsumptionapp/temp_files/cpu_overall_temp"
 
-    const val CPU_LOADAVG = "/sdcard/temp_files/cpu_loadavg"
-//    const val MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
-//    const val MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
+    @SuppressLint("SdCardPath")
+    const val CPU_LOADAVG = "/data/data/com.example.powerconsumptionapp/temp_files/cpu_loadavg"
     const val CURR_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq"
     const val MIN_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
-    const val MAX_FREQ = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq"
+    @SuppressLint("SdCardPath")
+    const val MAX_FREQ = "/data/data/com.example.powerconsumptionapp/temp_files/cpu_max_freq"
     const val AVAILABLE_FREQUENCIES = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies"
     const val AVAILABLE_GOVERNORS = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_available_governors"
-//    const val CPU_CORES_LOADAVG = "/proc/stat"
-    const val CPU_CORES_LOADAVG = "/sdcard/temp_files/stat"
+    @SuppressLint("SdCardPath")
+    const val CPU_CORES_LOADAVG = "/data/data/com.example.powerconsumptionapp/temp_files/cores_loadavg"
     const val CURRENT_SCALING_GOVERNOR = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
 
     const val CPU_MODEL_NAME = "/proc/cpuinfo"
@@ -73,7 +76,6 @@ object Constants {
     // Notification Service
     const val CHANNEL_ID = "default"
     const val REMINDER_BATTERY_LEVEL = "Reminder Battery Level"
-    const val REMINDER_BATTERY_MESSAGE = "Please switch off power adapter!"
     const val REMINDER_NOTIFICATION_EXTRA_TEXT = "Please switch off power adapter! Your device has reached the level of "
     const val REMINDER_BATTERY_NOTIFICATION_TITLE = "Charging battery reminder"
 
@@ -87,7 +89,7 @@ object Constants {
     const val UPPER_LIMIT = "Upper Limit"
     const val LIMITS_NOTIFICATION_TITLE = "Battery level limits exceeded"
     const val BOTTOM_LIMIT_DROPPED_MESSAGE = "The battery level has dropped below the limit!"
-    const val UPPER_LIMIT_DROPPED_MESSAGE = "The battery level has exceeded the upper limit!"
+    const val UPPER_LIMIT_DROPPED_MESSAGE = "The battery level has exceeded the upper limit. Please switch off power adapter!"
 
     // Monitoring battery consumption
     const val MONITORING_BATTERY_TITLE = "Battery Statistics"
@@ -100,6 +102,17 @@ object Constants {
     const val CPU_MONITORING_SERVICE_RUNNING_WARNING = "The processor load monitoring service is already running on your device!"
     const val MAX_DATA_POINTS = 5000
 
-    const val FREQUENCY = "freq"
+    // User can change these files
     const val GOVERNOR = "governor"
+    @SuppressLint("SdCardPath")
+    const val CPU_NEW_CURR_FREQ = "/data/data/com.example.powerconsumptionapp/user_data/cpu_curr_freq.txt"
+
+    @SuppressLint("SdCardPath")
+    const val CPU_NEW_MAX_FREQ = "/data/data/com.example.powerconsumptionapp/user_data/cpu_max_freq.txt"
+
+    @SuppressLint("SdCardPath")
+    const val CPU_NEW_MIN_FREQ = "/data/data/com.example.powerconsumptionapp/user_data/cpu_min_freq.txt"
+
+    @SuppressLint("SdCardPath")
+    const val CPU_NEW_GOVERNOR = "/data/data/com.example.powerconsumptionapp/user_data/cpu_governor.txt"
 }

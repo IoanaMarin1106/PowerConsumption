@@ -1,5 +1,6 @@
 package com.example.powerconsumptionapp.batteryview
 
+import android.annotation.SuppressLint
 import android.app.NotificationManager
 import android.app.usage.UsageStatsManager
 import android.content.BroadcastReceiver
@@ -246,7 +247,7 @@ class InformationFragment : Fragment() {
     }
 
     private suspend fun setBatteryVoltage(voltage: Int?) {
-        voltageValueTextView.text = "$voltage mv"
+        "$voltage mv".also { voltageValueTextView.text = it }
     }
 
     private suspend fun setBatteryHealth(health: Int?) {
@@ -295,7 +296,7 @@ class InformationFragment : Fragment() {
         (batteryTemperature?.div(10))?.toFloat()!!.roundToInt().also {
             temperatureProgressBar.progress = it
             batteryTemperatureTextView.apply {
-                text = "$it${Constants.CELSIUS_DEGREES}/${Constants.HIGH_CELSIUS_TEMPERATURE}${Constants.CELSIUS_DEGREES}\""
+                "$it${Constants.CELSIUS_DEGREES}/${Constants.HIGH_CELSIUS_TEMPERATURE}${Constants.CELSIUS_DEGREES}\"".also { text = it }
                 hint = Constants.CELSIUS_DEGREES
             }
             temperatureValueTextView.text = it.toString()
@@ -329,19 +330,19 @@ class InformationFragment : Fragment() {
     private fun convertFahrenheitToCelsius() {
         val celsiusTemp = temperatureProgressBar.progress
         batteryTemperatureTextView.apply {
-            text = "$celsiusTemp${Constants.CELSIUS_DEGREES}/${Constants.HIGH_CELSIUS_TEMPERATURE}${Constants.CELSIUS_DEGREES}"
+            "$celsiusTemp${Constants.CELSIUS_DEGREES}/${Constants.HIGH_CELSIUS_TEMPERATURE}${Constants.CELSIUS_DEGREES}".also { text = it }
             hint = Constants.CELSIUS_DEGREES
         }
-        temperatureValueTextView.text = "$celsiusTemp${Constants.CELSIUS_DEGREES}"
+        "$celsiusTemp${Constants.CELSIUS_DEGREES}".also { temperatureValueTextView.text = it }
     }
 
     private fun convertCelsiusToFahrenheit() {
         val fahrenheitTemp = Util.convertCelsiusToFahrenheit(temperatureProgressBar.progress)
         batteryTemperatureTextView.apply {
-            text = "$fahrenheitTemp${Constants.FAHRENHEIT_DEGREES}/${Constants.HIGH_FAHRENHEIT_TEMPERATURE}${Constants.FAHRENHEIT_DEGREES}"
+            "$fahrenheitTemp${Constants.FAHRENHEIT_DEGREES}/${Constants.HIGH_FAHRENHEIT_TEMPERATURE}${Constants.FAHRENHEIT_DEGREES}".also { text = it }
             hint = Constants.FAHRENHEIT_DEGREES
         }
-        temperatureValueTextView.text = "$fahrenheitTemp${Constants.FAHRENHEIT_DEGREES}"
+        "$fahrenheitTemp${Constants.FAHRENHEIT_DEGREES}".also { temperatureValueTextView.text = it }
     }
 
     override fun onResume() {
