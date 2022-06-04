@@ -14,6 +14,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -27,7 +28,7 @@ import com.example.powerconsumptionapp.databinding.FragmentOptimizerBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.google.android.material.switchmaterial.SwitchMaterial
-import com.skydoves.powerspinner.createPowerSpinnerView
+import java.lang.reflect.Method
 
 
 class OptimizerFragment : Fragment() {
@@ -131,7 +132,7 @@ class OptimizerFragment : Fragment() {
                     // Battery Saver toggle ON/OFF
                     batterySaverSwitch.apply {
                         this.isChecked = isBatterySaverEnabled()
-                        setOnClickListener {
+                        setOnCheckedChangeListener { _, _ ->
                             batterySaverHandler()
                         }
                     }
@@ -164,20 +165,24 @@ class OptimizerFragment : Fragment() {
     }
 
     private fun isUsingMobileData(): Boolean {
-        val cm = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        var mobileDataEnabled = false // Assume disabled
 
-        val activeNetwork = cm!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
-        val isConnected = activeNetwork != null &&
-                activeNetwork.isConnected
-
-        if (!isConnected) {
-            return false
+        val cm = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        try {
+            val cmClass = Class.forName(cm.javaClass.name)
+            val method: Method = cmClass.getDeclaredMethod("getMobileDataEnabled")
+            method.isAccessible = true // Make the method callable
+            // get the setting for "mobile data"
+            mobileDataEnabled = method.invoke(cm) as Boolean
+        } catch (e: Exception) {
+            // Some problem accessible private API
+            Log.e("Error", "Error when accessing mobile data")
         }
-        return true
+        return mobileDataEnabled
     }
 
     private fun wifiSwitchHandler(wifiSwitch: SwitchMaterial, wifiManager: WifiManager) {
-        wifiSwitch.setOnCheckedChangeListener { _, isChecked ->
+        wifiSwitch.setOnCheckedChangeListener { switch, isChecked ->
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) { // if build version is less than Q try the old traditional method
                 wifiManager.isWifiEnabled = isChecked
             } else { // if it is Android Q and above go for the newer way    NOTE: You can also use this code for less than android Q also
@@ -196,6 +201,7 @@ class OptimizerFragment : Fragment() {
             } else {
                 bluetoothAdapter.disable()
             }
+
         }
     }
 
