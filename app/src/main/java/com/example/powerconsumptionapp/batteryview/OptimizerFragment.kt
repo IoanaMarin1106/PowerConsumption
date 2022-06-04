@@ -2,6 +2,7 @@ package com.example.powerconsumptionapp.batteryview
 
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothAdapter
+import android.content.ComponentName
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
@@ -13,7 +14,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
-import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -27,9 +27,7 @@ import com.example.powerconsumptionapp.databinding.FragmentOptimizerBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.google.android.material.switchmaterial.SwitchMaterial
-import java.io.IOException
-import java.lang.reflect.Field
-import java.lang.reflect.Method
+import com.skydoves.powerspinner.createPowerSpinnerView
 
 
 class OptimizerFragment : Fragment() {
@@ -114,18 +112,46 @@ class OptimizerFragment : Fragment() {
         Thread {
             requireActivity().runOnUiThread {
                 val wifiManager = requireActivity().applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
-                binding.wifiSwitch.apply {
-                    isChecked = wifiManager.isWifiEnabled
-                    wifiSwitchHandler(this, wifiManager)
+                binding.apply {
+
+                    // WiFi toggle ON/OFF
+                    wifiSwitch.apply {
+                        isChecked = wifiManager.isWifiEnabled
+                        wifiSwitchHandler(this, wifiManager)
+                    }
+
+                    // Mobile data toggle ON/OFF
+                    mobileDataSwitch.apply {
+                        this.isChecked = isUsingMobileData()
+                        setOnCheckedChangeListener { _, _ ->
+                            mobileDataHandler()
+                        }
+                    }
+
+                    // Battery Saver toggle ON/OFF
+                    batterySaverSwitch.apply {
+                        this.isChecked = isBatterySaverEnabled()
+                        setOnClickListener {
+                            batterySaverHandler()
+                        }
+                    }
                 }
-                
             }
-
         }.start()
+    }
 
-        binding.mobileDataSwitch.setOnCheckedChangeListener { _, _ ->
-            mobileDataHandler()
-        }
+    private fun batterySaverHandler() {
+        val batterySaverIntent = Intent()
+        batterySaverIntent.component = ComponentName(
+            "com.android.settings",
+            "com.android.settings.Settings\$BatterySaverSettingsActivity"
+        )
+        startActivityForResult(batterySaverIntent, 0)
+    }
+
+    private fun isBatterySaverEnabled(): Boolean {
+        val powerManager = requireActivity().getSystemService(Context.POWER_SERVICE) as PowerManager
+        return powerManager.isPowerSaveMode
     }
 
     private fun mobileDataHandler() {
@@ -135,6 +161,19 @@ class OptimizerFragment : Fragment() {
             "com.android.settings.Settings\$DataUsageSummaryActivity"
         )
         startActivity(intent)
+    }
+
+    private fun isUsingMobileData(): Boolean {
+        val cm = requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+
+        val activeNetwork = cm!!.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+        val isConnected = activeNetwork != null &&
+                activeNetwork.isConnected
+
+        if (!isConnected) {
+            return false
+        }
+        return true
     }
 
     private fun wifiSwitchHandler(wifiSwitch: SwitchMaterial, wifiManager: WifiManager) {

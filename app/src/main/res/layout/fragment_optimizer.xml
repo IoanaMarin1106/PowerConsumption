@@ -175,7 +175,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/default_margin_battery"
+                android:layout_marginTop="@dimen/default_margin_battery"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="7dp" >
 
@@ -213,6 +213,24 @@
 
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/default_margin_battery"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="7dp" >
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/batterySaverSwitch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/battery_saver"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/settings_text_size"
+                    android:paddingHorizontal="@dimen/default_margin_battery"
+                    app:thumbTint="?attr/colorPrimary"/>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>

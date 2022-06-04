@@ -118,4 +118,5 @@
     <string name="wifi">WiFi</string>
     <string name="no_ble_adapter">This device does not support Bluetooth!</string>
     <string name="mobile_data">Mobile Data</string>
+    <string name="battery_saver">Battery Saver</string>
 </resources>
