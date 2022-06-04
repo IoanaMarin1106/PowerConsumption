@@ -1,16 +1,13 @@
 package com.example.powerconsumptionapp.batteryview
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.usage.UsageStats
-import android.app.usage.UsageStatsManager
 import android.bluetooth.BluetoothAdapter
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
@@ -18,14 +15,12 @@ import android.provider.Settings
 import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.ankushyerwar.floatingsnackbar.SnackBar
 import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
-import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
 import com.example.powerconsumptionapp.databinding.FragmentOptimizerBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.model.BatteryViewModel
@@ -109,6 +104,29 @@ class OptimizerFragment : Fragment() {
                 bluetoothSwitchHandler(binding.bluetoothSwitch)
             }
         }.start()
+
+        Thread {
+            requireActivity().runOnUiThread {
+                val wifiManager = requireActivity().applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+                binding.wifiSwitch.apply {
+                    isChecked = wifiManager.isWifiEnabled
+                    wifiSwitchHandler(this, wifiManager)
+                }
+                
+            }
+
+        }.start()
+    }
+
+    private fun wifiSwitchHandler(wifiSwitch: SwitchMaterial, wifiManager: WifiManager) {
+        wifiSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) { // if build version is less than Q try the old traditional method
+                wifiManager.isWifiEnabled = isChecked
+            } else { // if it is Android Q and above go for the newer way    NOTE: You can also use this code for less than android Q also
+                val panelIntent = Intent(Settings.Panel.ACTION_WIFI)
+                startActivityForResult(panelIntent, 1)
+            }
+        }
     }
 
     @SuppressLint("MissingPermission")
