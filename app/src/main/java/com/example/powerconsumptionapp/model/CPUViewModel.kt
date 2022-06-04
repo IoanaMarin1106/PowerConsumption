@@ -179,11 +179,12 @@ class CPUViewModel: ViewModel() {
         val newValue = text.trim().split("\\s+".toRegex()).toTypedArray()[0]
         when (resourceType) {
             Constants.GOVERNOR -> {
+
                 val result = writeFile(Constants.CPU_NEW_GOVERNOR, newValue)
                 if (result == Constants.ERROR) {
                     Log.e("[ERROR]", "File does not exist - NEW CPU GOVERNOR")
                 } else {
-                    Log.i(PerformanceManagerFragment.TAG,"User has changed CPU governor to $newValue")
+                    Log.i(PerformanceManagerFragment.TAG,"User has changed CPU governor to $newValue.")
                 }
             }
 
@@ -192,7 +193,7 @@ class CPUViewModel: ViewModel() {
                 if (result == Constants.ERROR) {
                     Log.e("[ERROR]", "File does not exist - NEW CPU MIN FREQ")
                 } else {
-                    Log.i(PerformanceManagerFragment.TAG,"User has changed CPU min frequency to $newValue")
+                    Log.i(PerformanceManagerFragment.TAG,"User has changed CPU min frequency to $newValue KHz")
                 }
             }
 
@@ -201,16 +202,7 @@ class CPUViewModel: ViewModel() {
                 if (result == Constants.ERROR) {
                     Log.e("[ERROR]", "File does not exist - NEW CPU MAX FREQ")
                 } else {
-                    Log.i(PerformanceManagerFragment.TAG,"User has changed CPU min frequency to $newValue")
-                }
-            }
-
-            Constants.CURR_CPU_FRQ -> {
-                val result = writeFile(Constants.CPU_NEW_CURR_FREQ, newValue)
-                if (result == Constants.ERROR) {
-                    Log.e("[ERROR]", "File does not exist - NEW CPU CURR FREQ")
-                } else {
-                    Log.i(PerformanceManagerFragment.TAG,"User has changed current CPU frequency to $newValue")
+                    Log.i(PerformanceManagerFragment.TAG,"User has changed CPU max frequency to $newValue KHz")
                 }
             }
         }

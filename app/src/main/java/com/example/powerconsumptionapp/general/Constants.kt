@@ -104,8 +104,6 @@ object Constants {
 
     // User can change these files
     const val GOVERNOR = "governor"
-    @SuppressLint("SdCardPath")
-    const val CPU_NEW_CURR_FREQ = "/data/data/com.example.powerconsumptionapp/user_data/cpu_curr_freq.txt"
 
     @SuppressLint("SdCardPath")
     const val CPU_NEW_MAX_FREQ = "/data/data/com.example.powerconsumptionapp/user_data/cpu_max_freq.txt"

@@ -18,7 +18,7 @@ chmod 777 $source_cpu_governor
 
 # dest files -> files that will be modified
 dest_cpu_min_freq="/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"
-dest_cpu_max_freq="/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq"
+dest_cpu_max_freq="/data/data/com.example.powerconsumptionapp/temp_files/cpu_max_freq"
 dest_cpu_curr_freq="/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq"
 dest_cpu_governor="/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor"
 
@@ -57,5 +57,5 @@ do
 		fi
 	fi
 
-	sleep 10
+	sleep 2
 done

@@ -225,45 +225,6 @@
 
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/deep_purple_light"/>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="0dp"
-                                android:gravity="center"
-                                android:layout_gravity="center"
-                                android:padding="@dimen/horizontal_margin"
-                                android:layout_weight="2"
-                                android:textSize="@dimen/settings_text_size"
-                                android:text="@string/current_frequency"/>
-
-                            <HorizontalScrollView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-
-                                <com.google.android.material.chip.ChipGroup
-                                    android:id="@+id/currentFreqChipGroup"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    app:singleSelection="true"
-                                    app:chipSpacingHorizontal="@dimen/default_gap"
-                                    app:singleLine="true">
-
-                                </com.google.android.material.chip.ChipGroup>
-                            </HorizontalScrollView>
-
-
-                        </LinearLayout>
-
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -305,6 +266,19 @@
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/refreshButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/deep_purple_dark"
+                android:visibility="gone"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:icon="@drawable/ic_baseline_refresh_24"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:cornerRadius="20dp" />
 
         </LinearLayout>
     </ScrollView>

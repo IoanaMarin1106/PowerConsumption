@@ -83,7 +83,12 @@ do
   fi
 
   if test -f $max_freq; then
-    cp -f $max_freq $dest_cpu_max_freq
+    if cmp -s $max_freq $dest_cpu_max_freq; then
+      printf 'The file "%s" is the same as "%s"\n' "$max_freq" "$dest_cpu_max_freq"
+      cp -f $max_freq $dest_cpu_max_freq
+    else 
+      printf 'Max frequency was changed by the user\n'
+    fi
   fi
 
   sleep 10
