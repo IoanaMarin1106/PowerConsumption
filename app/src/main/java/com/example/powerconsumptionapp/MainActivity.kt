@@ -10,6 +10,7 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         const val MY_READ_EXTERNAL_REQUEST : Int = 1
         const val MY_WRITE_EXTERNAL_REQUEST: Int = 1
         const val MULTIPLE_PERMISSION_GRANTED: Int = 2
+        const val BLUETOOTH_PERMISSION_GRANTED: Int = 3
         var isMonitoringServiceRunning = false
         var isCPUMonitoringServiceRunning = false
         var isOrientationChanged = false
@@ -102,6 +104,14 @@ class MainActivity : AppCompatActivity() {
                 ),
                 MULTIPLE_PERMISSION_GRANTED
             )
+        }
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.BLUETOOTH_CONNECT
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissions(this, arrayOf(Manifest.permission.BLUETOOTH_CONNECT), BLUETOOTH_PERMISSION_GRANTED)
         }
     }
 

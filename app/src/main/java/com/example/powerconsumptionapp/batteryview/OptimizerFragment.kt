@@ -1,10 +1,14 @@
 package com.example.powerconsumptionapp.batteryview
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.usage.UsageStats
 import android.app.usage.UsageStatsManager
+import android.bluetooth.BluetoothAdapter
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
@@ -14,9 +18,11 @@ import android.provider.Settings
 import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.ankushyerwar.floatingsnackbar.SnackBar
 import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
@@ -92,6 +98,29 @@ class OptimizerFragment : Fragment() {
                 dozeModeHandler()
             }
         }.start()
+
+        Thread {
+            requireActivity().runOnUiThread {
+                if (BluetoothAdapter.getDefaultAdapter() == null) {
+                    SnackBar.error(requireView(), getString(R.string.no_ble_adapter), SnackBar.LENGTH_LONG, R.drawable.ic_baseline_error_24).show();
+                } else {
+                    binding.bluetoothSwitch.isChecked = BluetoothAdapter.getDefaultAdapter().isEnabled
+                }
+                bluetoothSwitchHandler(binding.bluetoothSwitch)
+            }
+        }.start()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun bluetoothSwitchHandler(bluetoothSwitch: SwitchMaterial) {
+        bluetoothSwitch.setOnCheckedChangeListener { _, isChecked ->
+            val bluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+            if (isChecked) {
+                bluetoothAdapter.enable()
+            } else {
+                bluetoothAdapter.disable()
+            }
+        }
     }
 
     private fun assignClassProperties() {
@@ -192,7 +221,6 @@ class OptimizerFragment : Fragment() {
             AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>,
                                         view: View?, position: Int, id: Long) {
-
                 var timeout = 180000
                 when(timeoutTimes[position]) {
                     "15 seconds" -> timeout = 15000

@@ -114,4 +114,7 @@
     <string name="refresh">Refresh</string>
     <string name="refresh_alert_msg">To see the newly set values, please press the refresh button after 2 seconds.</string>
     <string name="error_when_changing_freq">The maximum frequency of the processor must be higher than the minimum frequency!</string>
+    <string name="bluetooth">Bluetooth</string>
+    <string name="wifi">WiFi</string>
+    <string name="no_ble_adapter">This device does not support Bluetooth!</string>
 </resources>
