@@ -6,12 +6,14 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
 import android.os.PowerManager
 import android.provider.Settings
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -25,6 +27,10 @@ import com.example.powerconsumptionapp.databinding.FragmentOptimizerBinding
 import com.example.powerconsumptionapp.general.Constants
 import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.google.android.material.switchmaterial.SwitchMaterial
+import java.io.IOException
+import java.lang.reflect.Field
+import java.lang.reflect.Method
+
 
 class OptimizerFragment : Fragment() {
 
@@ -116,6 +122,19 @@ class OptimizerFragment : Fragment() {
             }
 
         }.start()
+
+        binding.mobileDataSwitch.setOnCheckedChangeListener { _, _ ->
+            mobileDataHandler()
+        }
+    }
+
+    private fun mobileDataHandler() {
+        val intent = Intent()
+        intent.setClassName(
+            "com.android.settings",
+            "com.android.settings.Settings\$DataUsageSummaryActivity"
+        )
+        startActivity(intent)
     }
 
     private fun wifiSwitchHandler(wifiSwitch: SwitchMaterial, wifiManager: WifiManager) {
