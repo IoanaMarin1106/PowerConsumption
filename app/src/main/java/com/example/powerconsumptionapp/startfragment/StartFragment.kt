@@ -110,7 +110,6 @@ class StarterFragment : Fragment() {
 
     private fun checkBatteryPercent(batteryPercent: Int?) {
         if (batteryPercent != null) {
-            println(batteryPercent)
             if (batteryPercent <= 15) binding.snuffBatteryIndicator!!.visibility =
                 View.VISIBLE else binding.snuffBatteryIndicator!!.visibility = View.GONE
         }

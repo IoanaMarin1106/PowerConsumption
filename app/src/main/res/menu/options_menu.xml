@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+
     <item
         android:id="@+id/batterySettingsFragment"
-        android:title="@string/battery_settings"/>
+        android:title="@string/battery_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        app:showAsAction="withText" />
+
+    <item
+        android:id="@+id/performanceManagerFragment"
+        android:title="@string/performance_manager"
+        android:icon="@drawable/performance_svgrepo_com__1_"
+        app:showAsAction="withText"/>
+
     <item
         android:id="@+id/aboutFragment"
-        android:title="@string/nav_about" />
+        android:title="@string/information"
+        android:icon="@drawable/ic_baseline_info_24"
+        app:showAsAction="withText"/>
 </menu>

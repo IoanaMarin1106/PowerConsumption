@@ -26,9 +26,10 @@
                     android:id="@+id/icon"
                     android:layout_width="wrap_content"
                     android:layout_height="190dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:contentDescription="@string/button_description"
+                    android:padding="@dimen/default_gap"
                     app:srcCompat="@drawable/ic_baseline_battery_saver_24" />
 
                 <TextView
@@ -36,12 +37,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:layout_centerInParent="true"
                     android:lines="1"
-                    android:text="HEI HEI HEI"
+                    android:hint="@string/title"
                     android:textColor="@color/black"
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:padding="@dimen/default_gap"/>
 
             </LinearLayout>
 

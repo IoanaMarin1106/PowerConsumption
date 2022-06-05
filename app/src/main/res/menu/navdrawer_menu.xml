@@ -3,15 +3,22 @@
 
     <item
         android:id="@+id/batterySettingsFragment"
-        android:title="@string/battery_settings"/>
+        android:title="@string/battery_settings"
+        android:icon="@drawable/ic_baseline_settings_24" />
 
     <item
         android:id="@+id/CPUInfo"
-        android:title="@string/nav_cpu_title" />
+        android:title="@string/processor_information"
+        android:icon="@drawable/baseline_cpu_24"/>
 
+    <item
+        android:id="@+id/performanceManagerFragment"
+        android:title="@string/performance_manager"
+        android:icon="@drawable/performance_svgrepo_com__1_"/>
 
     <item
         android:id="@+id/aboutFragment"
-        android:title="@string/nav_about"/>
+        android:title="@string/information"
+        android:icon="@drawable/ic_baseline_info_24"/>
 
 </menu>

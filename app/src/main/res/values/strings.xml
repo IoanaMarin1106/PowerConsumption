@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PowerConsumptionApp</string>
+    <string name="app_name">Pow\'R App</string>
     <string name="starter_fragment">POW\'R</string>
     <string name="battery_view_fragment">Battery View</string>
     <string name="battery">Charging Battery</string>
@@ -119,4 +119,7 @@
     <string name="no_ble_adapter">This device does not support Bluetooth!</string>
     <string name="mobile_data">Mobile Data</string>
     <string name="battery_saver">Battery Saver</string>
+    <string name="processor_information">Processor Information</string>
+    <string name="information">Information</string>
+    <string name="title">Title</string>
 </resources>

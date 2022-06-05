@@ -39,14 +39,16 @@ class BatteryViewModel: ViewModel() {
     fun populateFragmentButtons() {
         viewModelScope.launch {
             if (buttonsList.isEmpty()) {
-                val batteryViewButton = ButtonsInfo(Util.Button.BATTERY_VIEW.title, R.drawable.battery_icon_2_)
-                val cpuInfoButton = ButtonsInfo(Util.Button.CPU_INFO.title, R.drawable.cpu_icon)
+                val batteryViewButton = ButtonsInfo(Util.Button.BATTERY_VIEW.title, R.drawable.battery_svgrepo_com__1_)
+                val cpuInfoButton = ButtonsInfo(Util.Button.CPU_INFO.title, R.drawable.cpu_chip_svgrepo_com)
                 val performanceManagerButton = ButtonsInfo(Util.Button.PERFORMANCE_MANAGER.title, R.drawable.performance_svgrepo_com__1_)
+                val aboutFragmentButton = ButtonsInfo(Util.Button.ABOUT_FRAGMENT.title, R.drawable.teach_svgrepo_com)
 
                 buttonsList.apply {
                     add(batteryViewButton)
                     add(cpuInfoButton)
                     add(performanceManagerButton)
+                    add(aboutFragmentButton)
                 }
             }
         }

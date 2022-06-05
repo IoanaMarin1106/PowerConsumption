@@ -139,6 +139,8 @@ class BatterySettingsFragment : Fragment() {
             }
 
             setBottomUpBatteryLimits(downLimitBatteryLevel, upLimitBatteryLevel)
+
+            // Set boundaries for battery level
             alarmHandler(alarmButton, alarmContainer, setAlarmButton)
         }
     }

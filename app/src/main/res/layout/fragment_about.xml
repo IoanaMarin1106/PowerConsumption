@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".about.AboutFragment">
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".about.AboutFragment">
+        android:background="@drawable/gradient_bg">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:elegantTextHeight="true"
-            android:fontFamily="@font/roboto_slab"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textSize="@dimen/default_size" />
+            android:orientation="vertical">
 
-    </FrameLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin_battery"
+                android:layout_gravity="center_horizontal"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="7dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:padding="@dimen/default_gap"
+                    android:textSize="@dimen/default_size" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </ScrollView>
 
 </layout>

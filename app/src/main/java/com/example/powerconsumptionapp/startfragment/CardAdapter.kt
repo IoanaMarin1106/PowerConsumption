@@ -42,6 +42,10 @@ class CardAdapter(
                     val action = StarterFragmentDirections.actionStarterFragmentToPerformanceManagerFragment()
                     NavHostFragment.findNavController(parentFragment).navigate(action)
                 }
+                Util.Button.ABOUT_FRAGMENT.title -> {
+                    val action = StarterFragmentDirections.actionStarterFragmentToAboutFragment()
+                    NavHostFragment.findNavController(parentFragment).navigate(action)
+                }
             }
         }
     }
