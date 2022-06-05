@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/batteryViewFragment"
         android:name="com.example.powerconsumptionapp.batteryview.BatteryViewFragment"
-        android:label="@string/battery_view_fragment"
+        android:label="Battery"
         tools:layout="@layout/fragment_battery_view">
         <action
             android:id="@+id/action_batteryViewFragment_to_batterySettingsFragment"
@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/CPUInfo"
         android:name="com.example.powerconsumptionapp.cpuinfo.CPUInfoFragment"
-        android:label="@string/nav_cpu_title"
+        android:label="Processor"
         tools:layout="@layout/fragment_c_p_u_info"/>
     <fragment
         android:id="@+id/performanceManagerFragment"
@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/starterFragment"
         android:name="com.example.powerconsumptionapp.startfragment.StarterFragment"
-        android:label="@string/start_fragment"
+        android:label="@string/starter_fragment"
         tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_starterFragment_to_performanceManagerFragment"
@@ -51,11 +51,11 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.powerconsumptionapp.about.AboutFragment"
-        android:label="@string/about_fragment_title"
+        android:label="App Information"
         tools:layout="@layout/fragment_about"/>
     <fragment
         android:id="@+id/batterySettingsFragment"
         android:name="com.example.powerconsumptionapp.batteryview.BatterySettingsFragment"
-        android:label="BatterySettingsFragment"
+        android:label="Battery Settings"
         tools:layout="@layout/fragment_battery_settings"/>
 </navigation>
