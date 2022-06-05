@@ -148,6 +148,25 @@
     <string name="app_standby_bucket_info">Android 9 (API level 28) and higher support App Standby Buckets. App Standby Buckets help the system prioritize apps\' requests for resources based on how recently and how frequently the apps are used. Based on app usage patterns, each app is placed in one of five priority buckets. The system limits the device resources available to each app based on which bucket the app is in.</string>
     <string name="doze_mode_information">If a user leaves a device unplugged and stationary for a period of time, with the screen off, the device enters Doze mode.\n In Doze mode, the system attempts to conserve battery by restricting apps\' access to network and CPU-intensive services.</string>
     <string name="screen_timeout_info">Screen Timeout is an option on Android devices that will turn the screen off to save battery life.</string>
+    <string name="governors">CPU Governors</string>
+    <string name="app_standby_bucket_types">App Standby Bucket Types</string>
+    <string name="powersave">Powersave</string>
+    <string name="schedutil">Schedutil</string>
+    <string name="ondemand">Ondemand</string>
+    <string name="performance">Performance</string>
+    <string name="userspace">Userspace</string>
+    <string name="conservative">Conservative</string>
 
+    <string name="powersave_info">The CPUfreq governor "powersave" sets the CPU statically to the lowest frequency within the borders of scaling_min_freq and scaling_max_freq.</string>
+    <string name="schedutil_info">The "schedutil" governor aims at better integration with the Linux kernel scheduler.  Load estimation is achieved through the scheduler\'s Per-Entity Load Tracking (PELT) mechanism, which also provides information about the recent load.</string>
+    <string name="ondemand_info">The CPUfreq governor "ondemand" sets the CPU frequency depending on the current system load. Load estimation is triggered by the scheduler through the update_util_data->func hook; when triggered, cpufreq checks the CPU-usage statistics over the last period and the governor sets the CPU accordingly.</string>
+    <string name="userspace_info">The CPUfreq governor "userspace" allows the user, or any userspace program running with UID "root", to set the CPU to a specific frequency by making a sysfs file "scaling_setspeed" available in the CPU-device directory.</string>
+    <string name="conservative_info">The CPUfreq governor "conservative", much like the "ondemand" governor, sets the CPU frequency depending on the current usage.</string>
+    <string name="performance_info">The CPUfreq governor "performance" sets the CPU statically to the highest frequency within the borders of scaling_min_freq and scaling_max_freq.</string>
 
+    <string name="active_bucket">Active</string>
+    <string name="rare_bucket">Rare</string>
+    <string name="working_set_bucket">Working set</string>
+    <string name="frequent_bucket">Frequent</string>
+    <string name="restricted_bucket">Restricted</string>
 </resources>

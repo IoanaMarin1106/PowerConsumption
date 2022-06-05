@@ -19,8 +19,11 @@ import com.google.android.material.chip.ChipGroup
 class AboutFragment : Fragment() {
 
     private lateinit var binding: FragmentAboutBinding
+
     private val batteryChipsList = arrayListOf("Battery Health", "Temperature", "Optimum Temperature", "App Standby Bucket", "Doze mode", "Screen Timeout")
     private val cpuChipsList = arrayListOf("CPU", "Frequency", "Governor", "CPU Load", "Core")
+    private val governorsList = arrayListOf("Performance", "Powersave", "Schedutil", "Conservative", "Userspace", "Ondemand")
+    private val appStandbyBucketList = arrayListOf("Active", "Working set", "Frequent", "Rare", "Restricted")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +50,7 @@ class AboutFragment : Fragment() {
             }
 
             // Add battery chips and CPU chips
-            addChips(batteryChipGroup, cpuChipGroup)
+            addChips(batteryChipGroup, cpuChipGroup, governorsChipGroup, appStandbyBucketChipGroup)
 
             batteryInformationButton.setOnClickListener {
                 chipHandler(it as MaterialButton, batteryChipGroup)
@@ -56,16 +59,37 @@ class AboutFragment : Fragment() {
             cpuInformationButton.setOnClickListener {
                 chipHandler(it as MaterialButton, cpuChipGroup)
             }
+
+            cpuGovernorsInformationButton.setOnClickListener {
+                chipHandler(it as MaterialButton, governorsChipGroup)
+            }
+
+            appStandbyBucketInformationButton.setOnClickListener {
+                chipHandler(it as MaterialButton, appStandbyBucketChipGroup)
+            }
         }
     }
 
-    private fun addChips(batteryChipGroup: ChipGroup, cpuChipGroup: ChipGroup) {
+    private fun addChips(
+        batteryChipGroup: ChipGroup,
+        cpuChipGroup: ChipGroup,
+        governorsChipGroup: ChipGroup,
+        appStandbyBucketChipGroup: ChipGroup
+    ) {
         for (chipName in batteryChipsList) {
             batteryChipGroup.addView(createChip(chipName))
         }
 
         for (chipName in cpuChipsList) {
             cpuChipGroup.addView(createChip(chipName))
+        }
+
+        for (chipName in governorsList) {
+            governorsChipGroup.addView(createChip(chipName))
+        }
+
+        for (chipName in appStandbyBucketList) {
+            appStandbyBucketChipGroup.addView(createChip(chipName))
         }
     }
 
@@ -140,6 +164,50 @@ class AboutFragment : Fragment() {
 
             getString(R.string.cpu) -> {
                 Util.showDialog((requireActivity() as MainActivity), getString(R.string.cpu), getString(R.string.cpu_info))
+            }
+
+            getString(R.string.conservative) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.conservative), getString(R.string.conservative_info))
+            }
+
+            getString(R.string.powersave) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.powersave), getString(R.string.powersave_info))
+            }
+
+            getString(R.string.schedutil) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.schedutil), getString(R.string.schedutil_info))
+            }
+
+            getString(R.string.performance) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.performance), getString(R.string.performance_info))
+            }
+
+            getString(R.string.ondemand) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.ondemand), getString(R.string.ondemand_info))
+            }
+
+            getString(R.string.userspace) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.userspace), getString(R.string.userspace_info))
+            }
+
+            getString(R.string.active_bucket) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.active_bucket), getString(R.string.active_info))
+            }
+
+            getString(R.string.rare_bucket) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.rare_bucket), getString(R.string.rare_info))
+            }
+
+            getString(R.string.working_set_bucket) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.working_set_bucket), getString(R.string.working_set_info))
+            }
+
+            getString(R.string.frequent_bucket) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.frequent_bucket), getString(R.string.frequent_info))
+            }
+
+            getString(R.string.restricted_bucket) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.restricted_bucket), getString(R.string.restricted_info))
             }
         }
     }
