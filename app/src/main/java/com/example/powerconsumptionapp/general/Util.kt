@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.batteryview.BatterySettingsFragment
+import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
 import com.example.powerconsumptionapp.service.BatteryMonitoringService
 import com.example.powerconsumptionapp.service.BatteryMonitoringThread
 import com.example.powerconsumptionapp.service.NotificationService
@@ -49,6 +50,13 @@ class Util {
             }
             val alertDialog: AlertDialog = alertDialogBuilder.create()
             alertDialog.show()
+        }
+
+        fun showDialog(mainActivity: MainActivity, dialogTitle: String, dialogText: String) {
+            InfoDialogFragment(
+                dialogTitle,
+                dialogText
+            ).show(mainActivity.supportFragmentManager, "customDialog")
         }
     }
 }

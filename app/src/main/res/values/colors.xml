@@ -3,6 +3,7 @@
 
     <!--    Primary    -->
     <color name="indigo">#303f9f</color>
+    <color name="indigo_trans">#80303f9f</color>
     <color name="indigo_light">#666ad1</color>
     <color name="indigo_dark">#001970</color>
     <color name="white">#ffffff</color>

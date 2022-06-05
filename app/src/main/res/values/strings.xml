@@ -122,4 +122,32 @@
     <string name="processor_information">Processor Information</string>
     <string name="information">Information</string>
     <string name="title">Title</string>
+    <string name="your_teacher_helper_today"><![CDATA[Your teacher & helper today!]]></string>
+
+    <!--    About fragment-->
+    <string name="helper_title">Here to help you!</string>
+    <string name="helper_message">Pow\'R will give you the information you need to know about your phone\'s battery and processor.\n Just be a little curious!</string>
+    <string name="second_introduction_message">Pow\'R has separate sections dedicated to battery and processor, because if you want to find out details before using the application about the characteristics of the two components, we invite you to play a little with the buttons below.</string>
+    <string name="information_message">Technical information is often difficult to understand,\n isn\'t it?\n With the right help, you will be able to understand notions such as the health of your device\'s battery, what it means to change the processor frequency or what a governor is, all embedded in a single application.</string>
+    <string name="battery_info">Battery</string>
+    <string name="cpu">CPU</string>
+    <string name="cpu_info">The best way to think about a CPU is like the brain of the machine. It\'s highly flexible, keeps the show on the road, and is capable of handling a wide range of tasks. The CPU inside your phone is responsible for running all the logic and operations required by the Android operating system as well as your apps.</string>
+    <string name="battery_health">Battery Health</string>
+    <string name="battery_health_info">The Battery Health screen includes information on maximum battery capacity and peak performance capability.\n Maximum battery capacity measures the device battery capacity relative to when it was new.</string>
+    <string name="temperature">Temperature</string>
+    <string name="temperature_info">The cold temperature increases the internal resistance and reduces your phone\'s capacity significantly. Battery Temperature too low the phone will soon power off. The battery is the most important component of your mobile phone and it will shut down soon when the temperature is very low.\n </string>
+    <string name="frequency">Frequency</string>
+    <string name="frequency_info">A CPU\'s clock speed represents how many cycles per second it can execute. Clock speed is also referred to as clock rate, PC frequency and CPU frequency. This is measured in gigahertz, which refers to billions of pulses per second and is abbreviated as GHz.</string>
+    <string name="governor">Governor</string>
+    <string name="governor_info">A CPU governor controls how the CPU raises and lowers its frequency in response to the demands the user is placing on their device. Governors have a large impact on performance and power save.</string>
+    <string name="core">Core</string>
+    <string name="core_info">In summary, a core is a small CPU or processor built into a big CPU or CPU socket. It can independently perform or process all computational tasks. From this perspective, we can consider a core to be a smaller CPU or a smaller processor within a big processor.</string>
+    <string name="cpu_load_info">CPU load is the number of processes that are using, or want to use, CPU time, or queued up processes ready to use CPU. This can also be referred to as the run queue length.</string>
+    <string name="optimum_battery_temp">Optimum Temperature</string>
+    <string name="optimum_battery_temp_info">Maintain battery temperature between 20–30 °C during discharge cycles in order to maximise performance and range. Maintain battery temperature between 15–25 °C during charging. Cool other powertrain components to allow them to operate without derating if possible.</string>
+    <string name="app_standby_bucket_info">Android 9 (API level 28) and higher support App Standby Buckets. App Standby Buckets help the system prioritize apps\' requests for resources based on how recently and how frequently the apps are used. Based on app usage patterns, each app is placed in one of five priority buckets. The system limits the device resources available to each app based on which bucket the app is in.</string>
+    <string name="doze_mode_information">If a user leaves a device unplugged and stationary for a period of time, with the screen off, the device enters Doze mode.\n In Doze mode, the system attempts to conserve battery by restricting apps\' access to network and CPU-intensive services.</string>
+    <string name="screen_timeout_info">Screen Timeout is an option on Android devices that will turn the screen off to save battery life.</string>
+
+
 </resources>
