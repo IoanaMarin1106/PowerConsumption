@@ -169,4 +169,7 @@
     <string name="working_set_bucket">Working set</string>
     <string name="frequent_bucket">Frequent</string>
     <string name="restricted_bucket">Restricted</string>
+    <string name="time_until_next_charging">Time until next charging</string>
+    <string name="loading">Loading...</string>
+    <string name="remaining_battery_time">Remaining battery time</string>
 </resources>

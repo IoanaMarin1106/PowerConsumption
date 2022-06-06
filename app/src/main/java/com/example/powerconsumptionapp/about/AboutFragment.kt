@@ -97,7 +97,6 @@ class AboutFragment : Fragment() {
         if (chipGroup.visibility == View.GONE) {
             chipGroup.visibility = View.VISIBLE
             materialButton.background.alpha = 0
-
         } else {
             chipGroup.visibility = View.GONE
             materialButton.background.alpha = 255

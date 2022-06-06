@@ -21,6 +21,8 @@ import com.example.powerconsumptionapp.databinding.FragmentStartBinding
 import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.example.powerconsumptionapp.service.ActionBatteryLowService
 import eo.view.batterymeter.BatteryMeterView
+import java.time.LocalDateTime
+import java.util.*
 import kotlin.math.roundToInt
 
 class StarterFragment : Fragment() {
@@ -33,6 +35,7 @@ class StarterFragment : Fragment() {
     companion object {
         var isActiveActionBatteryService = false
         var isActiveAlarmLimitsService = false
+//        var batteryPercentTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
     }
 
     override fun onCreateView(

@@ -4,7 +4,7 @@
     <dimen name="nav_header_padding">16dp</dimen>
     <dimen name="horizontal_margin">8dp</dimen>
     <dimen name="default_padding">6dp</dimen>
-    <dimen name="default_margin_top_bottom">52dp</dimen>
+    <dimen name="default_margin_top_bottom">30dp</dimen>
     <dimen name="default_margin_battery">20dp</dimen>
     <dimen name="custom_margin">32dp</dimen>
     <dimen name="progress_bar">150dp</dimen>

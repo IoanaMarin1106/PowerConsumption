@@ -1,23 +1,16 @@
 package com.example.powerconsumptionapp.batteryview
 
-import android.annotation.SuppressLint
-import android.app.NotificationManager
 import android.app.usage.UsageStatsManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.os.BatteryManager
-import android.os.Build
-import android.os.Bundle
-import android.provider.Settings
+import android.os.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -26,6 +19,7 @@ import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentInformationBinding
 import com.example.powerconsumptionapp.general.Constants
+import com.example.powerconsumptionapp.general.LoadingAlertDialog
 import com.example.powerconsumptionapp.general.Util
 import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.google.android.material.button.MaterialButton
@@ -64,11 +58,11 @@ class InformationFragment : Fragment() {
     private lateinit var usbChargerOption: Button
 
     private var areChargingOptionsVisible: Boolean = false
+    private val progressDialog = LoadingAlertDialog()
 
     companion object {
         @JvmStatic
         fun newInstance(): InformationFragment = InformationFragment()
-
         var standbyBucketDescription = ""
     }
 
@@ -208,9 +202,31 @@ class InformationFragment : Fragment() {
                                 batteryViewModel.showDialog((activity as MainActivity), this.text.toString(), standbyBucketDescription)
                             }
                         }
+
+                        val loadingDialog: LoadingAlertDialog = LoadingAlertDialog()
+
+                        binding.apply {
+                            remainingTimeButton.setOnClickListener {
+
+                                if (remainingTimeInfoCard.visibility == View.GONE) {
+                                    // Show progress dialog without Title
+                                    progressDialog.show(requireContext())
+                                    Handler(Looper.getMainLooper()).postDelayed({
+                                        // Dismiss progress bar after 4 seconds
+                                        progressDialog.dialog.dismiss()
+                                    }, 4000)
+
+                                    remainingTimeButton.background.alpha = 0
+                                    remainingTimeInfoCard.visibility = View.VISIBLE
+                                    timeTextView.text = "5 hours"
+                                } else {
+                                    remainingTimeInfoCard.visibility = View.GONE
+                                    remainingTimeButton.background.alpha = 255
+                                }
+                            }
+                        }
                     }
                 }.start()
-
             }
         }
     }
