@@ -160,7 +160,7 @@ class InformationFragment : Fragment() {
                                     }
                                     remainingTime >= 3600 -> {
                                         val hours = remainingTime / 3600
-                                        val minutes = remainingTime - (hours * 3600)
+                                        val minutes = (remainingTime - (hours * 3600)) / 60
                                         "$hours hours $minutes minutes".also { timeTextView.text = it }
                                     }
                                 }
@@ -331,12 +331,16 @@ class InformationFragment : Fragment() {
             }
             temperatureValueTextView.text = it.toString()
 
-            if (it > Constants.HIGH_CELSIUS_TEMPERATURE) {
-                temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_warning_24)
-            } else if (it < Constants.NORMAL_CELSIUS_TEMPERATURE) {
-                temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_done_all_24)
-            } else {
-                temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_back_hand_24)
+            when {
+                it > Constants.HIGH_CELSIUS_TEMPERATURE -> {
+                    temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_warning_24)
+                }
+                it < Constants.NORMAL_CELSIUS_TEMPERATURE -> {
+                    temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_done_all_24)
+                }
+                else -> {
+                    temperatureFeedbackImage.setBackgroundResource(R.drawable.ic_baseline_back_hand_24)
+                }
             }
         }
     }

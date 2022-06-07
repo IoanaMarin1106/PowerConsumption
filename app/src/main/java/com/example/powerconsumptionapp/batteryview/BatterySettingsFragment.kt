@@ -128,10 +128,15 @@ class BatterySettingsFragment : Fragment() {
             }
 
             startNotificationService.setOnClickListener {
-                val serviceIntent = Intent(requireActivity().applicationContext, NotificationService::class.java)
-                serviceIntent.putExtra(Constants.REMINDER_BATTERY_LEVEL, reminderBatteryLevel)
-                requireActivity().applicationContext.startService(serviceIntent)
-                SnackBar.success(view, "Charging battery reminder set to: $reminderBatteryLevel%", SnackBar.LENGTH_LONG).show();
+                if (startNotificationService.text == getString(R.string.ok)) {
+                    startNotificationService.text = getString(R.string.close)
+                    val serviceIntent = Intent(requireActivity().applicationContext, NotificationService::class.java)
+                    serviceIntent.putExtra(Constants.REMINDER_BATTERY_LEVEL, reminderBatteryLevel)
+                    requireActivity().applicationContext.startService(serviceIntent)
+                    SnackBar.success(view, "Charging battery reminder set to: $reminderBatteryLevel%", SnackBar.LENGTH_LONG).show()
+                } else {
+                    reminderLayout.visibility = View.GONE
+                }
             }
 
             launchAppSwitch.setOnCheckedChangeListener { _, isChecked ->
