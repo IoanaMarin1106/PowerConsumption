@@ -2,19 +2,13 @@ package com.example.powerconsumptionapp.general
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
-import android.widget.Toast
 import com.example.powerconsumptionapp.MainActivity
-import com.example.powerconsumptionapp.R
-import com.example.powerconsumptionapp.batteryview.BatterySettingsFragment
 import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
 import com.example.powerconsumptionapp.service.BatteryMonitoringService
-import com.example.powerconsumptionapp.service.BatteryMonitoringThread
-import com.example.powerconsumptionapp.service.NotificationService
-import java.math.RoundingMode
-import java.text.DecimalFormat
+import java.util.*
+
 
 class Util {
     companion object {
@@ -57,6 +51,55 @@ class Util {
                 dialogTitle,
                 dialogText
             ).show(mainActivity.supportFragmentManager, "customDialog")
+        }
+
+        private fun calculateBeta(x: MutableList<Int>, y: MutableList<Int>): Double {
+            val n: Int = x.size
+
+            // sum of array x
+            val sx: Int = x.sum()
+
+            // sum of array y
+            val sy: Int = y.sum()
+
+            // for sum of product of x and y
+            var sxsy = 0
+
+            // sum of square of x
+            var sx2 = 0
+            for (i in 0 until n) {
+                sxsy += x[i] * y[i]
+                sx2 += x[i] * x[i]
+            }
+
+            return ((n * sxsy - sx * sy).toDouble()
+                    / (n * sx2 - sx * sx))
+        }
+
+        // Function to find the
+        // least regression line
+        fun leastRegLine(
+            X: MutableList<Int>, Y: MutableList<Int>
+        ): String {
+
+            // Finding b
+            val b: Double = calculateBeta(X, Y)
+            val n = X.size
+            val meanX = X.sum() / n
+            val meanY = Y.sum() / n
+
+            // calculating a
+            val a = meanY - b * meanX
+
+            // Printing regression line
+            println("Regression line:")
+            print("Y = ")
+            System.out.printf("%.3f", a)
+            print(" + ")
+            System.out.printf("%.3f", b)
+            print("*X")
+
+            return "$a $b"
         }
     }
 }

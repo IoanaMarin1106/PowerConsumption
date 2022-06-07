@@ -1,14 +1,10 @@
 package com.example.powerconsumptionapp.model
 
 import android.content.Context
-import android.content.Intent
 import android.database.Cursor
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.net.Uri
-import android.os.Build
-import android.os.PowerManager
-import android.provider.Settings
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -20,12 +16,12 @@ import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
 import com.example.powerconsumptionapp.startfragment.ButtonsInfo
-import com.example.powerconsumptionapp.startfragment.Util
 import com.example.powerconsumptionapp.startfragment.buttonsList
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.math.roundToInt
 
 
 class BatteryViewModel: ViewModel() {
@@ -34,15 +30,18 @@ class BatteryViewModel: ViewModel() {
     companion object {
         var batteryPercentTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
         var batteryTemperatureTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
+
+        var batteryPercentageEstimation: MutableList<Int> = mutableListOf()
+        var USING_TIME = 10
     }
 
     fun populateFragmentButtons() {
         viewModelScope.launch {
             if (buttonsList.isEmpty()) {
-                val batteryViewButton = ButtonsInfo(Util.Button.BATTERY_VIEW.title, R.drawable.battery_svgrepo_com__1_)
-                val cpuInfoButton = ButtonsInfo(Util.Button.CPU_INFO.title, R.drawable.cpu_chip_svgrepo_com)
-                val performanceManagerButton = ButtonsInfo(Util.Button.PERFORMANCE_MANAGER.title, R.drawable.performance_svgrepo_com__1_)
-                val aboutFragmentButton = ButtonsInfo(Util.Button.ABOUT_FRAGMENT.title, R.drawable.teach_svgrepo_com)
+                val batteryViewButton = ButtonsInfo(com.example.powerconsumptionapp.startfragment.Util.Button.BATTERY_VIEW.title, R.drawable.battery_svgrepo_com__1_)
+                val cpuInfoButton = ButtonsInfo(com.example.powerconsumptionapp.startfragment.Util.Button.CPU_INFO.title, R.drawable.cpu_chip_svgrepo_com)
+                val performanceManagerButton = ButtonsInfo(com.example.powerconsumptionapp.startfragment.Util.Button.PERFORMANCE_MANAGER.title, R.drawable.performance_svgrepo_com__1_)
+                val aboutFragmentButton = ButtonsInfo(com.example.powerconsumptionapp.startfragment.Util.Button.ABOUT_FRAGMENT.title, R.drawable.teach_svgrepo_com)
 
                 buttonsList.apply {
                     add(batteryViewButton)
@@ -98,5 +97,18 @@ class BatteryViewModel: ViewModel() {
         ).apply {
             show(mainActivity.supportFragmentManager, "customDialog")
         }
+    }
+
+    fun estimateTimeRemaining(): Int {
+        // Get battery time until next charge (approx)
+        val equationParam = com.example.powerconsumptionapp.general.Util.leastRegLine(batteryPercentageEstimation.indices.toMutableList(),
+                                                                    batteryPercentageEstimation.toMutableList())
+        val alpha: Double = equationParam.trim().split("\\s+".toRegex()).toTypedArray()[0].toDouble()
+        val beta: Double = equationParam.trim().split("\\s+".toRegex()).toTypedArray()[1].toDouble()
+
+        val time = batteryPercentageEstimation.size
+        val timeWhenPhoneIsDown = (-alpha/ beta).roundToInt()
+
+        return (timeWhenPhoneIsDown - time) * USING_TIME
     }
 }

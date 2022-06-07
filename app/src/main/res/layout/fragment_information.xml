@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/deep_purple_dark"
-                android:text="@string/time_until_next_charging"
+                android:text="@string/time_until_next_charge"
                 android:theme="@style/Theme.MaterialComponents.Light"
                 app:cornerRadius="20dp" />
 

@@ -139,6 +139,9 @@ class MainActivity : AppCompatActivity() {
 
             val actionBatteryLowService = Intent(applicationContext, ActionBatteryLowService::class.java)
             stopService(actionBatteryLowService)
+
+            val batteryRemainingTimeService = Intent(applicationContext, BatteryRemainingTimeService::class.java)
+            stopService(batteryRemainingTimeService)
         }
         super.onDestroy()
     }

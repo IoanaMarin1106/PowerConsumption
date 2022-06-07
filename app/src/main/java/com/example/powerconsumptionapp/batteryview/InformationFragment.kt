@@ -80,6 +80,7 @@ class InformationFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -120,6 +121,55 @@ class InformationFragment : Fragment() {
                             chargeOptionsHorizotalScrollView.visibility = View.GONE
                         }
                     }
+
+                    appStandbyBucketButton.apply {
+                        appStandbyBucketHandler((requireActivity().getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager).appStandbyBucket, this)
+                        setOnClickListener {
+//                                startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
+                            batteryViewModel.showDialog((activity as MainActivity), this.text.toString(), standbyBucketDescription)
+                        }
+                    }
+
+                    remainingTimeButton.setOnClickListener {
+                        if (BatteryViewModel.batteryPercentageEstimation.size < 12) {
+                            Util.showDialog((requireActivity() as MainActivity), getString(R.string.no_data_warning_title), getString(R.string.no_data_warning_msg))
+                        } else {
+                            if (remainingTimeInfoCard.visibility == View.GONE) {
+                                // Show progress dialog without Title
+                                progressDialog.show(requireContext())
+                                Handler(Looper.getMainLooper()).postDelayed({
+                                    // Dismiss progress bar after 4 seconds
+                                    progressDialog.dialog.dismiss()
+                                }, 4000)
+
+                                remainingTimeButton.background.alpha = 0
+                                remainingTimeInfoCard.visibility = View.VISIBLE
+
+                                // Get battery time until next charge (approx)
+
+                                // App was opened -> click button (time)
+                                val remainingTime = batteryViewModel.estimateTimeRemaining()
+                                when {
+                                    (remainingTime >= 60) and (remainingTime < 3600) -> {
+                                        val minutes = remainingTime / 60
+                                        val seconds = remainingTime - (minutes * 60)
+                                        "$minutes minutes $seconds seconds".also { timeTextView.text = it }
+                                    }
+                                    remainingTime < 60 -> {
+                                        "$remainingTime seconds".also { timeTextView.text = it }
+                                    }
+                                    remainingTime >= 3600 -> {
+                                        val hours = remainingTime / 3600
+                                        val minutes = remainingTime - (hours * 3600)
+                                        "$hours hours $minutes minutes".also { timeTextView.text = it }
+                                    }
+                                }
+                            } else {
+                                remainingTimeInfoCard.visibility = View.GONE
+                                remainingTimeButton.background.alpha = 255
+                            }
+                        }
+                    }
                 }
             })
         }.start()
@@ -147,10 +197,9 @@ class InformationFragment : Fragment() {
     }
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        @RequiresApi(Build.VERSION_CODES.P)
         override fun onReceive(context: Context?, intent: Intent?) {
-            val batteryProcent: Int? = intent?.let {
-                var batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+            val batteryPercentage: Int? = intent?.let {
+                val batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
                 val scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
                 (batteryLevel * 100 / scale.toFloat()).roundToInt()
             }
@@ -166,7 +215,7 @@ class InformationFragment : Fragment() {
 
                 launch {
                     // Set battery percentage
-                    setBatteryPercentage(batteryProcent, chargingStatus)
+                    setBatteryPercentage(batteryPercentage, chargingStatus)
                 }
 
                 launch {
@@ -192,41 +241,6 @@ class InformationFragment : Fragment() {
                     val voltage = intent?.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0)
                     setBatteryVoltage(voltage)
                 }
-
-                Thread {
-                    requireActivity().runOnUiThread {
-                        binding.appStandbyBucketButton.apply {
-                            appStandbyBucketHandler((requireActivity().getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager).appStandbyBucket, this)
-                            setOnClickListener {
-//                                startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS));
-                                batteryViewModel.showDialog((activity as MainActivity), this.text.toString(), standbyBucketDescription)
-                            }
-                        }
-
-                        val loadingDialog: LoadingAlertDialog = LoadingAlertDialog()
-
-                        binding.apply {
-                            remainingTimeButton.setOnClickListener {
-
-                                if (remainingTimeInfoCard.visibility == View.GONE) {
-                                    // Show progress dialog without Title
-                                    progressDialog.show(requireContext())
-                                    Handler(Looper.getMainLooper()).postDelayed({
-                                        // Dismiss progress bar after 4 seconds
-                                        progressDialog.dialog.dismiss()
-                                    }, 4000)
-
-                                    remainingTimeButton.background.alpha = 0
-                                    remainingTimeInfoCard.visibility = View.VISIBLE
-                                    timeTextView.text = "5 hours"
-                                } else {
-                                    remainingTimeInfoCard.visibility = View.GONE
-                                    remainingTimeButton.background.alpha = 255
-                                }
-                            }
-                        }
-                    }
-                }.start()
             }
         }
     }

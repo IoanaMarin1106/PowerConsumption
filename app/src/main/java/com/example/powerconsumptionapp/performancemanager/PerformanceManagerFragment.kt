@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -125,6 +126,7 @@ class PerformanceManagerFragment : Fragment() {
 
     private fun createChip(chipTitle: String, resourceName: String): Chip {
         val chip = ChoiceChipBinding.inflate(layoutInflater).root
+        chip.chipBackgroundColor = ContextCompat.getColorStateList(requireContext(), R.color.deep_purple_dark)
         when (resourceName) {
             Constants.MAX_CPU_FRQ -> {
                 chip.apply {

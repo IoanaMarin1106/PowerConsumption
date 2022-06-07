@@ -20,6 +20,7 @@ import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.FragmentStartBinding
 import com.example.powerconsumptionapp.model.BatteryViewModel
 import com.example.powerconsumptionapp.service.ActionBatteryLowService
+import com.example.powerconsumptionapp.service.BatteryRemainingTimeService
 import eo.view.batterymeter.BatteryMeterView
 import java.time.LocalDateTime
 import java.util.*
@@ -33,9 +34,10 @@ class StarterFragment : Fragment() {
     private var iFilter: IntentFilter? = IntentFilter()
 
     companion object {
-        var isActiveActionBatteryService = false
-        var isActiveAlarmLimitsService = false
-//        var batteryPercentTimeMap: TreeMap<LocalDateTime, Int> = TreeMap<LocalDateTime, Int>()
+        var isActiveActionBatteryServiceActive = false
+        var isActiveAlarmLimitsServiceActive = false
+        var isBatteryRemainingTimeServiceActive = false
+        const val TAG = "BATTERY_REMAINING_TIME_SERVICE"
     }
 
     override fun onCreateView(
@@ -80,12 +82,24 @@ class StarterFragment : Fragment() {
         // pornesc serviciul pentru a notifica user-ul cand bateria lui trebuie incarcata deoarece
         // a ajuns la un nivel prea scazut
         serviceHandler()
+
+        // pornesc serviciul pentru calculul timpului estimat pana cand bateria ajunge la 0%
+        startBatteryRemainingTimeService()
+    }
+
+    private fun startBatteryRemainingTimeService() {
+        if (!isBatteryRemainingTimeServiceActive) {
+            isBatteryRemainingTimeServiceActive = true
+            Log.i(TAG, "Battery remaining time service is starting..")
+            val batteryRemainingTimeIntent = Intent(requireActivity().applicationContext, BatteryRemainingTimeService::class.java)
+            requireActivity().startService(batteryRemainingTimeIntent)
+        }
     }
 
     private fun serviceHandler() {
-        if (!isActiveAlarmLimitsService) {
-            if (!isActiveActionBatteryService) {
-                isActiveActionBatteryService = true
+        if (!isActiveAlarmLimitsServiceActive) {
+            if (!isActiveActionBatteryServiceActive) {
+                isActiveActionBatteryServiceActive = true
                 Log.i(ActionBatteryLowService.TAG, "Alarm service is loading...")
                 val actionBatteryLowIntent = Intent(requireActivity().applicationContext, ActionBatteryLowService::class.java)
                 requireActivity().startService(actionBatteryLowIntent)
@@ -95,17 +109,17 @@ class StarterFragment : Fragment() {
 
     private var broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val batteryPercent: Int? = intent?.let {
+            val batteryPercentage: Int? = intent?.let {
                 val batteryLevel = it.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
                 val scale = it.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
                 (batteryLevel * 100 / scale.toFloat()).roundToInt()
             }
 
-            checkBatteryPercent(batteryPercent)
+            checkBatteryPercent(batteryPercentage)
             val chargingStatus = intent?.getIntExtra(BatteryManager.EXTRA_STATUS, -1) ?: -1
 
             batteryLevelIndicator.apply {
-                this.chargeLevel = batteryPercent
+                this.chargeLevel = batteryPercentage
                 this.isCharging = chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING
             }
         }
