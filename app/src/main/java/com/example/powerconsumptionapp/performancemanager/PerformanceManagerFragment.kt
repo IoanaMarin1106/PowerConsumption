@@ -27,9 +27,6 @@ class PerformanceManagerFragment : Fragment() {
     private lateinit var availableFrequencies: MutableList<String>
     private lateinit var availableCPUGovernors: MutableList<String>
 
-    private var minFreq: Double = 0.0
-    private var maxFreq: Double = 0.0
-
     companion object {
         const val TAG = "FREQUENCY"
     }
@@ -77,16 +74,14 @@ class PerformanceManagerFragment : Fragment() {
             Thread {
                 requireActivity().runOnUiThread {
                     // Get min CPU frequency
-                    minFreq = cpuViewModel.getFreq(Constants.MIN_FREQ).toDouble()
-                    "${minFreq.toInt()} KHz".also { minFrequencyTextView.text = it }
+                    "${cpuViewModel.getFreq(Constants.MIN_FREQ)} KHz".also { minFrequencyTextView.text = it }
                 }
             }.start()
 
             Thread {
                 requireActivity().runOnUiThread {
                     // Get max CPU frequency
-                    maxFreq = cpuViewModel.getFreq(Constants.MAX_FREQ).toDouble()
-                    "${maxFreq.toInt()} KHz".also { maxFrequencyTextView.text = it }
+                    "${cpuViewModel.getFreq(Constants.MAX_FREQ)} KHz".also { maxFrequencyTextView.text = it }
                 }
             }.start()
 
@@ -135,6 +130,7 @@ class PerformanceManagerFragment : Fragment() {
                     setTextAppearanceResource(R.style.ChipTextStyle)
                     setOnCheckedChangeListener { chip, isChecked ->
                         if (isChecked) {
+                            val minFreq = binding.minFrequencyTextView.text.toString().trim().split("\\s+".toRegex()).toTypedArray()[0].toDouble()
                             if (minFreq > chipTitle.toDouble()) {
                                 // User cannot change max freq in order to be smaller than min freq => ERROR
                                 showError(getString(R.string.error_when_changing_freq))
@@ -162,6 +158,7 @@ class PerformanceManagerFragment : Fragment() {
                     setTextAppearanceResource(R.style.ChipTextStyle)
                     setOnCheckedChangeListener { chip, isChecked ->
                         if (isChecked) {
+                            val maxFreq = binding.maxFrequencyTextView.text.toString().trim().split("\\s+".toRegex()).toTypedArray()[0].toDouble()
                             if (maxFreq < chipTitle.toDouble()) {
                                 // User cannot change max freq in order to be smaller than min freq => ERROR
                                 showError(getString(R.string.error_when_changing_freq))
