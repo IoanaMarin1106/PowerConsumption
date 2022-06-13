@@ -174,4 +174,26 @@
     <string name="remaining_battery_time">Remaining battery time</string>
     <string name="no_data_warning_title">Not enough information</string>
     <string name="no_data_warning_msg">In order to calculate the remaining time, please wait 2 minutes from starting the application.</string>
+    <string name="tips_tricks"><![CDATA[Tips & Tricks]]></string>
+    
+    <string name="how_to_charge_battery">How to charge your battery?</string>
+    <string name="how_to_charge_battery_msg">It is really stressful for the battery to be drained or charged completely. Phone batteries are happiest if you keep them above 20% and below 80% of their capacity. Every time you charge your device, battery wears out and lowering its total capacity, to reduce wearing we suggest to enable charging protection by limiting charge and discharge.</string>
+
+    <string name="do_not_use_device">Don\'t use device while charging</string>
+    <string name="do_not_use_device_msg">Turn your phone off when charging, or at least do not play games or watch videos to avoid mini-cycles. Mini-cycles continually cycles and deteriorates one part of the battery at a faster rate than the rest of the cell. Worse still, this also occurring when a device is fully charged, causing higher voltage stress and heat on the battery.</string>
+
+    <string name="idle_charging">Avoid idle charging</string>
+    <string name="idle_charging_msg">Charging overnight or in a cradle during the day is a very common habit, but its not recommended for several reasons. First, continuous trickle charging of a full battery can cause plating of the metallic lithium, which reduces stability in the long term and can lead to system-wide malfunctions and reboots.</string>
+
+    <string name="only_charge_when">Only charge when your battery gets to 50%</string>
+    <string name="only_charge_when_msg">This will cut down on the frequency with which you charge your smartphone battery, and will also keep you from letting it get too low or die, which is equally as bad for it. This will add years to your battery life, if you are not the type to "trade up" every year. If you are, this is still a good habit to get into, kind of like not riding your car brakes.</string>
+
+    <string name="restart_device">Restart or reboot your device</string>
+    <string name="restart_device_msg">Restarting devices can help to cut down on the battery drain. How you do this is simple: just turn your iPhone off using the slide to power off feature, and turning it back on again to load the system software. This will reset features and apps, if you are not sure how to cherry pick the ones you want disabled.</string>
+
+    <string name="correct_charger">Use the correct charger</string>
+    <string name="correct_charger_msg">It is recommended to use the charger that came with your smartphone. Microsoft confirms that using the wrong or faulty hardware for phone charging is a bad idea.</string>
+
+    <string name="fast_charging">Tip to use fast charging</string>
+    <string name="fast_charging_msg">Fast charging was never really envisioned for full-cycle charging though, instead, it is a fast way to top up your phone quickly to get it back in your hands. Leaving your phone to quickly charge up for 15 to 20 minutes won\'t lead to major overheating problems, but we don\'t recommend using them for overnight charging. Use fast charging technologies sparingly and never overnight.</string>
 </resources>

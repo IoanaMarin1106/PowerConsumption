@@ -24,6 +24,8 @@ class AboutFragment : Fragment() {
     private val cpuChipsList = arrayListOf("CPU", "Frequency", "Governor", "CPU Load", "Core")
     private val governorsList = arrayListOf("Performance", "Powersave", "Schedutil", "Conservative", "Userspace", "Ondemand")
     private val appStandbyBucketList = arrayListOf("Active", "Working set", "Frequent", "Rare", "Restricted")
+    private val tipsList = arrayListOf("How to charge your battery?", "Don't use device while charging", "Avoid idle charging", "Tip to use fast charging", "Only charge when your battery gets to 50%",
+                                    "Restart or reboot your device", "Use the correct charger")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +52,7 @@ class AboutFragment : Fragment() {
             }
 
             // Add battery chips and CPU chips
-            addChips(batteryChipGroup, cpuChipGroup, governorsChipGroup, appStandbyBucketChipGroup)
+            addChips(batteryChipGroup, cpuChipGroup, governorsChipGroup, appStandbyBucketChipGroup, tipsAndTricksChipGroup)
 
             batteryInformationButton.setOnClickListener {
                 chipHandler(it as MaterialButton, batteryChipGroup)
@@ -67,6 +69,10 @@ class AboutFragment : Fragment() {
             appStandbyBucketInformationButton.setOnClickListener {
                 chipHandler(it as MaterialButton, appStandbyBucketChipGroup)
             }
+
+            tipsAndTricksButton.setOnClickListener {
+                chipHandler(it as MaterialButton, tipsAndTricksChipGroup)
+            }
         }
     }
 
@@ -74,7 +80,8 @@ class AboutFragment : Fragment() {
         batteryChipGroup: ChipGroup,
         cpuChipGroup: ChipGroup,
         governorsChipGroup: ChipGroup,
-        appStandbyBucketChipGroup: ChipGroup
+        appStandbyBucketChipGroup: ChipGroup,
+        tipsAndTricksChipGroup: ChipGroup
     ) {
         for (chipName in batteryChipsList) {
             batteryChipGroup.addView(createChip(chipName))
@@ -90,6 +97,10 @@ class AboutFragment : Fragment() {
 
         for (chipName in appStandbyBucketList) {
             appStandbyBucketChipGroup.addView(createChip(chipName))
+        }
+
+        for (chipName in tipsList) {
+            tipsAndTricksChipGroup.addView(createChip(chipName))
         }
     }
 
@@ -207,6 +218,35 @@ class AboutFragment : Fragment() {
 
             getString(R.string.restricted_bucket) -> {
                 Util.showDialog((requireActivity() as MainActivity), getString(R.string.restricted_bucket), getString(R.string.restricted_info))
+            }
+
+            // Tips & Tricks
+            getString(R.string.restart_device) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.restart_device), getString(R.string.restart_device_msg))
+            }
+
+            getString(R.string.how_to_charge_battery) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.how_to_charge_battery), getString(R.string.how_to_charge_battery_msg))
+            }
+
+            getString(R.string.do_not_use_device) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.do_not_use_device), getString(R.string.do_not_use_device_msg))
+            }
+
+            getString(R.string.idle_charging) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.idle_charging), getString(R.string.idle_charging_msg))
+            }
+
+            getString(R.string.only_charge_when) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.only_charge_when), getString(R.string.only_charge_when_msg))
+            }
+
+            getString(R.string.correct_charger) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.correct_charger), getString(R.string.correct_charger_msg))
+            }
+
+            getString(R.string.fast_charging) -> {
+                Util.showDialog((requireActivity() as MainActivity), getString(R.string.fast_charging), getString(R.string.fast_charging_msg))
             }
         }
     }

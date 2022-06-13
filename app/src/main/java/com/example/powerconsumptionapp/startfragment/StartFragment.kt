@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.graphics.Color
 import android.os.BatteryManager
 import android.os.Bundle
+import android.os.PowerManager
 import android.util.Log
 import android.view.*
 import androidx.core.content.ContextCompat

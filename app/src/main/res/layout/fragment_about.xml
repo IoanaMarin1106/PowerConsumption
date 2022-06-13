@@ -178,6 +178,34 @@
                 </com.google.android.material.chip.ChipGroup>
             </HorizontalScrollView>
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tipsAndTricksButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:backgroundTint="@color/indigo"
+                android:text="@string/tips_tricks"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                android:textColor="@color/white"
+                app:cornerRadius="20dp" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/tipsAndTricksChipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:singleSelection="true"
+                    android:visibility="gone"
+                    android:padding="@dimen/default_margin_buttons"
+                    app:chipSpacingHorizontal="@dimen/default_margin_buttons"
+                    app:singleLine="true">
+
+                </com.google.android.material.chip.ChipGroup>
+            </HorizontalScrollView>
 
         </LinearLayout>
 
