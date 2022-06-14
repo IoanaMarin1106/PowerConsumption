@@ -77,18 +77,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/batteryChipGroup"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:padding="@dimen/default_margin_buttons"
-                    app:chipSpacingHorizontal="@dimen/default_margin_buttons"
-                    app:singleLine="true"
-                    app:singleSelection="true">
+                    android:orientation="horizontal">
 
-                </com.google.android.material.chip.ChipGroup>
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/batteryChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:padding="@dimen/default_margin_buttons"
+                        app:chipSpacingHorizontal="@dimen/default_margin_buttons"
+                        app:singleLine="true"
+                        app:singleSelection="true">
 
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
             </HorizontalScrollView>
 
             <com.google.android.material.button.MaterialButton
@@ -106,18 +112,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/cpuChipGroup"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:singleSelection="true"
-                    android:visibility="gone"
-                    android:padding="@dimen/default_margin_buttons"
-                    app:chipSpacingHorizontal="@dimen/default_margin_buttons"
-                    app:singleLine="true">
+                    android:orientation="horizontal">
 
-                </com.google.android.material.chip.ChipGroup>
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/cpuChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:singleSelection="true"
+                        android:visibility="gone"
+                        android:padding="@dimen/default_margin_buttons"
+                        app:chipSpacingHorizontal="@dimen/default_margin_buttons"
+                        app:singleLine="true">
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
             </HorizontalScrollView>
 
             <com.google.android.material.button.MaterialButton
@@ -135,18 +148,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/governorsChipGroup"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:singleSelection="true"
-                    android:visibility="gone"
-                    android:padding="@dimen/default_margin_buttons"
-                    app:chipSpacingHorizontal="@dimen/default_margin_buttons"
-                    app:singleLine="true">
+                    android:orientation="horizontal">
 
-                </com.google.android.material.chip.ChipGroup>
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/governorsChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:singleSelection="true"
+                        android:visibility="gone"
+                        android:padding="@dimen/default_margin_buttons"
+                        app:chipSpacingHorizontal="@dimen/default_margin_buttons"
+                        app:singleLine="true">
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
             </HorizontalScrollView>
 
             <com.google.android.material.button.MaterialButton
@@ -164,18 +184,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/appStandbyBucketChipGroup"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:singleSelection="true"
-                    android:visibility="gone"
-                    android:padding="@dimen/default_margin_buttons"
-                    app:chipSpacingHorizontal="@dimen/default_margin_buttons"
-                    app:singleLine="true">
+                    android:orientation="horizontal">
 
-                </com.google.android.material.chip.ChipGroup>
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/appStandbyBucketChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:singleSelection="true"
+                        android:visibility="gone"
+                        android:padding="@dimen/default_margin_buttons"
+                        app:chipSpacingHorizontal="@dimen/default_margin_buttons"
+                        app:singleLine="true">
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </LinearLayout>
             </HorizontalScrollView>
 
             <com.google.android.material.button.MaterialButton
@@ -190,21 +217,27 @@
                 app:cornerRadius="20dp" />
 
             <HorizontalScrollView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/tipsAndTricksChipGroup"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    app:singleSelection="true"
-                    android:visibility="gone"
-                    android:padding="@dimen/default_margin_buttons"
-                    app:chipSpacingHorizontal="@dimen/default_margin_buttons"
-                    app:singleLine="true">
+                    android:orientation="horizontal">
 
-                </com.google.android.material.chip.ChipGroup>
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/tipsAndTricksChipGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:singleSelection="true"
+                        android:visibility="gone"
+                        android:padding="@dimen/default_margin_buttons"
+                        app:chipSpacingHorizontal="@dimen/default_margin_buttons"
+                        app:singleLine="true">
+
+                    </com.google.android.material.chip.ChipGroup>
+                </LinearLayout>
             </HorizontalScrollView>
 
         </LinearLayout>
