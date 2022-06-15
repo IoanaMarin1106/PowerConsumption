@@ -1,12 +1,18 @@
 package com.example.powerconsumptionapp.about
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.R
 import com.example.powerconsumptionapp.databinding.ChoiceChipBinding
@@ -15,6 +21,7 @@ import com.example.powerconsumptionapp.general.Util
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+
 
 class AboutFragment : Fragment() {
 
@@ -73,6 +80,33 @@ class AboutFragment : Fragment() {
             tipsAndTricksButton.setOnClickListener {
                 chipHandler(it as MaterialButton, tipsAndTricksChipGroup)
             }
+
+            showCommandsButton.setOnClickListener {
+                copyCommands(commandsContainer, it as MaterialButton)
+            }
+
+            readCommandButton.setOnClickListener {
+                Util.setClipboard(requireContext(), getString(R.string.read_command))
+                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+            }
+
+            writeCommandButton.setOnClickListener {
+                Util.setClipboard(requireContext(), getString(R.string.write_command))
+                Toast.makeText(context, "Copied to clipboard", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun copyCommands(
+        commandsContainer: LinearLayout,
+        showCommandsButton: MaterialButton,
+    ) {
+        if (commandsContainer.visibility == View.GONE) {
+            commandsContainer.visibility = View.VISIBLE
+            showCommandsButton.background.alpha = 0
+        } else {
+            commandsContainer.visibility = View.GONE
+            showCommandsButton.background.alpha = 255
         }
     }
 

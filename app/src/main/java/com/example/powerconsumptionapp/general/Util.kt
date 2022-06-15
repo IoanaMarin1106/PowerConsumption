@@ -1,13 +1,15 @@
 package com.example.powerconsumptionapp.general
 
 import android.app.AlertDialog
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.text.ClipboardManager
 import android.util.Log
 import com.example.powerconsumptionapp.MainActivity
 import com.example.powerconsumptionapp.cpuinfo.InfoDialogFragment
 import com.example.powerconsumptionapp.service.BatteryMonitoringService
-import java.util.*
 
 
 class Util {
@@ -44,6 +46,19 @@ class Util {
             }
             val alertDialog: AlertDialog = alertDialogBuilder.create()
             alertDialog.show()
+        }
+
+        fun setClipboard(context: Context, text: String) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                val clipboard =
+                    context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                clipboard.text = text
+            } else {
+                val clipboard =
+                    context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                val clip = ClipData.newPlainText("Copied Text", text)
+                clipboard.setPrimaryClip(clip)
+            }
         }
 
         fun showDialog(mainActivity: MainActivity, dialogTitle: String, dialogText: String) {

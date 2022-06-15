@@ -196,4 +196,7 @@
 
     <string name="fast_charging">Tip to use fast charging</string>
     <string name="fast_charging_msg">Fast charging was never really envisioned for full-cycle charging though, instead, it is a fast way to top up your phone quickly to get it back in your hands. Leaving your phone to quickly charge up for 15 to 20 minutes won\'t lead to major overheating problems, but we don\'t recommend using them for overnight charging. Use fast charging technologies sparingly and never overnight.</string>
+    <string name="script_commands">Script Commands</string>
+    <string name="read_command">sh cpu_read.sh</string>
+    <string name="write_command">sh cpu_write.sh</string>
 </resources>

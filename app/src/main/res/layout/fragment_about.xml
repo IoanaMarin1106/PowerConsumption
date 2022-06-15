@@ -63,6 +63,87 @@
                 android:text="@string/second_introduction_message" />
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/showCommandsButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:backgroundTint="@color/indigo"
+                android:text="@string/script_commands"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                android:textColor="@color/white"
+                app:cornerRadius="20dp" />
+
+            <LinearLayout
+                android:id="@+id/commandsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/readFileScriptCommandCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/default_margin_buttons"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="7dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/read_command"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/default_gap" />
+
+                        <ImageButton
+                            android:id="@+id/readCommandButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_file_copy_24"/>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/writeFilesScriptCommandCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/default_margin_buttons"
+                    app:cardCornerRadius="15dp"
+                    app:cardElevation="7dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/write_command"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/default_gap" />
+
+                        <ImageButton
+                            android:id="@+id/writeCommandButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_baseline_file_copy_24"/>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/batteryInformationButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
