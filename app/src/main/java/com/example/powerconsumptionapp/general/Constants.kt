@@ -90,6 +90,7 @@ object Constants {
     const val LIMITS_NOTIFICATION_TITLE = "Battery level limits exceeded"
     const val BOTTOM_LIMIT_DROPPED_MESSAGE = "The battery level has dropped below the limit! To save battery level, you can turn off Bluetooth, WiFi, mobile data, or turn on Battery Saver mode."
     const val UPPER_LIMIT_DROPPED_MESSAGE = "The battery level has exceeded the upper limit. Please switch off power adapter!"
+    const val WRONG_LIMITS = "The lower limit must be strictly lower than the upper limit. Please choose other values!"
 
     // Monitoring battery consumption
     const val MONITORING_BATTERY_TITLE = "Battery Statistics"

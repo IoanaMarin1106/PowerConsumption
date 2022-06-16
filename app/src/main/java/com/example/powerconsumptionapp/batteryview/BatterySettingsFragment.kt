@@ -168,10 +168,14 @@ class BatterySettingsFragment : Fragment() {
                     requireActivity().stopService(intentActionBattery)
                 }
 
-                val alarmServiceIntent = Intent(requireActivity().applicationContext, AlarmService::class.java)
-                alarmServiceIntent.putExtra(Constants.BOTTOM_LIMIT, bottomBatteryLimitLevel)
-                alarmServiceIntent.putExtra(Constants.UPPER_LIMIT, upperBatteryLimitLevel)
-                requireActivity().startService(alarmServiceIntent)
+                if (bottomBatteryLimitLevel >= upperBatteryLimitLevel) {
+                    SnackBar.error(requireView(), Constants.WRONG_LIMITS, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_error_24).show();
+                } else {
+                    val alarmServiceIntent = Intent(requireActivity().applicationContext, AlarmService::class.java)
+                    alarmServiceIntent.putExtra(Constants.BOTTOM_LIMIT, bottomBatteryLimitLevel)
+                    alarmServiceIntent.putExtra(Constants.UPPER_LIMIT, upperBatteryLimitLevel)
+                    requireActivity().startService(alarmServiceIntent)
+                }
             } else {
                 alarmContainer.visibility = View.GONE
                 setAlarmButton.visibility = View.VISIBLE

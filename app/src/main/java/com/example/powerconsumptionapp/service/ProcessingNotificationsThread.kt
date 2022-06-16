@@ -74,7 +74,7 @@ class ProcessingNotificationsThread(
             .setSmallIcon(R.drawable.ic_baseline_notification_important_24)
             .setContentTitle(Constants.REMINDER_BATTERY_NOTIFICATION_TITLE)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setStyle(NotificationCompat.BigTextStyle().bigText("${Constants.REMINDER_NOTIFICATION_EXTRA_TEXT}${reminderBatteryLevel}%"))
+            .setStyle(NotificationCompat.BigTextStyle().bigText("${Constants.REMINDER_NOTIFICATION_EXTRA_TEXT}${reminderBatteryLevel}%!"))
             .setContentText("${Constants.REMINDER_NOTIFICATION_EXTRA_TEXT}${reminderBatteryLevel}%!")
             // Set the intent that will fire when the user taps the notification
             .setContentIntent(pendingIntent)
