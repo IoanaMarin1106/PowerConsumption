@@ -88,6 +88,7 @@ do
       cp -f $max_freq $dest_cpu_max_freq
     else 
       printf 'Max frequency was changed by the user\n'
+      cp -f $max_freq $dest_cpu_max_freq
     fi
   fi
 

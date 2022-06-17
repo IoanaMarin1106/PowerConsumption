@@ -37,6 +37,7 @@ class ProcessingAlarmThread(
             getBatteryStatus()
             if (batteryPercent!! != 0) {
                 if (batteryPercent!! < bottomLimit) {
+                    println("aiciiiiiiiii")
                     sendNotification(Constants.BOTTOM_LIMIT_DROPPED_MESSAGE)
                     sleep(SLEEP_TIME)
                 } else if (batteryPercent!! > upperLimit) {

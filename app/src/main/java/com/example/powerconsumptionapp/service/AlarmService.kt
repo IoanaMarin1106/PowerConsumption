@@ -25,7 +25,7 @@ class AlarmService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        val bottomLimit: Int = intent!!.getIntExtra(Constants.BOTTOM_LIMIT, 0)
+        val bottomLimit: Int = intent!!.getIntExtra(Constants.BOTTOM_LIMIT, 1)
         val upperLimit: Int = intent!!.getIntExtra(Constants.UPPER_LIMIT, 100)
         processingThread = ProcessingAlarmThread(applicationContext, bottomLimit, upperLimit)
         processingThread.start()
