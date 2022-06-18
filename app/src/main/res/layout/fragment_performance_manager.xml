@@ -173,16 +173,23 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
-                                <com.google.android.material.chip.ChipGroup
-                                    android:id="@+id/maxFreqChipGroup"
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    app:singleSelection="true"
-                                    app:chipSpacingHorizontal="@dimen/default_gap"
-                                    app:singleLine="true">
+                                    android:orientation="horizontal">
 
-                                </com.google.android.material.chip.ChipGroup>
+                                    <com.google.android.material.chip.ChipGroup
+                                        android:id="@+id/maxFreqChipGroup"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        app:singleSelection="true"
+                                        app:chipSpacingHorizontal="@dimen/default_gap"
+                                        app:singleLine="true">
+
+                                    </com.google.android.material.chip.ChipGroup>
+
+                                </LinearLayout>
                             </HorizontalScrollView>
 
                         </LinearLayout>
@@ -211,16 +218,23 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
-                                <com.google.android.material.chip.ChipGroup
-                                    android:id="@+id/minFreqChipGroup"
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    app:singleSelection="true"
-                                    app:chipSpacingHorizontal="@dimen/default_gap"
-                                    app:singleLine="true">
+                                    android:orientation="horizontal">
 
-                                </com.google.android.material.chip.ChipGroup>
+                                    <com.google.android.material.chip.ChipGroup
+                                        android:id="@+id/minFreqChipGroup"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        app:singleSelection="true"
+                                        app:chipSpacingHorizontal="@dimen/default_gap"
+                                        app:singleLine="true">
+
+                                    </com.google.android.material.chip.ChipGroup>
+
+                                </LinearLayout>
                             </HorizontalScrollView>
 
 

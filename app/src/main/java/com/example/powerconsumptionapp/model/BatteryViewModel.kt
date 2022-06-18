@@ -33,6 +33,10 @@ class BatteryViewModel: ViewModel() {
 
         var batteryPercentageEstimation: MutableList<Int> = mutableListOf()
         var USING_TIME = 10
+
+        var acCharger = false
+        var usbCharger = false
+        var wirelessCharger = false
     }
 
     fun populateFragmentButtons() {
@@ -108,7 +112,6 @@ class BatteryViewModel: ViewModel() {
 
         val time = batteryPercentageEstimation.size
         val timeWhenPhoneIsDown = (-alpha/ beta).roundToInt()
-
         return (timeWhenPhoneIsDown - time) * USING_TIME
     }
 }

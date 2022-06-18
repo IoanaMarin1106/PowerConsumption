@@ -271,7 +271,7 @@ class InformationFragment : Fragment() {
         }
     }
 
-    private suspend fun getBatteryStatus() {
+    private fun getBatteryStatus() {
         iFilter!!.addAction(Intent.ACTION_BATTERY_CHANGED)
         requireActivity().applicationContext.registerReceiver(broadcastReceiver, iFilter)
     }
@@ -293,20 +293,41 @@ class InformationFragment : Fragment() {
     }
 
     private suspend fun setPowerAdapter(chargePlug: Int) {
+        println(BatteryViewModel.acCharger)
+        when {
+            BatteryViewModel.acCharger -> {
+                println("aiciiiii")
+                acChargerOption.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_check_24, 0, 0, 0)
+            }
+
+            BatteryViewModel.wirelessCharger -> {
+                println("aici + 1")
+                wirelessChargerOption.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_check_24, 0, 0, 0)
+            }
+
+            BatteryViewModel.usbCharger -> {
+                println("aici + 2")
+                usbChargerOption.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_check_24, 0, 0, 0)
+            }
+        }
+
         when(chargePlug) {
             BatteryManager.BATTERY_PLUGGED_AC -> {
                 powerValueTextView.text = Constants.AC_CHARGER
+                BatteryViewModel.acCharger = true
                 acChargerOption.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_check_24, 0, 0, 0)
             }
 
             BatteryManager.BATTERY_PLUGGED_WIRELESS -> {
                 powerValueTextView.text = Constants.WIRELESS
+                BatteryViewModel.wirelessCharger = true
                 wirelessChargerOption.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_check_24, 0, 0, 0)
             }
 
             BatteryManager.BATTERY_PLUGGED_USB ->  {
                 powerValueTextView.text = Constants.USB
-                wirelessChargerOption.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_check_24, 0, 0, 0)
+                BatteryViewModel.usbCharger = true
+                usbChargerOption.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_check_24, 0, 0, 0)
             }
             else -> powerValueTextView.text = Constants.NONE
         }
@@ -345,12 +366,12 @@ class InformationFragment : Fragment() {
         }
     }
 
-    private suspend fun setBatteryPercentage(batteryProcent: Int?, chargingStatus: Int) {
-        "${batteryProcent.toString()}%".also {
+    private suspend fun setBatteryPercentage(batteryPercent: Int?, chargingStatus: Int) {
+        "${batteryPercent.toString()}%".also {
             tvBatteryPercentage.text = it
             levelValueTextView.text = it
         }
-        batteryLevelIndicator.progress = batteryProcent!!
+        batteryLevelIndicator.progress = batteryPercent!!
 
         if (chargingStatus == BatteryManager.BATTERY_STATUS_CHARGING) {
             chargingBattery.visibility = View.VISIBLE

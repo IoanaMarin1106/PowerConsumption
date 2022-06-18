@@ -157,21 +157,31 @@ class BatterySettingsFragment : Fragment() {
     ) {
         alarmButton.setOnClickListener {
             if (alarmButton.text.equals(getString(R.string.ok))) {
-                alarmButton.text = getString(R.string.close)
-                SnackBar.info(requireView(), "${Constants.ALARM_MESSAGE}${bottomBatteryLimitLevel}% and ${upperBatteryLimitLevel}%", SnackBar.LENGTH_LONG, R.drawable.ic_baseline_info_24).show();
-                StarterFragment.isActiveAlarmLimitsServiceActive = true
-
-                if (StarterFragment.isActiveActionBatteryServiceActive) {
-                    StarterFragment.isActiveActionBatteryServiceActive = false
-                    Log.i(ActionBatteryLowService.TAG, "Alarm service is disabled.")
-                    val intentActionBattery = Intent(requireActivity().applicationContext, ActionBatteryLowService::class.java)
-                    requireActivity().stopService(intentActionBattery)
-                }
-
                 if (bottomBatteryLimitLevel >= upperBatteryLimitLevel) {
-                    SnackBar.error(requireView(), Constants.WRONG_LIMITS, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_error_24).show();
+                    SnackBar.error(requireView(), Constants.WRONG_LIMITS, SnackBar.LENGTH_LONG, R.drawable.ic_baseline_error_24).show()
                 } else {
-                    val alarmServiceIntent = Intent(requireActivity().applicationContext, AlarmService::class.java)
+                    alarmButton.text = getString(R.string.close)
+                    SnackBar.info(
+                        requireView(),
+                        "${Constants.ALARM_MESSAGE}${bottomBatteryLimitLevel}% and ${upperBatteryLimitLevel}%",
+                        SnackBar.LENGTH_LONG,
+                        R.drawable.ic_baseline_info_24
+                    ).show();
+                    StarterFragment.isActiveAlarmLimitsServiceActive = true
+
+                    if (StarterFragment.isActiveActionBatteryServiceActive) {
+                        StarterFragment.isActiveActionBatteryServiceActive = false
+                        Log.i(ActionBatteryLowService.TAG, "Alarm service is disabled.")
+                        val intentActionBattery = Intent(
+                            requireActivity().applicationContext,
+                            ActionBatteryLowService::class.java
+                        )
+                        requireActivity().stopService(intentActionBattery)
+                    }
+
+
+                    val alarmServiceIntent =
+                        Intent(requireActivity().applicationContext, AlarmService::class.java)
                     alarmServiceIntent.putExtra(Constants.BOTTOM_LIMIT, bottomBatteryLimitLevel)
                     alarmServiceIntent.putExtra(Constants.UPPER_LIMIT, upperBatteryLimitLevel)
                     requireActivity().startService(alarmServiceIntent)

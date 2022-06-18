@@ -91,8 +91,7 @@ class Util {
                     / (n * sx2 - sx * sx))
         }
 
-        // Function to find the
-        // least regression line
+        // Function to find the least regression line
         fun leastRegLine(
             X: MutableList<Int>, Y: MutableList<Int>
         ): String {
